@@ -15,55 +15,37 @@ import { Link as RouterLink } from "react-router-dom";
 const Navibar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menuItems = [
-    "Comunidad",
-    "Personas",
-    "Actividades",
-    "Farmacia",
-    "Social",
-    "Cerrar Sesión",
-  ];
+  const menuItems = ["Comunidad", "Farmacia", "Social", "Cerrar Sesión"];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} position="static">
+    // <Navbar onMenuOpenChange={setIsMenuOpen} position="static">
+    <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
+        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
         <NavbarBrand>
-          <p className="font-bold text-inherit text-right">COMUNIDAD SFA</p>
+          <p className=" font-bold text-inherit text-left">
+            <RouterLink to={"/"} className="py-2 -mx-3 px-3">
+              Comunidad San Francisco de Asís
+            </RouterLink>
+          </p>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-1 " justify="center">
-        <NavbarItem>
-          <Button className="bg-transparent hover:bg-success-100">
-            Comunidad
+        <NavbarItem isActive>
+          <Button className="bg-transparent hover:bg-primary-100">
+            <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3">
+              Comunidad
+            </RouterLink>
           </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button className="bg-transparent hover:bg-success-100">
-            Actividades
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Button className="bg-transparent hover:bg-success-100">
-            Personas
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            className="bg-transparent hover:bg-success-100"
-            variant="flat"
-          >
+          <Button className="bg-transparent hover:bg-success-100" variant="flat">
             Farmacia
           </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button className="bg-transparent hover:bg-success-100">
-            Social
-          </Button>
+          <Button className="bg-transparent hover:bg-warning-100">Social</Button>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
@@ -79,13 +61,7 @@ const Navibar = () => {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
+              color={index === menuItems.length - 1 ? "danger" : "foreground"}
               className="w-full"
               href="#"
               size="lg"

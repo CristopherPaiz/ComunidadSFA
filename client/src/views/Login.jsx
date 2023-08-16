@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -23,9 +24,7 @@ const Login = () => {
               />
             </div>
             <div>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Contraseña
-              </label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
               <input
                 type="password"
                 name="password"
@@ -35,11 +34,10 @@ const Login = () => {
                 required=""
               />
             </div>
-            <button
-              to={"/home"}
-              className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            >
-              Iniciar Sesión
+            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              <RouterLink to={"/"} className=" py-2 -mx-40 px-40">
+                Iniciar sesión
+              </RouterLink>
             </button>
           </div>
         </div>
