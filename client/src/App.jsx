@@ -7,6 +7,7 @@ import NotFoundPage from "./views/NotFoundPage";
 import Navibar from "./components/Navibar";
 import Comunidad from "./views/Comunidad";
 import Farmacia from "./views/Farmacia";
+import Social from "./views/Social";
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/comunidad" element={<Comunidad />} />
         <Route path="/farmacia" element={<Farmacia />} />
-        <Route path="/Social" element={<Login />} />
+        <Route path="/Social" element={<Social />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
