@@ -41,7 +41,9 @@ const Navibar = () => {
         </NavbarItem>
         <NavbarItem>
           <Button className="bg-transparent hover:bg-success-100" variant="flat">
-            Farmacia
+            <RouterLink to={"/farmacia"} className="py-2 -mx-3 px-3">
+              Farmacia
+            </RouterLink>
           </Button>
         </NavbarItem>
         <NavbarItem>

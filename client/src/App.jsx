@@ -6,6 +6,7 @@ import Homepage from "./views/Homepage";
 import NotFoundPage from "./views/NotFoundPage";
 import Navibar from "./components/Navibar";
 import Comunidad from "./views/Comunidad";
+import Farmacia from "./views/Farmacia";
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/comunidad" element={<Comunidad />} />
-        <Route path="/farmacia" element={<Login />} />
+        <Route path="/farmacia" element={<Farmacia />} />
         <Route path="/Social" element={<Login />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
