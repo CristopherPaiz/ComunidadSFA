@@ -18,7 +18,7 @@ const C_persona_buscar = () => {
   };
   return (
     <div className="flex w-full flex-col pb-[170px]">
-      <h2 className="mb-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
+      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
         Buscar persona
       </h2>
       <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto  sm:w-3/5">
@@ -40,7 +40,7 @@ const C_persona_buscar = () => {
           autoComplete="nope"
           placeholder="Ingrese una dirección"
         />
-        <p className="p-0 -mb-5 -mt-2">Tipo de don</p>
+        <p className="p-0 -mb-5 -mt-2 sm:hidden">Tipo de don</p>
         <Dropdown
           options={options}
           onChange={handleSelectChange}
