@@ -8,13 +8,13 @@ const Homepage = () => {
     {
       title: "Biblia",
       description: "Las Sagradas Escrituras para guía espiritual.",
-      price: "Q100.00",
+      price: "Día: 16/08/2023",
       img: "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
     },
     {
       title: "Collar de Cruz",
       description: "Un símbolo de fe y devoción.",
-      price: "Q150.00",
+      price: "Día: 16/08/2023",
       img: "https://ilariape.vtexassets.com/arquivos/ids/157717-800-auto?v=637696701218400000&width=800&height=auto&aspect=true",
     },
     {
