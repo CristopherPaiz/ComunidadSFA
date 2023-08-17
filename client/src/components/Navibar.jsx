@@ -21,7 +21,10 @@ const Navibar = () => {
     // <Navbar onMenuOpenChange={setIsMenuOpen} position="static">
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
         <NavbarBrand>
           <p className=" font-bold text-inherit text-left">
             <RouterLink to={"/"} className="py-2 -mx-3 px-3">
@@ -40,14 +43,21 @@ const Navibar = () => {
           </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button className="bg-transparent hover:bg-success-100" variant="flat">
+          <Button
+            className="bg-transparent hover:bg-success-100"
+            variant="flat"
+          >
             <RouterLink to={"/farmacia"} className="py-2 -mx-3 px-3">
               Farmacia
             </RouterLink>
           </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button className="bg-transparent hover:bg-warning-100">Social</Button>
+          <Button className="bg-transparent hover:bg-warning-100">
+            <RouterLink to={"/social"} className="py-2 -mx-3 px-3">
+              Social
+            </RouterLink>
+          </Button>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
@@ -60,18 +70,24 @@ const Navibar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={index === menuItems.length - 1 ? "danger" : "foreground"}
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        <NavbarMenuItem>
+          <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3 block">
+            Comunidad
+          </RouterLink>
+          <RouterLink to={"/farmacia"} className="py-2 -mx-3 px-3 block">
+            Farmacia
+          </RouterLink>
+          <RouterLink to={"/social"} className="py-2 -mx-3 px-3 block">
+            Social
+          </RouterLink>
+          <Link
+            color="danger"
+            className="py-2 -mx-3 px-3 w-full block"
+            size="lg"
+          >
+            Cerrar Sesión
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );

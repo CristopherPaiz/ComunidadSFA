@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import C_persona_buscar from "../forms/Comunidad/Personas/C_persona_buscar";
 
 const Navbutton = () => {
   const [selected, setSelected] = useState("");
@@ -11,7 +12,7 @@ const Navbutton = () => {
   const [selectedActividades, setSelectedActividades] = useState("");
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full px-2 flex-col m-auto sm:w-11/12">
       <Tabs
         aria-label="Options"
         selectedKey={selected}
@@ -30,7 +31,7 @@ const Navbutton = () => {
                 onSelectionChange={setSelectedPersonas}
               >
                 <Tab key="persona_buscar" title="Buscar">
-                  Aqui irá las búsquedas de personas
+                  <C_persona_buscar />
                 </Tab>
                 <Tab key="persona_nuevo" title="Nuevo">
                   Aqui irá el formulario de nueva persona

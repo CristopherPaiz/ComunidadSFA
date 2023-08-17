@@ -1,7 +1,11 @@
 import React from "react";
-
+import NavButtonSocial from "../components/NavButtonSocial";
 const Social = () => {
-  return <div>Social</div>;
+  return (
+    <>
+      <NavButtonSocial />
+    </>
+  );
 };
 
 export default Social;

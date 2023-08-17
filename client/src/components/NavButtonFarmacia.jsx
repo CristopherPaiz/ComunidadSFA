@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 const NavbuttonFarmacia = () => {
   const [selected, setSelected] = useState("");
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full px-2 flex-col m-auto sm:w-11/12">
       <Tabs
         aria-label="Options"
         selectedKey={selected}
