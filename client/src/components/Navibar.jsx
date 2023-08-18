@@ -18,9 +18,9 @@ const Navibar = () => {
   return (
     <Navbar>
       <NavbarContent as="div" justify="end">
-        <Dropdown placement="bottom-start" backdrop="blur">
+        <Dropdown placement="bottom-start">
           <DropdownTrigger>
-            <Avatar as="button" className="transition-transform -mx-3 sm:-mx-0" size="md" src={comunidad} />
+            <Avatar as="button" className="transition-transform" size="md" src={comunidad} />
           </DropdownTrigger>
           <DropdownMenu aria-label="Menu Actions" variant="flat">
             <DropdownItem key="login" className="text-primary">
