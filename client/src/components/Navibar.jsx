@@ -11,6 +11,7 @@ import {
   NavbarMenu,
 } from "@nextui-org/react";
 import { Link as RouterLink } from "react-router-dom";
+import comunidad from "../../public/comunidad.svg";
 
 const Navibar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,13 +23,11 @@ const Navibar = () => {
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
+        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
         <NavbarBrand>
+          <img src={comunidad} alt="" width={40} height={40} />
           <p className=" font-bold text-inherit text-left">
-            <RouterLink to={"/"} className="py-2 -mx-3 px-3">
+            <RouterLink to={"/"} className="py-2 -mx-3 px-3 ">
               Comunidad San Francisco de Asís
             </RouterLink>
           </p>
@@ -43,10 +42,7 @@ const Navibar = () => {
           </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button
-            className="bg-transparent hover:bg-success-100"
-            variant="flat"
-          >
+          <Button className="bg-transparent hover:bg-success-100" variant="flat">
             <RouterLink to={"/farmacia"} className="py-2 -mx-3 px-3">
               Farmacia
             </RouterLink>
@@ -80,11 +76,7 @@ const Navibar = () => {
           <RouterLink to={"/social"} className="py-2 -mx-3 px-3 block">
             Social
           </RouterLink>
-          <Link
-            color="danger"
-            className="py-2 -mx-3 px-3 w-full block"
-            size="lg"
-          >
+          <Link color="danger" className="py-2 -mx-3 px-3 w-full block" size="lg">
             Cerrar Sesión
           </Link>
         </NavbarMenuItem>
