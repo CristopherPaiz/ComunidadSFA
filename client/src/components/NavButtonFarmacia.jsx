@@ -3,6 +3,7 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import F_agregar_producto from "../forms/Farmacia/F_agregar_producto";
 import F_venta_producto from "../forms/Farmacia/F_venta_producto";
 import F_compra_producto from "../forms/Farmacia/F_compra_producto";
+import CardExample from "../forms/CardExample";
 
 const NavbuttonFarmacia = () => {
   const [selected, setSelected] = useState("");
@@ -18,9 +19,12 @@ const NavbuttonFarmacia = () => {
         className="sm:flex sm:flex-wrap sm:justify-center"
       >
         <Tab key="productos" title="Productos">
-          <Card>
-            <CardBody>Aquí irá la lista de los productos</CardBody>
-          </Card>
+          <CardExample
+            img={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScAWrXZsxWfiNFUJnhT41R5RdEfaCGQFmiOQ"}
+            title={"Nombre producto"}
+            txt={"Información del producto"}
+            subtxt={"Aquí van otros datos"}
+          />
         </Tab>
         <Tab key="ventas" title="Venta">
           <Card>

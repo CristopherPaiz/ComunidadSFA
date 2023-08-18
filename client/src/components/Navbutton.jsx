@@ -11,6 +11,7 @@ import C_comunidad_nueva from "../forms/Comunidad/Comunidades/C_comunidad_nueva"
 import C_comunidad_buscar from "../forms/Comunidad/Comunidades/C_comunidad_buscar";
 import A_nueva from "../forms/Comunidad/Actividades/A_nueva";
 import A_buscar from "../forms/Comunidad/Actividades/A_buscar";
+import CardExample from "../forms/CardExample";
 
 const Navbutton = () => {
   const [selected, setSelected] = useState("");
@@ -64,7 +65,12 @@ const Navbutton = () => {
                 onSelectionChange={setSelectedRetiros}
               >
                 <Tab key="retirosLista" title="Todos los retiros">
-                  Aquí se listarán todos los Retiros...
+                  <CardExample
+                    img={"https://ddealcala.com/wp-content/uploads/2022/03/img-20220311-wa0000-1229x1536.jpg"}
+                    title={"Nombre retiro"}
+                    txt={"Información del retiro"}
+                    subtxt={"Aquí van otros datos"}
+                  />
                 </Tab>
                 <Tab key="retiros_nuevo" title="Nuevo">
                   <R_nuevo />
@@ -87,7 +93,12 @@ const Navbutton = () => {
                 onSelectionChange={setSelectedCursos}
               >
                 <Tab key="cursosLista" title="Todos">
-                  Aqui se listarán todos los cursos / crecimientos
+                  <CardExample
+                    img={"https://hotmart.s3.amazonaws.com/product_pictures/f72be087-10d1-4bf4-80f6-3894a6b06a3e/8.jpg"}
+                    title={"Nombre curso o crecimiento"}
+                    txt={"Información del curso o crecimiento"}
+                    subtxt={"Aquí van otros datos"}
+                  />
                 </Tab>
                 <Tab key="cursos_nuevo" title="Nuevo">
                   <C_nuevo />
@@ -110,7 +121,12 @@ const Navbutton = () => {
                 onSelectionChange={setSelectedComunidades}
               >
                 <Tab key="comunidadesLista" title="Todas">
-                  Aqui se listarán todas las Comunidades
+                  <CardExample
+                    img={"https://cdn-icons-png.flaticon.com/512/5438/5438502.png"}
+                    title={"Nombre Comunidad"}
+                    txt={"Información de la comunidad"}
+                    subtxt={"Aquí van otros datos"}
+                  />
                 </Tab>
                 <Tab key="comunidades_nuevo" title="Nueva">
                   <C_comunidad_nueva />
@@ -133,7 +149,12 @@ const Navbutton = () => {
                 onSelectionChange={setSelectedActividades}
               >
                 <Tab key="actividadesLista" title="Todas">
-                  Aqui se listarán todas las Actividades
+                  <CardExample
+                    img={"https://cdn-icons-png.flaticon.com/512/1063/1063141.png"}
+                    title={"Nombre Actividad"}
+                    txt={"Información de la actividad"}
+                    subtxt={"Aquí van otros datos"}
+                  />
                 </Tab>
                 <Tab key="actividades_nuevo" title="Nueva">
                   <A_nueva />

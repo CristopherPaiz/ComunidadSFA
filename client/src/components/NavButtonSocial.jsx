@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import S_nuevo from "../forms/Social/S_nuevo";
+import S_nuevoSaldo from "../forms/Social/S_nuevoSaldo";
+import S_quitarSaldo from "../forms/Social/S_quitarSaldo";
+import CardExample from "../forms/CardExample";
 
 const NavButtonSocial = () => {
   const [selected, setSelected] = useState("");
@@ -15,23 +19,26 @@ const NavButtonSocial = () => {
         className="sm:flex sm:flex-wrap sm:justify-center"
       >
         <Tab key="beneficiarios" title="Beneficiarios">
-          <Card>
-            <CardBody>Aquí irán los Beneficiarios</CardBody>
-          </Card>
+          <CardExample
+            img={"https://cdn-icons-png.flaticon.com/512/6000/6000659.png"}
+            title={"Nombre beneficiario"}
+            txt={"Información del beneficiario"}
+            subtxt={"Aquí van otros datos"}
+          />
         </Tab>
         <Tab key="addsaldo" title="Añadir Nuevo Saldo">
           <Card>
-            <CardBody>Aquí irá el formulario para añadir nuevo saldo al beneficiario</CardBody>
+            <S_nuevoSaldo />
           </Card>
         </Tab>
         <Tab key="addgasto" title="Añadir Nuevo Gasto">
           <Card>
-            <CardBody>Aquí irá formulario de gasto de un beneficiario</CardBody>
+            <S_quitarSaldo />
           </Card>
         </Tab>
-        <Tab key="addsocial" title="Añadir Nuevo Proyecto">
+        <Tab key="addbeneficiario" title="Añadir beneficiario">
           <Card>
-            <CardBody>Aquí irá formulario para añadir nuevo Proyecto Social</CardBody>
+            <S_nuevo />
           </Card>
         </Tab>
       </Tabs>
