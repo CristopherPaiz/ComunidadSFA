@@ -7,7 +7,7 @@ const Login = () => {
     <section className="bg-gray-50 dark:bg-gray-900 px-6 min-h-screen flex items-center justify-center h-screen -mt-[80px] sm:-mt-6">
       <div className="w-full max-w-md bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
         <a className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img className="w-2/5 h-2/5 m-auto -mt-[65px] -mb-[20px]" src={comunidad} alt="logo" />
+          <img className="w-2/5 h-2/5 m-auto -mt-[65px] -mb-[20px] sm:-mb-[50px] sm:w-2/6" src={comunidad} alt="logo" />
         </a>
         <div className="p-6 space-y-4">
           <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
