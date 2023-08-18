@@ -18,9 +18,9 @@ const Navibar = () => {
   return (
     <Navbar>
       <NavbarContent as="div" justify="end">
-        <Dropdown placement="bottom-start">
+        <Dropdown placement="bottom-start" backdrop="blur">
           <DropdownTrigger>
-            <Avatar as="button" className="transition-transform" size="md" src={comunidad} />
+            <Avatar as="button" className="transition-transform -mx-3 sm:-mx-0" size="md" src={comunidad} />
           </DropdownTrigger>
           <DropdownMenu aria-label="Menu Actions" variant="flat">
             <DropdownItem key="login" className="text-primary">
@@ -54,7 +54,7 @@ const Navibar = () => {
       <NavbarContent>
         <NavbarBrand>
           <p className=" font-bold text-inherit text-left">
-            <RouterLink to={"/"} className="py-2 -mx-3 px-3 ">
+            <RouterLink to={"/"} className="py-2 -mx-3 px-3">
               Comunidad San Francisco de Asís
             </RouterLink>
           </p>
