@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
+import F_agregar_producto from "../forms/Farmacia/F_agregar_producto";
+import F_venta_producto from "../forms/Farmacia/F_venta_producto";
+import F_compra_producto from "../forms/Farmacia/F_compra_producto";
 
 const NavbuttonFarmacia = () => {
   const [selected, setSelected] = useState("");
@@ -15,22 +18,22 @@ const NavbuttonFarmacia = () => {
       >
         <Tab key="productos" title="Productos">
           <Card>
-            <CardBody>Aquí irán los productos</CardBody>
-          </Card>
-        </Tab>
-        <Tab key="addproductos" title="Agregar Producto">
-          <Card>
-            <CardBody>Aquí irá el formulario para añadir productos</CardBody>
+            <CardBody>Aquí irá la lista de los productos</CardBody>
           </Card>
         </Tab>
         <Tab key="ventas" title="Venta">
           <Card>
-            <CardBody>Aquí irá formulario de venta de un producto</CardBody>
+            <F_venta_producto />
           </Card>
         </Tab>
         <Tab key="compras" title="Compra">
           <Card>
-            <CardBody>Aquí irá formulario de compra de un producto</CardBody>
+            <F_compra_producto />
+          </Card>
+        </Tab>
+        <Tab key="addproductos" title="Agregar Producto">
+          <Card>
+            <F_agregar_producto />;
           </Card>
         </Tab>
       </Tabs>
