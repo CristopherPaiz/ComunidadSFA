@@ -65,7 +65,7 @@ const Navibar = () => {
       </NavbarContent>
       <Dropdown placement="bottom-end" className="sm:hidden">
         <DropdownTrigger className="sm:hidden">
-          <Avatar as="button" className="transition-transform sm:hidden" size="md" src={comunidad} />
+          <Avatar as="button" className="transition-transform sm:hidden bg-transparent" size="md" src={comunidad} />
         </DropdownTrigger>
         <DropdownMenu aria-label="Menu Actions" variant="flat">
           <DropdownItem key="login" className="text-primary">
