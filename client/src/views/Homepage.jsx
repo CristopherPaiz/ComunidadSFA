@@ -69,7 +69,7 @@ const Homepage = () => {
 
   return (
     <>
-      <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-5 py-5 sm:px-30 sm:py-10 sm:mx-30 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-60 xl:py-10">
+      <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-5 py-5 sm:px-30 sm:py-10 sm:mx-30 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10">
         {list.map((item, index) => (
           <Card shadow="md" key={index} isPressable>
             <CardBody className="overflow-visible p-0">
