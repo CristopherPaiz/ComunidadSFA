@@ -20,50 +20,50 @@ const Homepage = () => {
     {
       title: "Diario de Oración",
       description: "Registra tus pensamientos, oraciones y reflexiones.",
-      price: "Q50.00",
+      price: "Día: 16/08/2023",
       img: "https://pictures.abebooks.com/isbn/9781978215603-us.jpg",
     },
     {
       title: "CD de Música de Adoración",
       description: "Canciones inspiradoras para alabar y adorar.",
-      price: "Q60.00",
+      price: "Día: 16/08/2023",
       img: "https://i.ytimg.com/vi/BAIIYWPkzqs/maxresdefault.jpg",
     },
     {
       title: "Libro Devocional",
       description: "Lecturas diarias e ideas para el crecimiento espiritual.",
-      price: "Q80.00",
+      price: "Día: 16/08/2023",
       img: "https://m.media-amazon.com/images/I/41g7q-kUTAL.jpg",
     },
     {
       title: "Entradas para Evento Cristiano",
       description: "Admisión a un evento o conferencia cristiana especial.",
-      price: "Q120.00",
+      price: "Día: 16/08/2023",
       img: "https://e4g7x2b3.rocketcdn.me/wp-content/uploads/2022/10/evangelismo-en-formosa-819x1024.jpg",
     },
     {
       title: "Impresión de Arte con Cruz",
       description: "Hermosa obra de arte con la cruz como tema.",
-      price: "Q90.00",
+      price: "Día: 16/08/2023",
       img: "https://c8.alamy.com/compes/2pgj574/matthias-grunewald-cristo-en-la-cruz-dibujando-en-carbon-con-pluma-y-tinta-y-pincel-blanco-hacia-1520-2pgj574.jpg",
     },
     {
       title: "Camiseta Cristiana",
       description:
         "Inspiración que puedes llevar puesta con un mensaje cristiano.",
-      price: "Q70.00",
+      price: "Día: 16/08/2023",
       img: "https://ae01.alicdn.com/kf/H483c0d157e884b6cb236506f4433c141T.jpg_640x640Q90.jpg_.webp",
     },
     {
       title: "Calcomanía de Pared con Mensaje de Fe",
       description: "Decora tu espacio con un mensaje basado en la fe.",
-      price: "Q40.00",
+      price: "Día: 16/08/2023",
       img: "https://m.media-amazon.com/images/I/611+8S4+r0L.jpg",
     },
     {
       title: "Donación para Viaje de Misión",
       description: "Apoya el viaje de un misionero para difundir el evangelio.",
-      price: "Donar",
+      price: "Día: 16/08/2023",
       img: "https://images.squarespace-cdn.com/content/596f9e6edb29d6603ed3a7e3/1561136539292-PH1DAE0OVOQ7Y0EJ96ED/VA-mission-web2.jpg?content-type=image%2Fjpeg",
     },
   ];
@@ -81,7 +81,7 @@ const Homepage = () => {
                 radius="lg"
                 width="100%"
                 alt={item.title}
-                className="w-full object-cover h-[240px]"
+                className="w-full object-cover h-[180px] sm:h-[230px]"
                 src={item.img}
               />
             </CardBody>

@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import C_persona_buscar from "../forms/Comunidad/Personas/C_persona_buscar";
+import C_persona_nuevo from "../forms/Comunidad/Personas/C_persona_nuevo";
+import C_persona_comunidad from "../forms/Comunidad/Personas/C_persona_comunidad";
+import R_nuevo from "../forms/Comunidad/Retiros/R_nuevo";
+import R_buscar from "../forms/Comunidad/Retiros/R_buscar";
+import C_nuevo from "../forms/Comunidad/Cursos/C_nuevo";
+import C_buscar from "../forms/Comunidad/Cursos/C_buscar";
+import C_comunidad_nueva from "../forms/Comunidad/Comunidades/C_comunidad_nueva";
+import C_comunidad_buscar from "../forms/Comunidad/Comunidades/C_comunidad_buscar";
+import A_nueva from "../forms/Comunidad/Actividades/A_nueva";
+import A_buscar from "../forms/Comunidad/Actividades/A_buscar";
 
 const Navbutton = () => {
   const [selected, setSelected] = useState("");
   const [selectedPersonas, setSelectedPersonas] = useState("");
   const [selectedRetiros, setSelectedRetiros] = useState("");
   const [selectedCursos, setSelectedCursos] = useState("");
-  const [selectedCrecimientos, setSelectedCrecimientos] = useState("");
   const [selectedComunidades, setSelectedComunidades] = useState("");
   const [selectedActividades, setSelectedActividades] = useState("");
 
   return (
     <div className="flex w-full px-2 flex-col m-auto sm:w-11/12">
+      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">
+        ← Desliza para ver las demás opciones →{" "}
+      </p>
       <Tabs
         aria-label="Options"
         selectedKey={selected}
@@ -34,10 +46,10 @@ const Navbutton = () => {
                   <C_persona_buscar />
                 </Tab>
                 <Tab key="persona_nuevo" title="Nuevo">
-                  Aqui irá el formulario de nueva persona
+                  <C_persona_nuevo />
                 </Tab>
                 <Tab key="persona_comunidad" title="Por comunidad">
-                  Aqui irá la lista de personas por comunidad
+                  <C_persona_comunidad />
                 </Tab>
               </Tabs>
             </CardBody>
@@ -54,19 +66,19 @@ const Navbutton = () => {
                 onSelectionChange={setSelectedRetiros}
               >
                 <Tab key="retirosLista" title="Todos los retiros">
-                  Aqui se listarán todos los retiros
+                  Aquí se listarán todos los Retiros...
                 </Tab>
                 <Tab key="retiros_nuevo" title="Nuevo">
-                  Aqui irá el formulario de Nuevo
+                  <R_nuevo />
                 </Tab>
                 <Tab key="retiros_buscar" title="Buscar">
-                  Aqui irán las búsquedas de retiros
+                  <R_buscar />
                 </Tab>
               </Tabs>
             </CardBody>
           </Card>
         </Tab>
-        <Tab key="cursos" title="Cursos">
+        <Tab key="cursos" title="Cursos/Crecimientos">
           <Card>
             <CardBody>
               <Tabs
@@ -76,37 +88,14 @@ const Navbutton = () => {
                 selectedKey={selectedCursos}
                 onSelectionChange={setSelectedCursos}
               >
-                <Tab key="cursosLista" title="Todos los Cursos">
-                  Aqui se listarán todos los cursos
+                <Tab key="cursosLista" title="Todos">
+                  Aqui se listarán todos los cursos / crecimientos
                 </Tab>
                 <Tab key="cursos_nuevo" title="Nuevo">
-                  Aqui irá el formulario de Nuevo curso
+                  <C_nuevo />
                 </Tab>
                 <Tab key="cursos_buscar" title="Buscar">
-                  Aqui irán las búsquedas de cursos
-                </Tab>
-              </Tabs>
-            </CardBody>
-          </Card>
-        </Tab>
-        <Tab key="crecimientos" title="Crecimientos">
-          <Card>
-            <CardBody>
-              <Tabs
-                color="primary"
-                className="sm:flex sm:flex-wrap"
-                aria-label="OptionsCursos"
-                selectedKey={selectedCrecimientos}
-                onSelectionChange={setSelectedCrecimientos}
-              >
-                <Tab key="crecimientosLista" title="Todos los Crecimientos">
-                  Aqui se listarán todos los crecimientos
-                </Tab>
-                <Tab key="crecimientos_nuevo" title="Nuevo">
-                  Aqui irá el formulario de Nuevo Crecimiento
-                </Tab>
-                <Tab key="crecimientos_buscar" title="Buscar">
-                  Aqui irán las búsquedas de Crecimientos
+                  <C_buscar />
                 </Tab>
               </Tabs>
             </CardBody>
@@ -122,14 +111,14 @@ const Navbutton = () => {
                 selectedKey={selectedComunidades}
                 onSelectionChange={setSelectedComunidades}
               >
-                <Tab key="comunidadesLista" title="Todas las comunidades">
+                <Tab key="comunidadesLista" title="Todas">
                   Aqui se listarán todas las Comunidades
                 </Tab>
                 <Tab key="comunidades_nuevo" title="Nueva">
-                  Aqui irá el formulario de Nueva Comunidad
+                  <C_comunidad_nueva />
                 </Tab>
                 <Tab key="comunidades_buscar" title="Buscar">
-                  Aqui irán las búsquedas de Comunidades
+                  <C_comunidad_buscar />
                 </Tab>
               </Tabs>
             </CardBody>
@@ -145,14 +134,14 @@ const Navbutton = () => {
                 selectedKey={selectedActividades}
                 onSelectionChange={setSelectedActividades}
               >
-                <Tab key="actividadesLista" title="Todas las Actividades">
+                <Tab key="actividadesLista" title="Todas">
                   Aqui se listarán todas las Actividades
                 </Tab>
                 <Tab key="actividades_nuevo" title="Nueva">
-                  Aqui irá el formulario de Nueva Actividad
+                  <A_nueva />
                 </Tab>
                 <Tab key="actividadess_buscar" title="Buscar">
-                  Aqui irán las búsquedas de Actividades
+                  <A_buscar />
                 </Tab>
               </Tabs>
             </CardBody>

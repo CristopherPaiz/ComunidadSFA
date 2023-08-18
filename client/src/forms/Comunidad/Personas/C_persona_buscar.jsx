@@ -1,27 +1,21 @@
 import React, { useState } from "react";
-import { Input } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 const C_persona_buscar = () => {
-  const options = [
-    "Ninguno",
-    "Pueblo",
-    "Servidor",
-    "Subcoordinador",
-    "Coordinador",
-  ];
+  const options = ["Ninguno", "Predicador", "Músico", "Orador", "Avivador"];
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const handleSelectChange = (selected) => {
     setSelectedOption(selected);
   };
   return (
-    <div className="flex w-full flex-col pb-[170px]">
+    <div className="flex w-full flex-col ">
       <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
         Buscar persona
       </h2>
-      <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto  sm:w-3/5">
+      <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto  sm:w-3/5 ">
         <Input
           type="text"
           label="Nombre o apellido"
@@ -47,6 +41,9 @@ const C_persona_buscar = () => {
           value={selectedOption}
         />
       </div>
+      <Button color="primary" className="w-11/12 sm:w-3/5 m-auto">
+        Filtrar
+      </Button>
     </div>
   );
 };

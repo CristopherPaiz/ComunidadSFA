@@ -15,10 +15,11 @@ import { Link as RouterLink } from "react-router-dom";
 const Navibar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menuItems = ["Comunidad", "Farmacia", "Social", "Cerrar Sesión"];
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
-    // <Navbar onMenuOpenChange={setIsMenuOpen} position="static">
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
         <NavbarMenuToggle
@@ -33,7 +34,6 @@ const Navibar = () => {
           </p>
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent className="hidden sm:flex gap-1 " justify="center">
         <NavbarItem isActive>
           <Button className="bg-transparent hover:bg-primary-100">
