@@ -11,7 +11,7 @@ import {
   NavbarMenu,
 } from "@nextui-org/react";
 import { Link as RouterLink } from "react-router-dom";
-import comunidad from "../../public/comunidad.svg";
+import comunidad from "/comunidad.svg";
 
 const Navibar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -67,6 +67,9 @@ const Navibar = () => {
       </NavbarContent>
       <NavbarMenu>
         <NavbarMenuItem>
+          <RouterLink to={"/login"} className="py-2 -mx-3 px-3 block">
+            Login
+          </RouterLink>
           <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3 block">
             Comunidad
           </RouterLink>
