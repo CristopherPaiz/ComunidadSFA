@@ -6,6 +6,7 @@ const NavButtonSocial = () => {
 
   return (
     <div className="flex w-full px-2 flex-col m-auto sm:w-11/12">
+      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">← Desliza para ver las demás opciones → </p>
       <Tabs
         aria-label="Options"
         selectedKey={selected}
@@ -20,9 +21,7 @@ const NavButtonSocial = () => {
         </Tab>
         <Tab key="addsaldo" title="Añadir Nuevo Saldo">
           <Card>
-            <CardBody>
-              Aquí irá el formulario para añadir nuevo saldo al beneficiario
-            </CardBody>
+            <CardBody>Aquí irá el formulario para añadir nuevo saldo al beneficiario</CardBody>
           </Card>
         </Tab>
         <Tab key="addgasto" title="Añadir Nuevo Gasto">
@@ -32,9 +31,7 @@ const NavButtonSocial = () => {
         </Tab>
         <Tab key="addsocial" title="Añadir Nuevo Proyecto">
           <Card>
-            <CardBody>
-              Aquí irá formulario para añadir nuevo Proyecto Social
-            </CardBody>
+            <CardBody>Aquí irá formulario para añadir nuevo Proyecto Social</CardBody>
           </Card>
         </Tab>
       </Tabs>

@@ -6,14 +6,14 @@ import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 const Homepage = () => {
   const list = [
     {
-      title: "Biblia",
+      title: "Día de la Biblia",
       description: "Las Sagradas Escrituras para guía espiritual.",
       price: "Día: 16/08/2023",
       img: "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
     },
     {
-      title: "Collar de Cruz",
-      description: "Un símbolo de fe y devoción.",
+      title: "Collares de Cruz",
+      description: "Un símbolo de fe y devoción. ¿Es realemente un regalo cristiano?",
       price: "Día: 16/08/2023",
       img: "https://ilariape.vtexassets.com/arquivos/ids/157717-800-auto?v=637696701218400000&width=800&height=auto&aspect=true",
     },
@@ -49,8 +49,7 @@ const Homepage = () => {
     },
     {
       title: "Camiseta Cristiana",
-      description:
-        "Inspiración que puedes llevar puesta con un mensaje cristiano.",
+      description: "Inspiración que puedes llevar puesta con un mensaje cristiano.",
       price: "Día: 16/08/2023",
       img: "https://ae01.alicdn.com/kf/H483c0d157e884b6cb236506f4433c141T.jpg_640x640Q90.jpg_.webp",
     },
@@ -72,11 +71,10 @@ const Homepage = () => {
     <>
       <div className="gap-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-5 py-5 sm:px-30 sm:py-10 sm:mx-30 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-60 xl:py-10">
         {list.map((item, index) => (
-          <Card shadow="sm" key={index} isPressable>
+          <Card shadow="md" key={index} isPressable>
             <CardBody className="overflow-visible p-0">
               <Image
                 isZoomed
-                isBlurred
                 shadow="sm"
                 radius="lg"
                 width="100%"
@@ -89,6 +87,7 @@ const Homepage = () => {
               <b>{item.title}</b>
               <p className="text-default-500">{item.price}</p>
             </CardFooter>
+            <p className="text-center m-auto p-1 mb-2 mt-2">{item.description}</p>
           </Card>
         ))}
       </div>

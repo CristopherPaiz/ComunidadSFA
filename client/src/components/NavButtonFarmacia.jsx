@@ -9,6 +9,7 @@ const NavbuttonFarmacia = () => {
 
   return (
     <div className="flex w-full px-2 flex-col m-auto sm:w-11/12">
+      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">← Desliza para ver las demás opciones → </p>
       <Tabs
         aria-label="Options"
         selectedKey={selected}
