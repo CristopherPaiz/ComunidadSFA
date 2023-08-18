@@ -4,28 +4,55 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Button,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-  NavbarMenu,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
 } from "@nextui-org/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
 import comunidad from "/comunidad.svg";
 
 const Navibar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar>
+      <NavbarContent as="div" justify="end">
+        <Dropdown placement="bottom-start">
+          <DropdownTrigger>
+            <Avatar as="button" className="transition-transform" size="md" src={comunidad} />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Menu Actions" variant="flat">
+            <DropdownItem key="login" className="text-primary">
+              <Link to={"/login"} className="pr-28 pl-3">
+                Login
+              </Link>
+            </DropdownItem>
+            <DropdownItem key="comunidad">
+              <Link to={"/comunidad"} className="pr-28 pl-3">
+                Comunidad
+              </Link>
+            </DropdownItem>
+            <DropdownItem key="farmacia">
+              <Link to={"/farmacia"} className="pr-28 pl-3">
+                Farmacia
+              </Link>
+            </DropdownItem>
+            <DropdownItem key="social">
+              <Link to={"/social"} className="pr-28 pl-3">
+                Social
+              </Link>
+            </DropdownItem>
+            <DropdownItem key="logout" className="text-danger" color="danger">
+              <Link to={"/login"} className="pr-28 pl-3">
+                Log out
+              </Link>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
       <NavbarContent>
-        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
         <NavbarBrand>
-          <img src={comunidad} alt="" width={40} height={40} />
           <p className=" font-bold text-inherit text-left">
             <RouterLink to={"/"} className="py-2 -mx-3 px-3 ">
               Comunidad San Francisco de Asís
@@ -65,25 +92,6 @@ const Navibar = () => {
           </Button>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu>
-        <NavbarMenuItem>
-          <RouterLink to={"/login"} className="py-2 -mx-3 px-3 block">
-            Login
-          </RouterLink>
-          <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3 block">
-            Comunidad
-          </RouterLink>
-          <RouterLink to={"/farmacia"} className="py-2 -mx-3 px-3 block">
-            Farmacia
-          </RouterLink>
-          <RouterLink to={"/social"} className="py-2 -mx-3 px-3 block">
-            Social
-          </RouterLink>
-          <Link color="danger" className="py-2 -mx-3 px-3 w-full block" size="lg">
-            Cerrar Sesión
-          </Link>
-        </NavbarMenuItem>
-      </NavbarMenu>
     </Navbar>
   );
 };
