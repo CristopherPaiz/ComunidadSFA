@@ -5,14 +5,15 @@ const Usuario = require("../../models/User/userModel");
 //======= crear un nuevo Usuario =======
 router.post("/user/add", async (req, res) => {
   try {
-    const { nombre, username, password, imagen, rol } = req.body;
+    const { nombre, rol, username, contrasenia, foto, estado } = req.body;
 
     const user = new Usuario({
       nombre,
-      username,
-      password,
-      imagen,
       rol,
+      username,
+      contrasenia,
+      foto,
+      estado,
     });
 
     // Guardar el objeto user en la base de datos u otras operaciones necesarias

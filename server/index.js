@@ -4,6 +4,7 @@ const express = require("express");
 const connect = require("./database/connection");
 const cookieParser = require("cookie-parser");
 const authenticateToken = require("./middleware/auth");
+const routesUser = require("./routes/User/routeUser");
 
 //Conectamos a la BD
 connect();
@@ -44,6 +45,9 @@ app.get("/", (req, res) => {
 
 //usamos siempre el formato de JSON
 app.use(express.json());
+
+//Definimons las rutas
+app.use("/api", routesUser);
 
 //Iniciamos el servidor
 app.listen(port, () => {

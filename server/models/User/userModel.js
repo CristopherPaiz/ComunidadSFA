@@ -7,7 +7,7 @@ const usuarioSchema = new Schema({
   username: String,
   contrasenia: String,
   foto: String,
-  estado: Boolean,
+  estado: { type: Boolean, default: true },
 });
 
 module.exports = mongoose.model("Usuario", usuarioSchema);
