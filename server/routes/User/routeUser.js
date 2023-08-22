@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Usuario = require("../../models/User/userModel");
+const jwt = require("jsonwebtoken");
 
 //======= crear un nuevo Usuario =======
 router.post("/user/add", async (req, res) => {
@@ -32,7 +33,7 @@ router.post("/user/add", async (req, res) => {
 // ======= obtener un usuario por su username =======
 router.post("/user/getbyusername", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, contrasenia } = req.body;
 
     // Buscar al usuario por el nombre de usuario en la base de datos
     const user = await Usuario.findOne({ username });
@@ -42,7 +43,7 @@ router.post("/user/getbyusername", async (req, res) => {
     }
 
     // Verificar si la contraseña coincide con la almacenada en la base de datos
-    if (user.password !== password) {
+    if (user.contrasenia !== contrasenia) {
       return res.status(401).json({ message: "Contraseña inválida" });
     }
 
@@ -50,7 +51,7 @@ router.post("/user/getbyusername", async (req, res) => {
       expiresIn: "15d",
     });
 
-    const { nombre, imagen, rol } = user;
+    const { nombre, foto, rol } = user;
 
     //devolver una cookie para guardar el token con una duración de 15 días y que sea solo accesible por HTTP y no por JS
     res.cookie("token", token, {
@@ -61,7 +62,7 @@ router.post("/user/getbyusername", async (req, res) => {
     });
 
     // Usuario y contraseña son válidos, devolver solo los campos requeridos
-    res.status(200).json({ nombre, imagen, rol, username });
+    res.status(200).json({ nombre, foto, rol, username, token });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo obtener al usuario por el username",
