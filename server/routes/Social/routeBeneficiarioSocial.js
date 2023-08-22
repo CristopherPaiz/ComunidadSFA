@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const BeneficiarioSocial = require("../../models/Social/beneficiarioSocial.js");
+const IngresoSaldo = require("../../models/Social/ingresoSaldoSocial.js");
+const egresoSaldo = require("../../models/Social/egresoSaldoSocial.js");
 
 //======= crear nueva actividad Social =======
 router.post("/BeneficiarioSocial/add", async (req, res) => {
@@ -103,6 +105,105 @@ router.put("/BeneficiarioSocial/delete/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo eliminar al beneficiario",
+      messageSys: error.message,
+    });
+  }
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// ============================= Añadir saldo beneficiario =========================== //
+/////////////////////////////////////////////////////////////////////////////////////////
+
+//======= crear nueva actividad Social =======
+router.post("/IngresoSaldo/add", async (req, res) => {
+  console.log(req.body);
+  try {
+    const { idbeneficiario, nombredonante, monto, observaciones } = req.body;
+
+    const beneficiario = new IngresoSaldo({
+      idbeneficiario,
+      nombredonante,
+      monto,
+      observaciones,
+    });
+
+    // Guardar el objeto IngresoSaldo en la base de datos
+    const ingresoSaldoResultado = await beneficiario.save();
+
+    // Actualizar el saldoTotal del beneficiario
+    await BeneficiarioSocial.findByIdAndUpdate(
+      idbeneficiario,
+      { $inc: { saldoTotal: monto } } // Incrementa el saldoTotal en el valor de monto
+    );
+
+    // Mandamos estado 200 de OK y el resultado de la operación
+    res.status(200).json({ message: "Saldo a Beneficiario añadido correctamente", ingresoSaldoResultado });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo añadir un nuevo saldo al beneficiario Social",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= eliminar una actividad social por su id =======
+router.delete("/IngresoSaldo/delete/:id", async (req, res) => {
+  try {
+    await IngresoSaldo.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Registro eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo eliminar el registro",
+      messageSys: error.message,
+    });
+  }
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// ============================ Añadir egreso beneficiario =========================== //
+/////////////////////////////////////////////////////////////////////////////////////////
+
+//======= crear nueva actividad Social =======
+router.post("/egresoSaldo/add", async (req, res) => {
+  console.log(req.body);
+  try {
+    const { idbeneficiario, fecha, monto, fotos, observaciones } = req.body;
+
+    const beneficiario = new egresoSaldo({
+      idbeneficiario,
+      fecha,
+      monto,
+      fotos,
+      observaciones,
+    });
+
+    // Guardar el objeto IngresoSaldo en la base de datos
+    const ingresoSaldoResultado = await beneficiario.save();
+
+    // Actualizar el saldoTotal del beneficiario
+    await BeneficiarioSocial.findByIdAndUpdate(
+      idbeneficiario,
+      { $inc: { saldoTotal: -monto } } // Incrementa el saldoTotal en el valor de monto
+    );
+
+    // Mandamos estado 200 de OK y el resultado de la operación
+    res.status(200).json({ message: "Egreso de Beneficiario añadido correctamente", ingresoSaldoResultado });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo añadir un nuevo egreso al beneficiario Social",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= eliminar una actividad social por su id =======
+router.delete("/egresoSaldo/delete/:id", async (req, res) => {
+  try {
+    await egresoSaldo.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Registro eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo eliminar el registro",
       messageSys: error.message,
     });
   }

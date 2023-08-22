@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const egresoSaldoSocialSchema = new Schema({
-  nombredonante: String, // de quién debita
+  idbeneficiario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Beneficiario",
+  },
   fecha: Date,
   monto: Number,
   fotos: [String],
