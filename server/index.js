@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const connect = require("./database/connection");
 const cookieParser = require("cookie-parser");
+const authenticateToken = require("./middleware/auth");
 
 //Conectamos a la BD
 connect();
