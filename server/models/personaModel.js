@@ -35,7 +35,15 @@ const personaSchema = new Schema({
       cantidad: Number,
     },
   ],
+  permisos: [
+    {
+      descripcion: String,
+      fecha: Date,
+      foto: String,
+    },
+  ],
   evaluacionEspiritual: Number,
+  observaciones: String,
   estado: Boolean,
 });
 
