@@ -88,10 +88,13 @@ router.put("/user/update/:id", async (req, res) => {
 });
 
 // ======= eliminar un usuario por su id =======
-router.delete("/user/delete/:id", async (req, res) => {
+router.put("/user/delete/:id", async (req, res) => {
   try {
-    await Usuario.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Usuario eliminado correctamente" });
+    const id = req.params.id;
+    const data = req.body;
+    const options = { new: true };
+    const resultado = await Usuario.findByIdAndUpdate(id, data, options);
+    res.status(200).json({ message: "Usuario Eliminado correctamente", resultado });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo eliminar al usuario",
