@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const authenticateToken = require("./middleware/auth");
 const routesUser = require("./routes/User/routeUser");
 const ActividadSocial = require("./routes/Social/routeActividadSocial.js");
+const BeneficiarioSocial = require("./routes/Social/routeBeneficiarioSocial.js");
 
 //Conectamos a la BD
 connect();
@@ -50,6 +51,7 @@ app.use(express.json());
 //Definimons las rutas
 app.use("/api", routesUser);
 app.use("/api", ActividadSocial);
+app.use("/api", BeneficiarioSocial);
 
 //Iniciamos el servidor
 app.listen(port, () => {
