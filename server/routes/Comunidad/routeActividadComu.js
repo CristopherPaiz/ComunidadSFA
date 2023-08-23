@@ -4,7 +4,6 @@ const ActividadComu = require("../../models/Comunidad/actividadComunidad.js");
 
 //======= crear nueva actividad comunidad =======
 router.post("/actividadComunidad/add", async (req, res) => {
-  console.log(req.body);
   try {
     const {
       nombre,

@@ -6,7 +6,6 @@ const egresoSaldo = require("../../models/Social/egresoSaldoSocial.js");
 
 //======= crear nuevo beneficiario Social =======
 router.post("/BeneficiarioSocial/add", async (req, res) => {
-  console.log(req.body);
   try {
     const {
       nombre,
@@ -128,7 +127,6 @@ router.put("/BeneficiarioSocial/delete/:id", async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////////////
 
 router.post("/IngresoSaldo/add", async (req, res) => {
-  console.log(req.body);
   try {
     const { idbeneficiario, nombredonante, monto, observaciones } = req.body;
 
@@ -175,7 +173,6 @@ router.delete("/IngresoSaldo/delete/:id", async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////////////
 
 router.post("/egresoSaldo/add", async (req, res) => {
-  console.log(req.body);
   try {
     const { idbeneficiario, fecha, monto, fotos, observaciones } = req.body;
 

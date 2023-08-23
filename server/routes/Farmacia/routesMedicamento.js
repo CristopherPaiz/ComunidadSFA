@@ -97,7 +97,6 @@ router.put("/medicamento/delete/:id", async (req, res) => {
 
 //======= crear nuevo ingreso de medicamento =======
 router.post("/IngresoMedicamento/add", async (req, res) => {
-  console.log(req.body);
   try {
     const { idmedicamento, cantidad, fecha, precioCompra, precioVenta, proveedor, observaciones } = req.body;
 
@@ -149,7 +148,6 @@ router.delete("/IngresoMedicamento/delete/:id", async (req, res) => {
 
 //======= crear nuevo egreso de medicamento =======
 router.post("/EgresoMedicamento/add", async (req, res) => {
-  console.log(req.body);
   try {
     const { idmedicamento, cantidad, fecha, precioVenta } = req.body;
 

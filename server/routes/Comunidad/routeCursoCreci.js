@@ -4,7 +4,6 @@ const CursoCreci = require("../../models/Comunidad/cursoCreciModel.js");
 
 //======= crear nuevo curso o crecimiento =======
 router.post("/cursocreci/add", async (req, res) => {
-  console.log(req.body);
   try {
     const { nombre, fechainicio, fechaFinal, ofrenda, horario, ubicacion, dirigidoA, dirigidoPor, tipo, estado } =
       req.body;

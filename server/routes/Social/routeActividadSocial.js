@@ -4,7 +4,6 @@ const ActividadSocial = require("../../models/Social/ActividadSocial.js");
 
 //======= crear nueva actividad Social =======
 router.post("/ActividadSocial/add", async (req, res) => {
-  console.log(req.body);
   try {
     const {
       nombre,

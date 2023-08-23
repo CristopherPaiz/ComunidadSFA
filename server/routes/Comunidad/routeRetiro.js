@@ -4,7 +4,6 @@ const Retiro = require("../../models/Comunidad/retiroModel.js");
 
 //======= crear nuevo retiro =======
 router.post("/retiro/add", async (req, res) => {
-  console.log(req.body);
   try {
     const { nombre, fechainicio, fechaFinal, encargados, ubicacion, ofrenda, horario, tipo, tipoPara, estado } =
       req.body;
