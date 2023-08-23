@@ -33,6 +33,19 @@ router.post("/medicamento/add", async (req, res) => {
   }
 });
 
+// ======= obtener todos los medicamentos =======
+router.get("/medicamento/getall", async (req, res) => {
+  try {
+    const data = await Medicamento.find();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los medicamentos",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener un medicamento por su id =======
 router.get("/medicamento/getbyid/:id", async (req, res) => {
   try {

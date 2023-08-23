@@ -4,7 +4,7 @@ const BeneficiarioSocial = require("../../models/Social/beneficiarioSocial.js");
 const IngresoSaldo = require("../../models/Social/ingresoSaldoSocial.js");
 const egresoSaldo = require("../../models/Social/egresoSaldoSocial.js");
 
-//======= crear nueva actividad Social =======
+//======= crear nuevo beneficiario Social =======
 router.post("/BeneficiarioSocial/add", async (req, res) => {
   console.log(req.body);
   try {
@@ -65,7 +65,20 @@ router.post("/BeneficiarioSocial/add", async (req, res) => {
   }
 });
 
-// ======= obtener una Actividad Social por su id =======
+// ======= obtener todas los beneficiarios =======
+router.get("/BeneficiarioSocial/getall", async (req, res) => {
+  try {
+    const data = await BeneficiarioSocial.find();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los beneficiarios",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener una Actividad por su id =======
 router.get("/BeneficiarioSocial/getbyid/:id", async (req, res) => {
   try {
     const data = await BeneficiarioSocial.findById(req.params.id);
@@ -78,7 +91,7 @@ router.get("/BeneficiarioSocial/getbyid/:id", async (req, res) => {
   }
 });
 
-// ======= actualizar una actividad social por su id =======
+// ======= actualizar un beneficiario por su id =======
 router.put("/BeneficiarioSocial/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -94,7 +107,7 @@ router.put("/BeneficiarioSocial/update/:id", async (req, res) => {
   }
 });
 
-// ======= eliminar una actividad social por su id =======
+// ======= eliminar un beneficiario por su id =======
 router.put("/BeneficiarioSocial/delete/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -114,7 +127,6 @@ router.put("/BeneficiarioSocial/delete/:id", async (req, res) => {
 // ============================= Añadir saldo beneficiario =========================== //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-//======= crear nueva actividad Social =======
 router.post("/IngresoSaldo/add", async (req, res) => {
   console.log(req.body);
   try {
@@ -146,7 +158,6 @@ router.post("/IngresoSaldo/add", async (req, res) => {
   }
 });
 
-// ======= eliminar una actividad social por su id =======
 router.delete("/IngresoSaldo/delete/:id", async (req, res) => {
   try {
     await IngresoSaldo.findByIdAndDelete(req.params.id);
@@ -163,7 +174,6 @@ router.delete("/IngresoSaldo/delete/:id", async (req, res) => {
 // ============================ Añadir egreso beneficiario =========================== //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-//======= crear nueva actividad Social =======
 router.post("/egresoSaldo/add", async (req, res) => {
   console.log(req.body);
   try {
@@ -196,7 +206,6 @@ router.post("/egresoSaldo/add", async (req, res) => {
   }
 });
 
-// ======= eliminar una actividad social por su id =======
 router.delete("/egresoSaldo/delete/:id", async (req, res) => {
   try {
     await egresoSaldo.findByIdAndDelete(req.params.id);

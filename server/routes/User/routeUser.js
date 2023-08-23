@@ -30,6 +30,19 @@ router.post("/user/add", async (req, res) => {
   }
 });
 
+// ======= obtener todos los usuarios =======
+router.get("/user/getall", async (req, res) => {
+  try {
+    const data = await Usuario.find();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los usuarios",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener un usuario por su username =======
 router.post("/user/getbyusername", async (req, res) => {
   try {
