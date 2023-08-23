@@ -7,6 +7,7 @@ const authenticateToken = require("./middleware/auth");
 const routesUser = require("./routes/User/routeUser");
 const ActividadSocial = require("./routes/Social/routeActividadSocial.js");
 const BeneficiarioSocial = require("./routes/Social/routeBeneficiarioSocial.js");
+const Farmacia = require("./routes/Farmacia/routesMedicamento.js");
 
 //Conectamos a la BD
 connect();
@@ -52,6 +53,7 @@ app.use(express.json());
 app.use("/api", routesUser);
 app.use("/api", ActividadSocial);
 app.use("/api", BeneficiarioSocial);
+app.use("/api", Farmacia);
 
 //Iniciamos el servidor
 app.listen(port, () => {

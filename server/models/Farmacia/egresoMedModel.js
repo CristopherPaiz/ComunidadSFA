@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const egresoMedSchema = new Schema({
-  nombre: String,
+  idmedicamento: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Medicamento",
+  },
   cantidad: Number,
   fecha: Date,
   precioVenta: Number,
