@@ -8,33 +8,37 @@ const personaSchema = new Schema({
   telefono: String,
   trabajaen: String,
   direccion: String,
-  comunidad: String,
+  idcomunidad: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comunidad",
+  },
   dones: [String],
   retiros: [
     {
-      nombre: String,
+      idretiro: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Retiro",
+      },
       finalizado: Boolean,
       fecha: Date,
+      cuota: [Number],
     },
   ],
   crecimientos: [
     {
-      nombre: String,
+      idcursocreci: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CursoCreci",
+      },
       finalizado: Boolean,
       fecha: Date,
+      cuota: [Number],
     },
   ],
   fechainicio: Date,
   fechacreci: Date,
   fechaservi: Date,
   fechacordi: Date,
-  ofrendas: [
-    {
-      nombre: String,
-      fecha: Date,
-      cantidad: Number,
-    },
-  ],
   permisos: [
     {
       descripcion: String,
