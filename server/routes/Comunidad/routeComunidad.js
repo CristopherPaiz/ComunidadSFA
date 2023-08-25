@@ -5,10 +5,10 @@ const ComunidadModel = require("../../models/Comunidad/ComunidadModel.js");
 //======= crear nueva comunidad =======
 router.post("/comunidad/add", async (req, res) => {
   try {
-    const { nombre, ubicacion, fechacreacion, horarios, fotos, tipo, ofrenda, estado } = req.body;
+    const { nombreComunidad, ubicacion, fechacreacion, horarios, fotos, tipo, ofrenda, estado } = req.body;
 
     const comunidad = new ComunidadModel({
-      nombre,
+      nombreComunidad,
       ubicacion,
       fechacreacion,
       horarios,

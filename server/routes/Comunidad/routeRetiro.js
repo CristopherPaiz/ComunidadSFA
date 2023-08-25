@@ -5,11 +5,11 @@ const Retiro = require("../../models/Comunidad/retiroModel.js");
 //======= crear nuevo retiro =======
 router.post("/retiro/add", async (req, res) => {
   try {
-    const { nombre, fechainicio, fechaFinal, encargados, ubicacion, ofrenda, horario, tipo, tipoPara, estado } =
+    const { nombreRetiro, fechainicio, fechaFinal, encargados, ubicacion, ofrenda, horario, tipo, tipoPara, estado } =
       req.body;
 
     const retiro = new Retiro({
-      nombre,
+      nombreRetiro,
       fechainicio,
       fechaFinal,
       encargados,

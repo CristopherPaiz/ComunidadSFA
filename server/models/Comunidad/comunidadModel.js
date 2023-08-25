@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const comunidadSchema = new Schema({
-  nombre: String,
+  nombreComunidad: String,
   ubicacion: String,
   fechacreacion: Date,
   horarios: String,

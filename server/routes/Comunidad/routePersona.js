@@ -117,6 +117,44 @@ router.put("/persona/delete/:id", async (req, res) => {
   }
 });
 
+// Agrega esta ruta al final del archivo de rutas
+router.post("/persona/filtrar", async (req, res) => {
+  try {
+    const { nombre, telefono, direccion, dones } = req.body;
+
+    let query = {};
+
+    if (nombre) {
+      query.nombre = { $regex: nombre, $options: "i" };
+    }
+
+    if (telefono) {
+      query.telefono = { $regex: telefono, $options: "i" };
+    }
+
+    if (direccion) {
+      query.direccion = { $regex: direccion, $options: "i" };
+    }
+
+    if (dones && dones.length > 0) {
+      query.dones = { $in: dones };
+    }
+
+    const personas = await Persona.find(query)
+      .populate("idcomunidad", "nombreComunidad")
+      .populate("retiros.idretiro", "nombreRetiro")
+      .populate("crecimientos.idcursocreci", "nombreCursoCreci")
+      .exec();
+
+    res.status(200).json(personas);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo realizar la búsqueda de personas",
+      messageSys: error.message,
+    });
+  }
+});
+
 //////////////////////////////////////////////////////////
 router.post("/persona/addretiro/:id", async (req, res) => {
   try {
