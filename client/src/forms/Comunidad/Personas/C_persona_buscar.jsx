@@ -156,10 +156,10 @@ const C_persona_buscar = () => {
                     <Divider />
                     <CardFooter>
                       <p className="text-md">
-                        <b>Dones:</b> {persona?.dones?.join(", ") ?? ""}
+                        <b>Dones:</b> {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
                       </p>
                       <p className="text-md">
-                        <b>Tipo:</b> {persona?.tipo ?? ""}
+                        <b> Tipo:</b> {persona?.tipo ?? ""}
                       </p>
                     </CardFooter>
                   </Card>
@@ -204,7 +204,9 @@ const C_persona_buscar = () => {
                           </TableRow>
                           <TableRow key="7">
                             <TableCell className="font-bold">Dones</TableCell>
-                            <TableCell>{personSelected?.dones?.join(", ") ?? ""}</TableCell>
+                            <TableCell>
+                              {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
+                            </TableCell>
                           </TableRow>
                           <TableRow key="8">
                             <TableCell className="font-bold">Retiros</TableCell>
