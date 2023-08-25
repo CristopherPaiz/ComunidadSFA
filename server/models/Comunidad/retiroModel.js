@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const retiroSchema = new Schema({
-  nombre: string,
+  nombre: String,
   fechainicio: Date,
   fechaFinal: Date,
   encargados: [String],

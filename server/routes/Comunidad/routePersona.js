@@ -117,4 +117,105 @@ router.put("/persona/delete/:id", async (req, res) => {
   }
 });
 
+//////////////////////////////////////////////////////////
+router.post("/persona/addretiro/:id", async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    const { nuevoRetiro } = req.body;
+
+    const updatedPersona = await Persona.findByIdAndUpdate(
+      personaId,
+      { $push: { retiros: nuevoRetiro } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Nuevo retiro añadido a la persona", persona: updatedPersona });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo añadir el retiro a la persona",
+      messageSys: error.message,
+    });
+  }
+});
+
+router.post("/persona/addcursocreci/:id", async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    const { nuevoCrecimiento } = req.body;
+
+    const updatedPersona = await Persona.findByIdAndUpdate(
+      personaId,
+      { $push: { crecimientos: nuevoCrecimiento } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Nuevo crecimiento añadido a la persona", persona: updatedPersona });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo añadir el crecimiento a la persona",
+      messageSys: error.message,
+    });
+  }
+});
+
+router.put("/persona/deleteretiro/:id", async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    const retiroId = req.body.retiroId;
+
+    const updatedPersona = await Persona.findByIdAndUpdate(
+      personaId,
+      { $pull: { retiros: { idretiro: retiroId } } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Retiro eliminado de la persona", persona: updatedPersona });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo eliminar el retiro de la persona",
+      messageSys: error.message,
+    });
+  }
+});
+
+router.put("/persona/deletecursocreci/:id", async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    const crecimientoId = req.body.crecimientoId;
+
+    const updatedPersona = await Persona.findByIdAndUpdate(
+      personaId,
+      { $pull: { crecimientos: { idcursocreci: crecimientoId } } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Crecimiento eliminado de la persona", persona: updatedPersona });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo eliminar el crecimiento de la persona",
+      messageSys: error.message,
+    });
+  }
+});
+
+router.post("/persona/addpermiso/:id", async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    const { nuevoPermiso } = req.body;
+
+    const updatedPersona = await Persona.findByIdAndUpdate(
+      personaId,
+      { $push: { permisos: nuevoRetiro } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Nuevo permiso añadido a la persona", persona: updatedPersona });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo añadir el permiso a la persona",
+      messageSys: error.message,
+    });
+  }
+});
+
 module.exports = router;

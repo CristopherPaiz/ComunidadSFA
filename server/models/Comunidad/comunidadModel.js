@@ -8,6 +8,12 @@ const comunidadSchema = new Schema({
   horarios: String,
   fotos: [String],
   tipo: String, // celula o iglesia
+  ofrenda: [
+    {
+      anio: String,
+      ofrenda: [Number],
+    },
+  ],
   estado: Boolean,
 });
 

@@ -3,11 +3,18 @@ const cors = require("cors");
 const express = require("express");
 const connect = require("./database/connection");
 const cookieParser = require("cookie-parser");
-const authenticateToken = require("./middleware/auth");
 const routesUser = require("./routes/User/routeUser");
 const ActividadSocial = require("./routes/Social/routeActividadSocial.js");
 const BeneficiarioSocial = require("./routes/Social/routeBeneficiarioSocial.js");
 const Farmacia = require("./routes/Farmacia/routesMedicamento.js");
+const Comunidad = require("./routes/Comunidad/routeComunidad.js");
+const CursoCreci = require("./routes/Comunidad/routeCursoCreci.js");
+const Retiro = require("./routes/Comunidad/routeRetiro.js");
+const Persona = require("./routes/Comunidad/routePersona.js");
+const Actividad = require("./routes/Comunidad/routeActividadComu.js");
+
+// TOKEN
+const authenticateToken = require("./middleware/auth");
 
 //Conectamos a la BD
 connect();
@@ -54,6 +61,11 @@ app.use("/api", routesUser);
 app.use("/api", ActividadSocial);
 app.use("/api", BeneficiarioSocial);
 app.use("/api", Farmacia);
+app.use("/api", Comunidad);
+app.use("/api", CursoCreci);
+app.use("/api", Retiro);
+app.use("/api", Persona);
+app.use("/api", Actividad);
 
 //Iniciamos el servidor
 app.listen(port, () => {

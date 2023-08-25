@@ -5,7 +5,7 @@ const ComunidadModel = require("../../models/Comunidad/ComunidadModel.js");
 //======= crear nueva comunidad =======
 router.post("/comunidad/add", async (req, res) => {
   try {
-    const { nombre, ubicacion, fechacreacion, horarios, fotos, tipo, estado } = req.body;
+    const { nombre, ubicacion, fechacreacion, horarios, fotos, tipo, ofrenda, estado } = req.body;
 
     const comunidad = new ComunidadModel({
       nombre,
@@ -14,6 +14,7 @@ router.post("/comunidad/add", async (req, res) => {
       horarios,
       fotos,
       tipo,
+      ofrenda,
       estado,
     });
 
@@ -87,5 +88,60 @@ router.put("/comunidad/delete/:id", async (req, res) => {
     });
   }
 });
+
+/////////////////////////////////////////////////////////////
+router.post("/comunidad/addofrenda/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { nuevoAnio, nuevaOfrenda } = req.body;
+
+    const updatedComunidad = await ComunidadModel.findByIdAndUpdate(
+      id,
+      { $push: { ofrenda: { anio: nuevoAnio, ofrenda: nuevaOfrenda } } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Nuevo año de ofrenda añadido a la comunidad", comunidad: updatedComunidad });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo añadir nuevo año de ofrendas a la comunidad",
+      messageSys: error.message,
+    });
+  }
+});
+
+router.put("/comunidad/updateofrenda/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { anio, nuevaOfrenda } = req.body;
+
+    const updatedComunidad = await ComunidadModel.findOneAndUpdate(
+      { _id: id, "ofrenda.anio": anio },
+      { $set: { "ofrenda.$.ofrenda": nuevaOfrenda } },
+      { new: true }
+    );
+
+    res
+      .status(200)
+      .json({ message: "Valores de ofrenda actualizados para el año especificado", comunidad: updatedComunidad });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo actualizar los valores de  ofrendas para el año especificado",
+      messageSys: error.message,
+    });
+  }
+});
+
+// //ejemplos
+// {
+//   "nuevoAnio": "2022",
+//   "nuevaOfrenda": [130, 160, 140, 150, 170, 190, 180, 200, 220, 230, 250, 260]
+// }
+
+// /////
+// {
+//   "anio": "2021",
+//   "nuevaOfrenda": [125, 155, 135, 145, 165, 185, 175, 195, 205, 215, 235, 245]
+// }
 
 module.exports = router;
