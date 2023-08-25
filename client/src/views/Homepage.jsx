@@ -1,6 +1,4 @@
 import React from "react";
-import Navibar from "../components/Navibar";
-import Navbutton from "../components/Navbutton";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 
 const Homepage = () => {
