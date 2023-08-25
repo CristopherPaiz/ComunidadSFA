@@ -9,9 +9,11 @@ import Comunidad from "./views/Comunidad";
 import Farmacia from "./views/Farmacia";
 import Social from "./views/Social";
 
+import ContextProvider from "./context/ContextProvider.jsx";
+
 const App = () => {
   return (
-    <div>
+    <ContextProvider>
       <Navibar />
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -21,7 +23,7 @@ const App = () => {
         <Route path="/Social" element={<Social />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </div>
+    </ContextProvider>
   );
 };
 
