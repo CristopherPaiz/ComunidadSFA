@@ -89,7 +89,7 @@ const C_persona_buscar = () => {
   return (
     <>
       <Toaster />
-      <div className="flex w-full flex-col mb-[120px]">
+      <div className="flex w-full flex-col mb-[20px]">
         <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
           Buscar persona
         </h2>
@@ -210,7 +210,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Retiros</TableCell>
                             <TableCell>
                               {personSelected?.retiros?.length > 0 &&
-                                personSelected.retiros.map((retiro, index) => (
+                                personSelected?.retiros.map((retiro, index) => (
                                   <div key={index}>
                                     <p className="font-bold">{retiro.idretiro?.nombreRetiro}</p>
                                     <p>Q. {retiro?.cuota?.join(", Q. ")}</p>
@@ -224,7 +224,7 @@ const C_persona_buscar = () => {
                               {personSelected?.crecimientos?.length > 0 &&
                                 personSelected.crecimientos.map((crecimiento, index) => (
                                   <div key={index}>
-                                    <p className="font-bold">{crecimiento.idcursocreci?.nombreCursoCreci}</p>
+                                    <p className="font-bold">{crecimiento?.idcursocreci?.nombreCursoCreci}</p>
                                     <p>Q. {crecimiento?.cuota?.join(", Q. ")}</p>
                                   </div>
                                 ))}
@@ -234,7 +234,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha primer retiro</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(new Date(personSelected.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
                                     locale: es,
                                   })
                                 : ""}
@@ -244,7 +244,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha primer Crecimiento</TableCell>
                             <TableCell>
                               {personSelected?.fechacreci
-                                ? format(new Date(personSelected.fechacreci), "EEEE d 'de' MMMM 'de' yyyy", {
+                                ? format(new Date(personSelected?.fechacreci), "EEEE d 'de' MMMM 'de' yyyy", {
                                     locale: es,
                                   })
                                 : ""}
@@ -254,7 +254,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha empezó a ser Servidor</TableCell>
                             <TableCell>
                               {personSelected?.fechaservi
-                                ? format(new Date(personSelected.fechaservi), "EEEE d 'de' MMMM 'de' yyyy", {
+                                ? format(new Date(personSelected?.fechaservi), "EEEE d 'de' MMMM 'de' yyyy", {
                                     locale: es,
                                   })
                                 : ""}
@@ -264,7 +264,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(new Date(personSelected.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
                                     locale: es,
                                   })
                                 : ""}
@@ -274,7 +274,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha empezó a ser Coordinador</TableCell>
                             <TableCell>
                               {personSelected?.fechacordi
-                                ? format(new Date(personSelected.fechacordi), "EEEE d 'de' MMMM 'de' yyyy", {
+                                ? format(new Date(personSelected?.fechacordi), "EEEE d 'de' MMMM 'de' yyyy", {
                                     locale: es,
                                   })
                                 : ""}
@@ -284,7 +284,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Permisos</TableCell>
                             <TableCell>
                               {personSelected?.permisos?.length > 0 &&
-                                personSelected.permisos.map((permiso, index) => (
+                                personSelected.permisos?.map((permiso, index) => (
                                   <div key={index}>
                                     <p className="font-bold">{permiso?.descripcion}</p>
                                     <p>
