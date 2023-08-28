@@ -14,6 +14,8 @@ const EditarPersona = () => {
     return <Navigate to={"/comunidad"} />;
   }
 
+  console.log(personSelected);
+
   const tipo = ["Pueblo", "Servidor", "Subcoordinador", "Coordinador", "Otro"];
   const [selectedTipo, setSelectedTipo] = useState(personSelected.tipo);
 
@@ -36,8 +38,36 @@ const EditarPersona = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const handleSubmit = () => {
+    console.log(datosPersonaActualizados);
+  };
+
+  const handleFechaChange = (index, newDate) => {
+    const updatedCrecimientos = [...datosPersonaActualizados.crecimientos];
+    updatedCrecimientos[index].fecha = newDate;
+    setDatosPersonaActualizados({
+      ...datosPersonaActualizados,
+      crecimientos: updatedCrecimientos,
+    });
+  };
+
+  const handleCuotaChange = (index, newCuotas) => {
+    const updatedCrecimientos = [...datosPersonaActualizados.crecimientos];
+
+    if (newCuotas === "") {
+      updatedCrecimientos[index].cuota = [];
+    } else {
+      updatedCrecimientos[index].cuota = newCuotas.split(",").map((cuota) => cuota.trim());
+    }
+
+    setDatosPersonaActualizados({
+      ...datosPersonaActualizados,
+      crecimientos: updatedCrecimientos,
+    });
+  };
+
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col mb-10 p-6">
       <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
         Editar Hermano
       </h2>
@@ -94,12 +124,7 @@ const EditarPersona = () => {
         />
         <p className="font-bold sm:hidden -mb-2">Seleccione el tipo de Dones</p>
         <div className="flex flex-col gap-3">
-          <CheckboxGroup
-            color="primary"
-            value={selected}
-            orientation="horizontal"
-            onValueChange={setSelected}
-          >
+          <CheckboxGroup color="primary" value={selected} orientation="horizontal" onValueChange={setSelected}>
             <Checkbox value="Predicador">Predicador</Checkbox>
             <Checkbox value="Avivador">Avivador</Checkbox>
             <Checkbox value="Músico">Músico</Checkbox>
@@ -108,10 +133,80 @@ const EditarPersona = () => {
           <p className="text-default-500 text-small">Seleccionado: {selected.join(", ")}</p>
         </div>
         <p className="font-bold sm:hidden -mb-2">Lista de Retiros</p>
+        <div className="container mx-auto">
+          <table className="table-auto w-full">
+            <thead>
+              <tr>
+                <th className="border px-4 py-2 bg-slate-200">Nombre</th>
+                <th className="border px-4 py-2 bg-slate-200">Fecha</th>
+                <th className="border px-4 py-2 bg-slate-200">Ofrendas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {datosPersonaActualizados?.retiros?.map((item, index) => (
+                <tr key={item?._id}>
+                  <td contentEditable className="border px-4 py-2">
+                    {item?.idretiro?.nombreRetiro ?? ""}
+                  </td>
+                  <td contentEditable className="border px-4 py-2">
+                    {formatfecha(item?.fecha)}
+                  </td>
+                  <td
+                    className="border px-4 py-2"
+                    contentEditable
+                    type="number"
+                    onChange={(e) => {
+                      const newCuota = e.target.textContent.split(",").map((val) => parseInt(val.trim(), 10));
+                      const updatedRetiros = [...datosPersonaActualizados.retiros];
+                      updatedRetiros[index] = {
+                        ...updatedRetiros[index],
+                        cuota: newCuota,
+                      };
+                      setDatosPersonaActualizados({
+                        ...datosPersonaActualizados,
+                        retiros: updatedRetiros,
+                      });
+                    }}
+                  >
+                    {item?.cuota?.join(", ")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <Button color="primary" className="sm:h-13">
           Ingresar un nuevo retiro
         </Button>
         <p className="font-bold text-[18px] sm:hidden -mb-2">Lista de Crecimientos / cursos</p>
+        <div className="container mx-auto">
+          <table className="table-auto w-full">
+            <thead>
+              <tr>
+                <th className="border px-4 py-2 bg-slate-200">Nombre</th>
+                <th className="border px-4 py-2 bg-slate-200">Fecha</th>
+                <th className="border px-4 py-2 bg-slate-200">Ofrendas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {datosPersonaActualizados.crecimientos.map((item, index) => (
+                <tr key={item._id}>
+                  <td className="border px-4 py-2">{item.idcursocreci.nombreCursoCreci}</td>
+                  <td className="border px-4 py-2">
+                    <input type="date" value={item.fecha} onChange={(e) => handleFechaChange(index, e.target.value)} />
+                  </td>
+                  <td className="border px-4 py-2">
+                    <input
+                      type="text"
+                      value={item.cuota.join(", ")}
+                      onChange={(e) => handleCuotaChange(index, e.target.value)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <Button color="primary" className="sm:h-13">
           Ingresar un nuevo crecimiento / curso
         </Button>
@@ -180,13 +275,9 @@ const EditarPersona = () => {
             })
           }
         />
-        <p className="font-bold text-[18px] sm:hidden -mb-2">Lista de Ofrendas</p>
-        <Button color="primary" className="sm:h-full">
-          Ingresar un nueva ofrenda
-        </Button>
       </div>
-      <Button color="success" className="w-11/12 m-auto sm:w-3/5">
-        Guardar
+      <Button color="success" className="w-11/12 m-auto sm:w-3/5" onClick={handleSubmit}>
+        Actualizar Datos
       </Button>
     </div>
   );
