@@ -38,6 +38,7 @@ const personaSchema = new Schema({
   fechainicio: Date,
   fechacreci: Date,
   fechaservi: Date,
+  fechasubcordi: Date,
   fechacordi: Date,
   permisos: [
     {

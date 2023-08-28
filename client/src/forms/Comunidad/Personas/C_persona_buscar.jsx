@@ -26,6 +26,7 @@ import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../../config.js";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { Link as Linky } from "react-router-dom";
 
 const C_persona_buscar = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -156,7 +157,8 @@ const C_persona_buscar = () => {
                     <Divider />
                     <CardFooter>
                       <p className="text-md">
-                        <b>Dones:</b> {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
+                        <b>Dones:</b>{" "}
+                        {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
                       </p>
                       <p className="text-md">
                         <b> Tipo:</b> {persona?.tipo ?? ""}
@@ -205,7 +207,9 @@ const C_persona_buscar = () => {
                           <TableRow key="7">
                             <TableCell className="font-bold">Dones</TableCell>
                             <TableCell>
-                              {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
+                              {personSelected?.dones?.length > 0
+                                ? personSelected?.dones?.join(", ") ?? ""
+                                : "N/A"}
                             </TableCell>
                           </TableRow>
                           <TableRow key="8">
@@ -236,9 +240,13 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha primer retiro</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
-                                    locale: es,
-                                  })
+                                ? format(
+                                    new Date(personSelected?.fechainicio),
+                                    "EEEE d 'de' MMMM 'de' yyyy",
+                                    {
+                                      locale: es,
+                                    }
+                                  )
                                 : ""}
                             </TableCell>
                           </TableRow>
@@ -266,9 +274,13 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
-                                    locale: es,
-                                  })
+                                ? format(
+                                    new Date(personSelected?.fechainicio),
+                                    "EEEE d 'de' MMMM 'de' yyyy",
+                                    {
+                                      locale: es,
+                                    }
+                                  )
                                 : ""}
                             </TableCell>
                           </TableRow>
@@ -308,9 +320,14 @@ const C_persona_buscar = () => {
                       </Table>
                     </ModalBody>
                     <ModalFooter>
-                      <Button color="warning" onPress={onClose}>
+                      <Linky
+                        to={`/comunidad/persona/${personSelected._id}`}
+                        state={{ personSelected }}
+                        className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
+                      >
                         Editar
-                      </Button>
+                      </Linky>
+
                       <Button color="primary" onPress={onClose}>
                         Cerrar
                       </Button>
