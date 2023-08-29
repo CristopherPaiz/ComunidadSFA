@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Input,
   Button,
@@ -18,13 +18,29 @@ import { useLocation, Navigate } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import API_URL from "../../config";
+import toast, { Toaster } from "react-hot-toast";
 
 const EditarPersona = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState(false);
+  const [mensaje, setMensaje] = useState(null);
 
   const [resultadosRetiros, setResultadosRetiros] = useState([]);
+
+  //////////////////////////////////////////////////////////////////////////////////////////
+
+  //captura de datos para retiro
   const [valueRetiro, setValueRetiro] = React.useState(new Set([]));
+  const [valueFecha, setValueFecha] = React.useState("");
+  const [valueOfrendas, setValueOfrendas] = React.useState("");
+  const [finalRetiroNuevo, setFinalRetiroNuevo] = useState({});
+
+  //captura de datos para crecimientos
+  const [valueCrecimiento, setValueCrecimiento] = React.useState(new Set([]));
+  const [valueFechaCrecimiento, setValueFechaCrecimiento] = React.useState("");
+  const [valueOfrendasCrecimiento, setValueOfrendasCrecimiento] = React.useState("");
+
+  //////////////////////////////////////////////////////////////////////////////////////////
 
   const location = useLocation();
 
@@ -33,6 +49,8 @@ const EditarPersona = () => {
   if (!location.state) {
     return <Navigate to={"/comunidad"} />;
   }
+
+  // console.log(personSelected);
 
   const tipo = ["Pueblo", "Servidor", "Subcoordinador", "Coordinador", "Otro"];
   const [selectedTipo, setSelectedTipo] = useState(personSelected.tipo);
@@ -60,6 +78,7 @@ const EditarPersona = () => {
 
   // fetch para obtener los retiros
   const handleBuscar = async () => {
+    onOpen();
     setLoading(true);
     try {
       const response = await fetch(`${API_URL}/retiro/getallname`, {
@@ -78,22 +97,41 @@ const EditarPersona = () => {
       console.log(data);
       setResultadosRetiros(data);
       setLoading(false);
-      onOpen();
     } catch (error) {
       setLoading(false);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const datosfinales = {
       ...datosPersonaActualizados,
       retiros: retirosActualizados,
       crecimientos: crecimientosActualizados,
     };
 
-    console.log(datosfinales);
+    // console.log(datosfinales);
+    try {
+      const response = await fetch(`${API_URL}/persona/update/${datosPersonaActualizados._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...datosfinales,
+        }),
+        credentials: "include", // Asegúrate de incluir esta opción
+      });
+      if (!response.ok) {
+        throw new Error("Error al añadir retiros", {});
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  //cuando cambian las tablas de retiros y crecimientos
   const handleRetiroFechaChange = (index, newValue) => {
     const updatedRetiros = [...retirosActualizados];
     updatedRetiros[index].fecha = newValue;
@@ -117,6 +155,55 @@ const EditarPersona = () => {
     updatedCrecimientos[index].cuota = newCuotas.split(", ");
     setCrecimientosActualizados(updatedCrecimientos);
   };
+
+  //cuando se agrega un retiro
+  const onSubmitRetiros = async () => {
+    console.log(valueRetiro);
+    const retiroFinal = {
+      nuevoRetiro: {
+        idretiro: valueRetiro.currentKey,
+        finalizado: true,
+        fecha: valueFecha,
+        cuota: valueOfrendas.split(", "),
+      },
+    };
+    //push nuevo retiro a la lista de retiros
+    const updatedRetiros = [...retirosActualizados];
+    updatedRetiros.push(retiroFinal);
+    setRetirosActualizados(updatedRetiros);
+    console.log(updatedRetiros);
+    onOpenChange();
+    try {
+      const response = await fetch(`${API_URL}/persona/addretiro/${datosPersonaActualizados._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nuevoRetiro: {
+            idretiro: valueRetiro.currentKey,
+            finalizado: true,
+            fecha: valueFecha,
+            cuota: valueOfrendas.split(", "),
+          },
+        }),
+        credentials: "include", // Asegúrate de incluir esta opción
+      });
+      if (!response.ok) {
+        throw new Error("Error al añadir retiros", {});
+      }
+      const data = await response.json();
+      console.log(data);
+      setMensaje(
+        "Parece que añadiste algunos retiros, estos se verán reflejados al guardar los datos, salir y volver a buscar a la persona"
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //useEffect para escuchar los cambios de retirosActualizados y crecimientosActualizados
+  useEffect(() => {}, [retirosActualizados, mensaje]);
 
   return (
     <div className="flex w-full flex-col mb-10 p-6">
@@ -196,8 +283,8 @@ const EditarPersona = () => {
             </thead>
             <tbody>
               {datosPersonaActualizados.retiros.map((item, index) => (
-                <tr key={item._id}>
-                  <td className="border px-4 py-2">{item.idretiro.nombreRetiro}</td>
+                <tr key={index}>
+                  <td className="border px-4 py-2">{item?.idretiro?.nombreRetiro ?? ""}</td>
                   <td className="border px-4 py-2">
                     <Input
                       type="Date"
@@ -208,7 +295,7 @@ const EditarPersona = () => {
                   <td className="border px-4 py-2">
                     <Textarea
                       type="text"
-                      value={item.cuota.join(", ")}
+                      value={Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""}
                       onChange={(e) => handleRetiroCuotasChange(index, e.target.value)}
                     />
                   </td>
@@ -216,6 +303,7 @@ const EditarPersona = () => {
               ))}
             </tbody>
           </table>
+          {mensaje !== null ? <p className="text-danger-400 text-xl text-center font-extrabold">{mensaje}</p> : ""}
         </div>
         <Button color="primary" className="sm:h-13" onClick={handleBuscar}>
           Ingresar un nuevo retiro
@@ -244,7 +332,7 @@ const EditarPersona = () => {
                   <td className="border px-4 py-2">
                     <Textarea
                       type="text"
-                      value={item.cuota.join(", ")}
+                      value={Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""}
                       onChange={(e) => handleCrecimientoCuotasChange(index, e.target.value)}
                     />
                   </td>
@@ -322,40 +410,57 @@ const EditarPersona = () => {
           }
         />
       </div>
+
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
         <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">Retiros de {personSelected?.nombre ?? ""}</ModalHeader>
-              <ModalBody>
-                <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
-                  <Select
-                    label="Retiro"
-                    variant="bordered"
-                    placeholder="Seleccione un retiro"
-                    selectedKeys={valueRetiro}
-                    className="max-w-xs"
-                    onSelectionChange={setValueRetiro}
-                  >
-                    {resultadosRetiros.map((retiro) => (
-                      <SelectItem key={retiro?._id} value={retiro?.nombreRetiro}>
-                        {retiro.nombreRetiro}
-                      </SelectItem>
-                    ))}
-                  </Select>
-                  <Input type="Date" label="Ingrese la fecha" autoComplete="nope" placeholder="Ingrese la fecha" />
-                  <Input type="text" label="Ofrendas" autoComplete="nope" placeholder="Ingrese las ofrendas" />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="success" onPress={onClose}>
-                  Añadir
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Cerrar
-                </Button>
-              </ModalFooter>
-            </>
+          {loading ? (
+            <h1>Cargando...</h1>
+          ) : (
+            (onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">Retiros de {personSelected?.nombre ?? ""}</ModalHeader>
+                <ModalBody>
+                  <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
+                    <Select
+                      label="Retiro"
+                      variant="bordered"
+                      placeholder="Seleccione un retiro"
+                      selectedKeys={valueRetiro}
+                      className="max-w-xs"
+                      onSelectionChange={setValueRetiro}
+                    >
+                      {resultadosRetiros.map((retiro) => (
+                        <SelectItem key={retiro?._id} value={retiro?.nombreRetiro}>
+                          {retiro.nombreRetiro}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                    <Input
+                      type="Date"
+                      label="Ingrese la fecha"
+                      autoComplete="nope"
+                      placeholder="Ingrese la fecha"
+                      onChange={(e) => setValueFecha(e.target.value)}
+                    />
+                    <Input
+                      type="text"
+                      label="Ofrendas"
+                      autoComplete="nope"
+                      placeholder="Ingrese las ofrendas"
+                      onChange={(e) => setValueOfrendas(e.target.value)}
+                    />
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="success" onPress={onSubmitRetiros}>
+                    Añadir
+                  </Button>
+                  <Button color="primary" onPress={onClose}>
+                    Cerrar
+                  </Button>
+                </ModalFooter>
+              </>
+            )
           )}
         </ModalContent>
       </Modal>
