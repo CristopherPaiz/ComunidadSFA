@@ -37,7 +37,20 @@ router.post("/retiro/add", async (req, res) => {
 // ======= obtener todos los retiros =======
 router.get("/retiro/getall", async (req, res) => {
   try {
-    const data = await Retiro.find();
+    const data = await Retiro.find().sort({ nombreRetiro: 1 });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los Retiros",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener todos los retiros =======
+router.get("/retiro/getallname", async (req, res) => {
+  try {
+    const data = await Retiro.find().sort({ nombreRetiro: 1 }).select("nombreRetiro _id");
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({

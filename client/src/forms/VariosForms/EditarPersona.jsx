@@ -1,11 +1,31 @@
 import React, { useState } from "react";
-import { Input, Button, CheckboxGroup, Checkbox } from "@nextui-org/react";
-import { useLocation, Navigate, useNavigate } from "react-router-dom";
+import {
+  Input,
+  Button,
+  CheckboxGroup,
+  Checkbox,
+  Textarea,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  Select,
+  SelectItem,
+} from "@nextui-org/react";
+import { useLocation, Navigate } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import API_URL from "../../config";
 
 const EditarPersona = () => {
-  const navigate = useNavigate();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [loading, setLoading] = useState(false);
+
+  const [resultadosRetiros, setResultadosRetiros] = useState([]);
+  const [valueRetiro, setValueRetiro] = React.useState(new Set([]));
+
   const location = useLocation();
 
   const { personSelected } = location.state;
@@ -13,8 +33,6 @@ const EditarPersona = () => {
   if (!location.state) {
     return <Navigate to={"/comunidad"} />;
   }
-
-  console.log(personSelected);
 
   const tipo = ["Pueblo", "Servidor", "Subcoordinador", "Coordinador", "Otro"];
   const [selectedTipo, setSelectedTipo] = useState(personSelected.tipo);
@@ -24,6 +42,8 @@ const EditarPersona = () => {
   };
   //////////////////////////////////////////////////////////////////////////////
   const [selected, setSelected] = React.useState(personSelected.dones);
+  const [retirosActualizados, setRetirosActualizados] = useState([...personSelected.retiros]);
+  const [crecimientosActualizados, setCrecimientosActualizados] = useState([...personSelected.crecimientos]);
 
   // Paso 1: Agregar estado para seguir los datos actualizados del cliente
   const [datosPersonaActualizados, setDatosPersonaActualizados] = useState({
@@ -38,32 +58,64 @@ const EditarPersona = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleSubmit = () => {
-    console.log(datosPersonaActualizados);
-  };
+  // fetch para obtener los retiros
+  const handleBuscar = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/retiro/getallname`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        console.log("Error al filtrar a las personas");
+        throw new Error("Error al filtrar a las personas", {});
+      }
 
-  const handleFechaChange = (index, newDate) => {
-    const updatedCrecimientos = [...datosPersonaActualizados.crecimientos];
-    updatedCrecimientos[index].fecha = newDate;
-    setDatosPersonaActualizados({
-      ...datosPersonaActualizados,
-      crecimientos: updatedCrecimientos,
-    });
-  };
-
-  const handleCuotaChange = (index, newCuotas) => {
-    const updatedCrecimientos = [...datosPersonaActualizados.crecimientos];
-
-    if (newCuotas === "") {
-      updatedCrecimientos[index].cuota = [];
-    } else {
-      updatedCrecimientos[index].cuota = newCuotas.split(",").map((cuota) => cuota.trim());
+      const data = await response.json();
+      console.log(data);
+      setResultadosRetiros(data);
+      setLoading(false);
+      onOpen();
+    } catch (error) {
+      setLoading(false);
     }
+  };
 
-    setDatosPersonaActualizados({
+  const handleSubmit = () => {
+    const datosfinales = {
       ...datosPersonaActualizados,
-      crecimientos: updatedCrecimientos,
-    });
+      retiros: retirosActualizados,
+      crecimientos: crecimientosActualizados,
+    };
+
+    console.log(datosfinales);
+  };
+
+  const handleRetiroFechaChange = (index, newValue) => {
+    const updatedRetiros = [...retirosActualizados];
+    updatedRetiros[index].fecha = newValue;
+    setRetirosActualizados(updatedRetiros);
+  };
+
+  const handleCrecimientoFechaChange = (index, newValue) => {
+    const updatedCrecimientos = [...crecimientosActualizados];
+    updatedCrecimientos[index].fecha = newValue;
+    setCrecimientosActualizados(updatedCrecimientos);
+  };
+
+  const handleRetiroCuotasChange = (index, newCuotas) => {
+    const updatedRetiros = [...retirosActualizados];
+    updatedRetiros[index].cuota = newCuotas.split(", ");
+    setRetirosActualizados(updatedRetiros);
+  };
+
+  const handleCrecimientoCuotasChange = (index, newCuotas) => {
+    const updatedCrecimientos = [...crecimientosActualizados];
+    updatedCrecimientos[index].cuota = newCuotas.split(", ");
+    setCrecimientosActualizados(updatedCrecimientos);
   };
 
   return (
@@ -71,8 +123,8 @@ const EditarPersona = () => {
       <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
         Editar Hermano
       </h2>
-      <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto sm:w-3/5 ">
-        <p className="font-bold text-[18px] sm:hidden -mb-2">Seleccione el tipo de persona:</p>
+      <div className="grid gap-6 mb-6 md:grid-cols-1 w-11/12 m-auto sm:w-5/12 ">
+        <p className="font-bold text-[18px] -mb-2">Seleccione el tipo de persona:</p>
         <Dropdown options={tipo} onChange={handleSelectTipo} value={selectedTipo} />
         <Input
           type="text"
@@ -132,9 +184,9 @@ const EditarPersona = () => {
           </CheckboxGroup>
           <p className="text-default-500 text-small">Seleccionado: {selected.join(", ")}</p>
         </div>
-        <p className="font-bold sm:hidden -mb-2">Lista de Retiros</p>
-        <div className="container mx-auto">
-          <table className="table-auto w-full">
+        <p className="font-bold -mb-2">Lista de Retiros</p>
+        <div className="container w-full overflow-scroll sm:flex sm:overflow-auto">
+          <table className="table-auto">
             <thead>
               <tr>
                 <th className="border px-4 py-2 bg-slate-200">Nombre</th>
@@ -143,44 +195,34 @@ const EditarPersona = () => {
               </tr>
             </thead>
             <tbody>
-              {datosPersonaActualizados?.retiros?.map((item, index) => (
-                <tr key={item?._id}>
-                  <td contentEditable className="border px-4 py-2">
-                    {item?.idretiro?.nombreRetiro ?? ""}
+              {datosPersonaActualizados.retiros.map((item, index) => (
+                <tr key={item._id}>
+                  <td className="border px-4 py-2">{item.idretiro.nombreRetiro}</td>
+                  <td className="border px-4 py-2">
+                    <Input
+                      type="Date"
+                      value={formatfecha(item.fecha)}
+                      onChange={(e) => handleRetiroFechaChange(index, e.target.value)}
+                    />
                   </td>
-                  <td contentEditable className="border px-4 py-2">
-                    {formatfecha(item?.fecha)}
-                  </td>
-                  <td
-                    className="border px-4 py-2"
-                    contentEditable
-                    type="number"
-                    onChange={(e) => {
-                      const newCuota = e.target.textContent.split(",").map((val) => parseInt(val.trim(), 10));
-                      const updatedRetiros = [...datosPersonaActualizados.retiros];
-                      updatedRetiros[index] = {
-                        ...updatedRetiros[index],
-                        cuota: newCuota,
-                      };
-                      setDatosPersonaActualizados({
-                        ...datosPersonaActualizados,
-                        retiros: updatedRetiros,
-                      });
-                    }}
-                  >
-                    {item?.cuota?.join(", ")}
+                  <td className="border px-4 py-2">
+                    <Textarea
+                      type="text"
+                      value={item.cuota.join(", ")}
+                      onChange={(e) => handleRetiroCuotasChange(index, e.target.value)}
+                    />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <Button color="primary" className="sm:h-13">
+        <Button color="primary" className="sm:h-13" onClick={handleBuscar}>
           Ingresar un nuevo retiro
         </Button>
-        <p className="font-bold text-[18px] sm:hidden -mb-2">Lista de Crecimientos / cursos</p>
-        <div className="container mx-auto">
-          <table className="table-auto w-full">
+        <p className="font-bold text-[18px] -mb-2">Lista de Crecimientos / cursos</p>
+        <div className="container w-full overflow-scroll sm:flex sm:overflow-auto">
+          <table className="table-auto">
             <thead>
               <tr>
                 <th className="border px-4 py-2 bg-slate-200">Nombre</th>
@@ -193,13 +235,17 @@ const EditarPersona = () => {
                 <tr key={item._id}>
                   <td className="border px-4 py-2">{item.idcursocreci.nombreCursoCreci}</td>
                   <td className="border px-4 py-2">
-                    <input type="date" value={item.fecha} onChange={(e) => handleFechaChange(index, e.target.value)} />
+                    <Input
+                      type="Date"
+                      value={formatfecha(item.fecha)}
+                      onChange={(e) => handleCrecimientoFechaChange(index, e.target.value)}
+                    />
                   </td>
                   <td className="border px-4 py-2">
-                    <input
+                    <Textarea
                       type="text"
                       value={item.cuota.join(", ")}
-                      onChange={(e) => handleCuotaChange(index, e.target.value)}
+                      onChange={(e) => handleCrecimientoCuotasChange(index, e.target.value)}
                     />
                   </td>
                 </tr>
@@ -276,7 +322,44 @@ const EditarPersona = () => {
           }
         />
       </div>
-      <Button color="success" className="w-11/12 m-auto sm:w-3/5" onClick={handleSubmit}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Retiros de {personSelected?.nombre ?? ""}</ModalHeader>
+              <ModalBody>
+                <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
+                  <Select
+                    label="Retiro"
+                    variant="bordered"
+                    placeholder="Seleccione un retiro"
+                    selectedKeys={valueRetiro}
+                    className="max-w-xs"
+                    onSelectionChange={setValueRetiro}
+                  >
+                    {resultadosRetiros.map((retiro) => (
+                      <SelectItem key={retiro?._id} value={retiro?.nombreRetiro}>
+                        {retiro.nombreRetiro}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                  <Input type="Date" label="Ingrese la fecha" autoComplete="nope" placeholder="Ingrese la fecha" />
+                  <Input type="text" label="Ofrendas" autoComplete="nope" placeholder="Ingrese las ofrendas" />
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="success" onPress={onClose}>
+                  Añadir
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <Button color="success" className="w-11/12 m-auto sm:w-5/12" onClick={handleSubmit}>
         Actualizar Datos
       </Button>
     </div>
