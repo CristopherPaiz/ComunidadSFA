@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const personaSchema = new Schema({
   nuevo: Boolean,
-  tipo: String,
+  tipo: {
+    type: String,
+    default: "Pueblo",
+  },
   nombre: String,
   telefono: String,
   trabajaen: String,

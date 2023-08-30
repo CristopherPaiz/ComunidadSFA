@@ -87,6 +87,21 @@ router.get("/persona/getbyid/:id", async (req, res) => {
   }
 });
 
+// ======= obtener una actividad comunidad por su id =======
+router.post("/persona/getbycomunidad", async (req, res) => {
+  try {
+    const { idcomunidad } = req.body;
+
+    const personas = await Persona.find({ idcomunidad }).sort({ nombre: 1 }).exec();
+    res.status(200).json(personas);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo realizar la búsqueda de personas",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= actualizar una actividad comunidad por su id =======
 router.put("/persona/update/:id", async (req, res) => {
   try {
