@@ -91,7 +91,7 @@ const C_persona_buscar = () => {
     <>
       <Toaster />
       <div className="flex w-full flex-col mb-[20px] h-screen">
-        <h2 className=" text-3xl text-center font-extrabold leading-none tracking-tigh md:text-5xl lg:text-3xl dark:text-whited">
+        <h2 className="mt-4 text-3xl text-center font-extrabold leading-none tracking-tigh md:text-5xl lg:text-3xl dark:text-whited">
           Buscar persona
         </h2>
         <div className="grid gap-6 md:grid-cols-2 w-11/12 mx-auto my-6 sm:w-3/5 ">
@@ -159,6 +159,7 @@ const C_persona_buscar = () => {
                       <p className="text-md">
                         <b>Dones:</b> {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
                       </p>
+                      <p className="w-3/12"></p>
                       <p className="text-md">
                         <b> Tipo:</b> {persona?.tipo ?? ""}
                       </p>

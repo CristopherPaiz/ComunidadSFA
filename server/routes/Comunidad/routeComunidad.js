@@ -44,6 +44,19 @@ router.get("/comunidad/getall", async (req, res) => {
   }
 });
 
+// ======= obtener todas las comunidades =======
+router.get("/comunidad/getallname", async (req, res) => {
+  try {
+    const data = await ComunidadModel.find().sort({ nombreComunidad: 1 }).select("nombreComunidad _id");
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener las Comunidades o Células",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener una comunidad por su id =======
 router.get("/comunidad/getbyid/:id", async (req, res) => {
   try {

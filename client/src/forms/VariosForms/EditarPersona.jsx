@@ -214,9 +214,11 @@ const EditarPersona = () => {
         credentials: "include", // Asegúrate de incluir esta opción
       });
       if (!response.ok) {
+        toast.error("Error al añadir el retiro", {});
         throw new Error("Error al añadir retiros", {});
       }
       const data = await response.json();
+      toast.success("Se añadió el retiro correctamente", {});
       setMensaje(
         "Parece que añadiste algunos retiros, estos se verán reflejados al guardar los datos, salir y volver a buscar a la persona"
       );
@@ -255,9 +257,11 @@ const EditarPersona = () => {
         credentials: "include", // Asegúrate de incluir esta opción
       });
       if (!response.ok) {
+        toast.error("Error al añadir el crecimiento o curso", {});
         throw new Error("Error al añadir creciemientos o cursos", {});
       }
       const data = await response.json();
+      toast.success("Se añadió el crecimiento o curso correctamente", {});
       setMensaje(
         "Parece que añadiste algunos Crecimientos, estos se verán reflejados al guardar los datos, salir y volver a buscar a la persona"
       );
@@ -496,9 +500,9 @@ const EditarPersona = () => {
                         label="Retiro"
                         variant="bordered"
                         placeholder="Seleccione un retiro"
-                        selectedKeys={valueCrecimiento}
+                        selectedKeys={valueRetiro}
                         className="max-w-xs"
-                        onSelectionChange={setValueCrecimiento}
+                        onSelectionChange={setValueRetiro}
                       >
                         {resultadosRetiros.map((retiro) => (
                           <SelectItem key={retiro?._id} value={retiro?.nombreRetiro}>
