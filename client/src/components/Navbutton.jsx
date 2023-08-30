@@ -12,6 +12,7 @@ import C_comunidad_buscar from "../forms/Comunidad/Comunidades/C_comunidad_busca
 import A_nueva from "../forms/Comunidad/Actividades/A_nueva";
 import A_buscar from "../forms/Comunidad/Actividades/A_buscar";
 import CardExample from "../forms/CardExample";
+import R_buscar_retiro from "../forms/Comunidad/Retiros/R_buscar_retiro";
 
 const Navbutton = () => {
   const [selected, setSelected] = useState("");
@@ -64,19 +65,14 @@ const Navbutton = () => {
                 selectedKey={selectedRetiros}
                 onSelectionChange={setSelectedRetiros}
               >
-                <Tab key="retirosLista" title="Todos los retiros">
-                  <CardExample
-                    img={"https://ddealcala.com/wp-content/uploads/2022/03/img-20220311-wa0000-1229x1536.jpg"}
-                    title={"Nombre retiro"}
-                    txt={"Información del retiro"}
-                    subtxt={"Aquí van otros datos"}
-                  />
+                <Tab key="retiros_buscar" title="Buscar">
+                  <R_buscar />
                 </Tab>
                 <Tab key="retiros_nuevo" title="Nuevo">
                   <R_nuevo />
                 </Tab>
-                <Tab key="retiros_buscar" title="Buscar">
-                  <R_buscar />
+                <Tab key="retirosLista" title="Por retiro">
+                  <R_buscar_retiro />
                 </Tab>
               </Tabs>
             </CardBody>
