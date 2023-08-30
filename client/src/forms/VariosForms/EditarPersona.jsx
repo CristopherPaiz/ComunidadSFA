@@ -14,7 +14,7 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import API_URL from "../../config";
@@ -24,8 +24,10 @@ const EditarPersona = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState(false);
   const [mensaje, setMensaje] = useState(null);
+  const [tipodeModal, setTipodeModal] = useState("");
 
   const [resultadosRetiros, setResultadosRetiros] = useState([]);
+  const [resultadosCrecimientos, setResultadosCrecimientos] = useState([]);
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,7 +35,6 @@ const EditarPersona = () => {
   const [valueRetiro, setValueRetiro] = React.useState(new Set([]));
   const [valueFecha, setValueFecha] = React.useState("");
   const [valueOfrendas, setValueOfrendas] = React.useState("");
-  const [finalRetiroNuevo, setFinalRetiroNuevo] = useState({});
 
   //captura de datos para crecimientos
   const [valueCrecimiento, setValueCrecimiento] = React.useState(new Set([]));
@@ -43,14 +44,13 @@ const EditarPersona = () => {
   //////////////////////////////////////////////////////////////////////////////////////////
 
   const location = useLocation();
-
   const { personSelected } = location.state;
 
   if (!location.state) {
     return <Navigate to={"/comunidad"} />;
   }
 
-  // console.log(personSelected);
+  const navigate = useNavigate();
 
   const tipo = ["Pueblo", "Servidor", "Subcoordinador", "Coordinador", "Otro"];
   const [selectedTipo, setSelectedTipo] = useState(personSelected.tipo);
@@ -78,6 +78,7 @@ const EditarPersona = () => {
 
   // fetch para obtener los retiros
   const handleBuscar = async () => {
+    setTipodeModal("retiro");
     onOpen();
     setLoading(true);
     try {
@@ -95,7 +96,33 @@ const EditarPersona = () => {
 
       const data = await response.json();
       console.log(data);
-      setResultadosRetiros(data);
+      setResultadosCrecimientos(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  const handleBuscarCrecimiento = async () => {
+    setTipodeModal("crecimiento");
+    onOpen();
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/cursocreci/getallname`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        console.log("Error al obtener los crecimientos o cursos");
+        throw new Error("Error al filtrar los creciemietos o cursos", {});
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setResultadosCrecimientos(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -126,6 +153,9 @@ const EditarPersona = () => {
       }
       const data = await response.json();
       console.log(data);
+      toast.success("Se actualizaron los datos correctamente", {});
+      await new Promise((resolve) => setTimeout(resolve, 1300));
+      navigate("/comunidad");
     } catch (error) {
       console.log(error);
     }
@@ -202,11 +232,58 @@ const EditarPersona = () => {
     }
   };
 
+  //cuando se agrega un crecimiento
+  const onSubmitCrecimientos = async () => {
+    console.log(valueCrecimiento);
+    const crecimientosFinal = {
+      nuevoCrecimiento: {
+        idcursocreci: valueCrecimiento.currentKey,
+        finalizado: true,
+        fecha: valueFecha,
+        cuota: valueOfrendas.split(", "),
+      },
+    };
+    //push nuevo retiro a la lista de retiros
+    const updatedCrecimientos = [...crecimientosActualizados];
+    updatedCrecimientos.push(crecimientosFinal);
+    setCrecimientosActualizados(updatedCrecimientos);
+    console.log(updatedCrecimientos);
+    onOpenChange();
+    try {
+      const response = await fetch(`${API_URL}/persona/addcursocreci/${datosPersonaActualizados._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nuevoCrecimiento: {
+            idcursocreci: valueCrecimiento.currentKey,
+            finalizado: true,
+            fecha: valueFechaCrecimiento,
+            cuota: valueOfrendasCrecimiento.split(", "),
+          },
+        }),
+        credentials: "include", // Asegúrate de incluir esta opción
+      });
+      if (!response.ok) {
+        throw new Error("Error al añadir creciemientos o cursos", {});
+      }
+      const data = await response.json();
+      console.log(data);
+      setMensaje(
+        "Parece que añadiste algunos Crecimientos, estos se verán reflejados al guardar los datos, salir y volver a buscar a la persona"
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //useEffect para escuchar los cambios de retirosActualizados y crecimientosActualizados
-  useEffect(() => {}, [retirosActualizados, mensaje]);
+  useEffect(() => {}, [retirosActualizados, mensaje, crecimientosActualizados]);
 
   return (
     <div className="flex w-full flex-col mb-10 p-6">
+      <Toaster />
       <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
         Editar Hermano
       </h2>
@@ -303,11 +380,11 @@ const EditarPersona = () => {
               ))}
             </tbody>
           </table>
-          {mensaje !== null ? <p className="text-danger-400 text-xl text-center font-extrabold">{mensaje}</p> : ""}
         </div>
         <Button color="primary" className="sm:h-13" onClick={handleBuscar}>
           Ingresar un nuevo retiro
         </Button>
+        {mensaje !== null ? <p className="text-danger-400 text-xl text-center font-extrabold">{mensaje}</p> : ""}
         <p className="font-bold text-[18px] -mb-2">Lista de Crecimientos / cursos</p>
         <div className="container w-full overflow-scroll sm:flex sm:overflow-auto">
           <table className="table-auto">
@@ -341,7 +418,7 @@ const EditarPersona = () => {
             </tbody>
           </table>
         </div>
-        <Button color="primary" className="sm:h-13">
+        <Button color="primary" className="sm:h-13" onClick={handleBuscarCrecimiento}>
           Ingresar un nuevo crecimiento / curso
         </Button>
         <p className="font-bold sm:hidden -m-2">Fecha primer retiro</p>
@@ -411,62 +488,125 @@ const EditarPersona = () => {
         />
       </div>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
-        <ModalContent>
-          {loading ? (
-            <h1>Cargando...</h1>
-          ) : (
-            (onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">Retiros de {personSelected?.nombre ?? ""}</ModalHeader>
-                <ModalBody>
-                  <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
-                    <Select
-                      label="Retiro"
-                      variant="bordered"
-                      placeholder="Seleccione un retiro"
-                      selectedKeys={valueRetiro}
-                      className="max-w-xs"
-                      onSelectionChange={setValueRetiro}
-                    >
-                      {resultadosRetiros.map((retiro) => (
-                        <SelectItem key={retiro?._id} value={retiro?.nombreRetiro}>
-                          {retiro.nombreRetiro}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                    <Input
-                      type="Date"
-                      label="Ingrese la fecha"
-                      autoComplete="nope"
-                      placeholder="Ingrese la fecha"
-                      onChange={(e) => setValueFecha(e.target.value)}
-                    />
-                    <Input
-                      type="text"
-                      label="Ofrendas"
-                      autoComplete="nope"
-                      placeholder="Ingrese las ofrendas"
-                      onChange={(e) => setValueOfrendas(e.target.value)}
-                    />
-                  </div>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="success" onPress={onSubmitRetiros}>
-                    Añadir
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Cerrar
-                  </Button>
-                </ModalFooter>
-              </>
-            )
-          )}
-        </ModalContent>
-      </Modal>
-      <Button color="success" className="w-11/12 m-auto sm:w-5/12" onClick={handleSubmit}>
-        Actualizar Datos
-      </Button>
+      {tipodeModal === "retiro" ? (
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+          <ModalContent>
+            {loading ? (
+              <h1>Cargando...</h1>
+            ) : (
+              (onClose) => (
+                <>
+                  <ModalHeader className="flex flex-col gap-1">Retiros de {personSelected?.nombre ?? ""}</ModalHeader>
+                  <ModalBody>
+                    <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
+                      <Select
+                        label="Retiro"
+                        variant="bordered"
+                        placeholder="Seleccione un retiro"
+                        selectedKeys={valueCrecimiento}
+                        className="max-w-xs"
+                        onSelectionChange={setValueCrecimiento}
+                      >
+                        {resultadosRetiros.map((retiro) => (
+                          <SelectItem key={retiro?._id} value={retiro?.nombreRetiro}>
+                            {retiro?.nombreRetiro ?? ""}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                      <Input
+                        type="Date"
+                        label="Ingrese la fecha"
+                        autoComplete="nope"
+                        placeholder="Ingrese la fecha"
+                        onChange={(e) => setValueFecha(e.target.value)}
+                      />
+                      <Input
+                        type="text"
+                        label="Ofrendas"
+                        autoComplete="nope"
+                        placeholder="Ingrese las ofrendas"
+                        onChange={(e) => setValueOfrendas(e.target.value)}
+                      />
+                    </div>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="success" onPress={onSubmitRetiros}>
+                      Añadir
+                    </Button>
+                    <Button color="primary" onPress={onClose}>
+                      Cerrar
+                    </Button>
+                  </ModalFooter>
+                </>
+              )
+            )}
+          </ModalContent>
+        </Modal>
+      ) : (
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+          <ModalContent>
+            {loading ? (
+              <h1>Cargando...</h1>
+            ) : (
+              (onClose) => (
+                <>
+                  <ModalHeader className="flex flex-col gap-1">
+                    Cursos o crecimientos de {personSelected?.nombre ?? ""}
+                  </ModalHeader>
+                  <ModalBody>
+                    <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
+                      <Select
+                        label="Curso / Crecimiento"
+                        variant="bordered"
+                        placeholder="Seleccione un curso o crecimiento"
+                        selectedKeys={valueCrecimiento}
+                        className="max-w-xs"
+                        onSelectionChange={setValueCrecimiento}
+                      >
+                        {resultadosCrecimientos.map((curso) => (
+                          <SelectItem key={curso?._id} value={curso?.nombreCursoCreci}>
+                            {curso?.nombreCursoCreci ?? ""}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                      <Input
+                        type="Date"
+                        label="Ingrese la fecha"
+                        autoComplete="nope"
+                        placeholder="Ingrese la fecha"
+                        onChange={(e) => setValueFechaCrecimiento(e.target.value)}
+                      />
+                      <Input
+                        type="text"
+                        label="Ofrendas"
+                        autoComplete="nope"
+                        placeholder="Ingrese las ofrendas"
+                        onChange={(e) => setValueOfrendasCrecimiento(e.target.value)}
+                      />
+                    </div>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="success" onPress={onSubmitCrecimientos}>
+                      Añadir
+                    </Button>
+                    <Button color="primary" onPress={onClose}>
+                      Cerrar
+                    </Button>
+                  </ModalFooter>
+                </>
+              )
+            )}
+          </ModalContent>
+        </Modal>
+      )}
+
+      {mensaje !== null ? (
+        ""
+      ) : (
+        <Button color="success" className="w-11/12 m-auto sm:w-5/12" onClick={handleSubmit}>
+          Actualizar Datos
+        </Button>
+      )}
     </div>
   );
 };

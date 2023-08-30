@@ -57,6 +57,19 @@ router.get("/cursocreci/getall", async (req, res) => {
   }
 });
 
+// ======= obtener todos los retiros =======
+router.get("/cursocreci/getallname", async (req, res) => {
+  try {
+    const data = await CursoCreci.find().sort({ nombreCursoCreci: 1 }).select("nombreCursoCreci _id");
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los Crecimientos",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener un curso o crecimiento por su id =======
 router.get("/cursocreci/getbyid/:id", async (req, res) => {
   try {
