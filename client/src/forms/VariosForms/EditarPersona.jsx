@@ -279,7 +279,12 @@ const EditarPersona = () => {
   };
 
   //useEffect para escuchar los cambios de retirosActualizados y crecimientosActualizados
-  useEffect(() => {}, [retirosActualizados, mensaje, crecimientosActualizados]);
+  useEffect(() => {
+    setDatosPersonaActualizados({
+      ...datosPersonaActualizados,
+      dones: selected,
+    });
+  }, [retirosActualizados, mensaje, crecimientosActualizados, selected]);
 
   return (
     <div className="flex w-full flex-col mb-10 p-6">
