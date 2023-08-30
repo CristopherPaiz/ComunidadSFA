@@ -95,8 +95,7 @@ const EditarPersona = () => {
       }
 
       const data = await response.json();
-      console.log(data);
-      setResultadosCrecimientos(data);
+      setResultadosRetiros(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -121,7 +120,6 @@ const EditarPersona = () => {
       }
 
       const data = await response.json();
-      console.log(data);
       setResultadosCrecimientos(data);
       setLoading(false);
     } catch (error) {
@@ -136,7 +134,6 @@ const EditarPersona = () => {
       crecimientos: crecimientosActualizados,
     };
 
-    // console.log(datosfinales);
     try {
       const response = await fetch(`${API_URL}/persona/update/${datosPersonaActualizados._id}`, {
         method: "PUT",
@@ -152,7 +149,6 @@ const EditarPersona = () => {
         throw new Error("Error al añadir retiros", {});
       }
       const data = await response.json();
-      console.log(data);
       toast.success("Se actualizaron los datos correctamente", {});
       await new Promise((resolve) => setTimeout(resolve, 1300));
       navigate("/comunidad");
@@ -188,7 +184,6 @@ const EditarPersona = () => {
 
   //cuando se agrega un retiro
   const onSubmitRetiros = async () => {
-    console.log(valueRetiro);
     const retiroFinal = {
       nuevoRetiro: {
         idretiro: valueRetiro.currentKey,
@@ -201,7 +196,6 @@ const EditarPersona = () => {
     const updatedRetiros = [...retirosActualizados];
     updatedRetiros.push(retiroFinal);
     setRetirosActualizados(updatedRetiros);
-    console.log(updatedRetiros);
     onOpenChange();
     try {
       const response = await fetch(`${API_URL}/persona/addretiro/${datosPersonaActualizados._id}`, {
@@ -223,18 +217,14 @@ const EditarPersona = () => {
         throw new Error("Error al añadir retiros", {});
       }
       const data = await response.json();
-      console.log(data);
       setMensaje(
         "Parece que añadiste algunos retiros, estos se verán reflejados al guardar los datos, salir y volver a buscar a la persona"
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   //cuando se agrega un crecimiento
   const onSubmitCrecimientos = async () => {
-    console.log(valueCrecimiento);
     const crecimientosFinal = {
       nuevoCrecimiento: {
         idcursocreci: valueCrecimiento.currentKey,
@@ -247,7 +237,6 @@ const EditarPersona = () => {
     const updatedCrecimientos = [...crecimientosActualizados];
     updatedCrecimientos.push(crecimientosFinal);
     setCrecimientosActualizados(updatedCrecimientos);
-    console.log(updatedCrecimientos);
     onOpenChange();
     try {
       const response = await fetch(`${API_URL}/persona/addcursocreci/${datosPersonaActualizados._id}`, {
@@ -269,7 +258,6 @@ const EditarPersona = () => {
         throw new Error("Error al añadir creciemientos o cursos", {});
       }
       const data = await response.json();
-      console.log(data);
       setMensaje(
         "Parece que añadiste algunos Crecimientos, estos se verán reflejados al guardar los datos, salir y volver a buscar a la persona"
       );
@@ -289,7 +277,7 @@ const EditarPersona = () => {
   return (
     <div className="flex w-full flex-col mb-10 p-6">
       <Toaster />
-      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
+      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-whited">
         Editar Hermano
       </h2>
       <div className="grid gap-6 mb-6 md:grid-cols-1 w-11/12 m-auto sm:w-5/12 ">
@@ -358,9 +346,9 @@ const EditarPersona = () => {
           <table className="table-auto">
             <thead>
               <tr>
-                <th className="border px-4 py-2 bg-slate-200">Nombre</th>
-                <th className="border px-4 py-2 bg-slate-200">Fecha</th>
-                <th className="border px-4 py-2 bg-slate-200">Ofrendas</th>
+                <th className="border px-4 py-2  bg-slate-200 dark:bg-primary-600">Nombre</th>
+                <th className="border px-4 py-2  bg-slate-200 dark:bg-primary-600">Fecha</th>
+                <th className="border px-4 py-2  bg-slate-200 dark:bg-primary-600">Ofrendas</th>
               </tr>
             </thead>
             <tbody>
@@ -395,9 +383,9 @@ const EditarPersona = () => {
           <table className="table-auto">
             <thead>
               <tr>
-                <th className="border px-4 py-2 bg-slate-200">Nombre</th>
-                <th className="border px-4 py-2 bg-slate-200">Fecha</th>
-                <th className="border px-4 py-2 bg-slate-200">Ofrendas</th>
+                <th className="border px-4 py-2 bg-slate-200 dark:bg-primary-600">Nombre</th>
+                <th className="border px-4 py-2 bg-slate-200 dark:bg-primary-600">Fecha</th>
+                <th className="border px-4 py-2 bg-slate-200 dark:bg-primary-600">Ofrendas</th>
               </tr>
             </thead>
             <tbody>

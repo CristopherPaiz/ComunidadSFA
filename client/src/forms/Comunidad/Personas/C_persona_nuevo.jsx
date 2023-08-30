@@ -19,101 +19,39 @@ const C_persona_nuevo = () => {
         Nuevo Hermano
       </h2>
       <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto sm:w-3/5 ">
-        <p className="font-bold text-[18px] sm:hidden -mb-2">
-          Seleccione el tipo de persona:
-        </p>
-        <Dropdown
-          options={tipo}
-          onChange={handleSelectTipo}
-          value={selectedTipo}
-        />
-        <Input
-          type="text"
-          label="Nombre completo"
-          placeholder="Ingrese el nombre completo"
-        />
-        <Input
-          type="text"
-          label="Teléfono"
-          placeholder="Ingrese el número de teléfono"
-        />
+        <p className="font-bold text-[18px] sm:hidden -mb-2">Seleccione el tipo de persona:</p>
+        <Dropdown options={tipo} onChange={handleSelectTipo} value={selectedTipo} />
+        <Input type="text" label="Nombre completo" placeholder="Ingrese el nombre completo" />
+        <Input type="text" label="Teléfono" placeholder="Ingrese el número de teléfono" />
         <Input type="text" label="Trabaja en..." placeholder="Trabajo" />
-        <Input
-          type="text"
-          label="Dirección"
-          placeholder="Ingrese una dirección"
-        />
+        <Input type="text" label="Dirección" placeholder="Ingrese una dirección" />
         <p className="font-bold sm:hidden -mb-2">Seleccione el tipo de Dones</p>
         <div className="flex flex-col gap-3">
-          <CheckboxGroup
-            color="primary"
-            value={selected}
-            orientation="horizontal"
-            onValueChange={setSelected}
-          >
+          <CheckboxGroup color="primary" value={selected} orientation="horizontal" onValueChange={setSelected}>
             <Checkbox value="Predicador">Predicador</Checkbox>
             <Checkbox value="Avivador">Avivador</Checkbox>
             <Checkbox value="Músico">Músico</Checkbox>
             <Checkbox value="Orador">Orador</Checkbox>
           </CheckboxGroup>
-          <p className="text-default-500 text-small">
-            Seleccionado: {selected.join(", ")}
-          </p>
+          <p className="text-default-500 text-small">Seleccionado: {selected.join(", ")}</p>
         </div>
-        <p className="font-bold sm:hidden -mb-2">Lista de Retiros</p>
-        <Button color="primary" className="sm:h-13">
-          Ingresar un nuevo retiro
-        </Button>
-        <p className="font-bold text-[18px] sm:hidden -mb-2">
-          Lista de Crecimientos / cursos
+        <p className="font-bold sm:hidden -mb-2">Lista de Retiros, cursos y crecimientos</p>
+        <p className="text-danger sm:hidden my-2">
+          Para agregar retiros, cursos y crecimientos, primero cree a la persona y luego búsquela para poder añadirle
+          los retiros, cursos y crecimientos
         </p>
-        <Button color="primary" className="sm:h-13">
-          Ingresar un nuevo crecimiento / curso
-        </Button>
         <p className="font-bold sm:hidden -m-2">Fecha primer retiro</p>
-        <Input
-          type="Date"
-          label="Fecha primer retiro"
-          placeholder="Ingrese una dirección"
-        />
-        <p className="font-bold sm:hidden -m-2">
-          Fecha primer crecimiento / curso
-        </p>
-        <Input
-          type="Date"
-          label="Fecha Primer crecimiento / curso"
-          placeholder="Ingrese una dirección"
-        />
+        <Input type="Date" label="Fecha primer retiro" placeholder="Ingrese una dirección" />
+        <p className="font-bold sm:hidden -m-2">Fecha primer crecimiento / curso</p>
+        <Input type="Date" label="Fecha Primer crecimiento / curso" placeholder="Ingrese una dirección" />
         <p className="font-bold sm:hidden -m-2">Fecha inició a ser Servidor</p>
-        <Input
-          type="Date"
-          label="Fecha inició a ser Servidor"
-          placeholder="Ingrese un servidor"
-        />
-        <p className="font-bold sm:hidden -m-2">
-          Fecha inició a ser Subcoordinador
-        </p>
-        <Input
-          type="Date"
-          label="Fecha inició a ser Subcoordinador"
-          placeholder="Ingrese un subcoordinador"
-        />
-        <p className="font-bold sm:hidden -m-2">
-          Fecha inició a ser Coordinador
-        </p>
-        <Input
-          type="Date"
-          label="Fecha inició a ser Coordinador"
-          placeholder="Ingrese una dirección"
-        />
-        <p className="font-bold text-[18px] sm:hidden -mb-2">
-          Lista de Ofrendas
-        </p>
-        <Button color="primary" className="sm:h-full">
-          Ingresar un nueva ofrenda
-        </Button>
+        <Input type="Date" label="Fecha inició a ser Servidor" placeholder="Ingrese un servidor" />
+        <p className="font-bold sm:hidden -m-2">Fecha inició a ser Subcoordinador</p>
+        <Input type="Date" label="Fecha inició a ser Subcoordinador" placeholder="Ingrese un subcoordinador" />
+        <p className="font-bold sm:hidden -m-2">Fecha inició a ser Coordinador</p>
+        <Input type="Date" label="Fecha inició a ser Coordinador" placeholder="Ingrese una dirección" />
       </div>
-      <Button color="success" className="w-11/12 m-auto sm:w-3/5">
+      <Button color="success" className="w-11/12 m-auto sm:w-3/5 text-white">
         Guardar
       </Button>
     </div>

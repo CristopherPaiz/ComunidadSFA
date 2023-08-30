@@ -39,19 +39,13 @@ const C_persona_comunidad = () => {
     setSelectedTipo(selected);
   };
   return (
-    <div className="flex w-full flex-col pb-[180px]">
-      <h2 className="my-4 text-2xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
+    <div className="flex w-full flex-col h-screen ">
+      <h2 className="my-4 text-2xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-whited">
         Filtrar por comunidad
       </h2>
-      <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto sm:w-3/5 ">
-        <p className="font-bold text-[18px] sm:hidden -mb-2">
-          Seleccione la comunidad:
-        </p>
-        <Dropdown
-          options={tipo}
-          onChange={handleSelectTipo}
-          value={selectedTipo}
-        />
+      <div className="grid mx-auto gap-6 md:grid-cols-1 w-11/12 sm:w-3/5 ">
+        <p className="font-bold text-[18px] sm:hidden -mb-2">Seleccione la comunidad:</p>
+        <Dropdown options={tipo} onChange={handleSelectTipo} value={selectedTipo} />
         <Button color="primary">Filtrar</Button>
       </div>
     </div>

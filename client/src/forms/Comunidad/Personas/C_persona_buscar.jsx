@@ -90,11 +90,11 @@ const C_persona_buscar = () => {
   return (
     <>
       <Toaster />
-      <div className="flex w-full flex-col mb-[20px]">
-        <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
+      <div className="flex w-full flex-col mb-[20px] h-screen">
+        <h2 className=" text-3xl text-center font-extrabold leading-none tracking-tigh md:text-5xl lg:text-3xl dark:text-whited">
           Buscar persona
         </h2>
-        <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto  sm:w-3/5 ">
+        <div className="grid gap-6 md:grid-cols-2 w-11/12 mx-auto my-6 sm:w-3/5 ">
           <Input
             type="text"
             label="Nombre o apellido"
@@ -119,10 +119,10 @@ const C_persona_buscar = () => {
             value={direccion}
             onChange={(e) => setDireccion(e.target.value)}
           />
-          <p className="p-0 -mb-5 -mt-2 sm:hidden">Tipo de don</p>
+          <p className="p-0 sm:hidden">Tipo de don</p>
           <Dropdown options={options} onChange={handleSelectChange} value={selectedOption} />
         </div>
-        <Button color="primary" className="w-11/12 sm:w-3/5 m-auto" onClick={handleBuscar}>
+        <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto" onClick={handleBuscar}>
           Filtrar
         </Button>
         <Divider className="my-5" />
@@ -157,8 +157,7 @@ const C_persona_buscar = () => {
                     <Divider />
                     <CardFooter>
                       <p className="text-md">
-                        <b>Dones:</b>{" "}
-                        {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
+                        <b>Dones:</b> {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
                       </p>
                       <p className="text-md">
                         <b> Tipo:</b> {persona?.tipo ?? ""}
@@ -207,9 +206,7 @@ const C_persona_buscar = () => {
                           <TableRow key="7">
                             <TableCell className="font-bold">Dones</TableCell>
                             <TableCell>
-                              {personSelected?.dones?.length > 0
-                                ? personSelected?.dones?.join(", ") ?? ""
-                                : "N/A"}
+                              {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
                             </TableCell>
                           </TableRow>
                           <TableRow key="8">
@@ -240,13 +237,9 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha primer retiro</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(
-                                    new Date(personSelected?.fechainicio),
-                                    "EEEE d 'de' MMMM 'de' yyyy",
-                                    {
-                                      locale: es,
-                                    }
-                                  )
+                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                    locale: es,
+                                  })
                                 : ""}
                             </TableCell>
                           </TableRow>
@@ -274,13 +267,9 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(
-                                    new Date(personSelected?.fechainicio),
-                                    "EEEE d 'de' MMMM 'de' yyyy",
-                                    {
-                                      locale: es,
-                                    }
-                                  )
+                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                    locale: es,
+                                  })
                                 : ""}
                             </TableCell>
                           </TableRow>
