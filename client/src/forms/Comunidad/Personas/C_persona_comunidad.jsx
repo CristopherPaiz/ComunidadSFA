@@ -55,7 +55,7 @@ const C_persona_comunidad = () => {
         credentials: "include",
       });
       if (!response.ok) {
-        console.log("Error al obtener las comunidades");
+        toast.error("Error al obtener la lista de comunidades");
         throw new Error("Error al filtrar las comunidades", {});
       }
 
@@ -90,8 +90,8 @@ const C_persona_comunidad = () => {
       const data = await response.json();
       setResultadosPersonas(data);
       setLoading(false);
-      console.log(data);
     } catch (error) {
+      toast.error("Error al filtrar las comunidades");
       setLoading(false);
       console.log(error);
     }
@@ -99,17 +99,18 @@ const C_persona_comunidad = () => {
 
   return (
     <div className="flex w-full flex-col h-screen ">
+      <Toaster />
       <h2 className="my-4 text-2xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-whited">
         Filtrar por comunidad
       </h2>
-      <div className="grid mx-auto gap-6 md:grid-cols-1 w-11/12 sm:w-3/5 ">
-        <p className="font-bold text-[18px] sm:hidden -mb-2">Seleccione la comunidad:</p>
+      <div className="grid mx-auto gap-6  w-11/12 sm:w-3/5 sm:grid-cols-2">
+        <p className="font-bold text-[18px] sm:hidden -mb-2 ">Seleccione la comunidad:</p>
         <Select
           label="Comunidad"
           variant="bordered"
           placeholder="Seleccione una Comunidad o Célula"
           selectedKeys={valueComunidad}
-          className="max-w-xs"
+          className="max-w-xs mx-auto"
           onSelectionChange={setValueComunidad}
         >
           {comunidades.length > 0 ? (
@@ -123,19 +124,21 @@ const C_persona_comunidad = () => {
           )}
         </Select>
 
-        <Button color="primary" onClick={handleBuscarPorComunidad}>
+        <Button color="primary" onClick={handleBuscarPorComunidad} className="sm:h-full">
           Filtrar
         </Button>
       </div>
+      <Divider className="my-5" />
+
       {loading ? (
         <Loading />
       ) : resultadosPersonas.length > 0 ? (
         <>
-          <div className="mt-7 flex w-full flex-row flex-wrap gap-4">
+          <div className="flex w-full flex-row flex-wrap gap-4 pb-5">
             {resultadosPersonas?.map((persona, idx) => (
               <div
                 key={idx}
-                className="m-auto min-w-[300px] max-w-[500px] sm:min-w-[500px] cursor-pointer border-black dark:border-white border-1 rounded-xl"
+                className="m-auto min-w-[300px] max-w-[500px] sm:min-w-[500px] cursor-pointer dark:border-white border-1 rounded-xl"
                 onClick={() => {
                   setPersonSelected(persona);
                   onOpen();
@@ -326,7 +329,7 @@ const C_persona_comunidad = () => {
           </Modal>
         </>
       ) : (
-        <p>No hay resultados</p>
+        <p className="mx-auto my-10">No hay resultados</p>
       )}
     </div>
   );

@@ -13,6 +13,7 @@ import {
   useDisclosure,
   Select,
   SelectItem,
+  Divider
 } from "@nextui-org/react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import Dropdown from "react-dropdown";
@@ -132,6 +133,7 @@ const EditarPersona = () => {
       ...datosPersonaActualizados,
       retiros: retirosActualizados,
       crecimientos: crecimientosActualizados,
+      tipo: selectedTipo.value,
     };
 
     try {

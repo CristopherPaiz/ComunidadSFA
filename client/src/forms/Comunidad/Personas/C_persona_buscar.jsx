@@ -30,7 +30,6 @@ import { Link as Linky } from "react-router-dom";
 
 const C_persona_buscar = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
   const [personSelected, setPersonSelected] = useState();
 
   const options = ["Predicador", "Músico", "Orador", "Avivador"];
@@ -121,20 +120,20 @@ const C_persona_buscar = () => {
           />
           <p className="p-0 sm:hidden">Tipo de don</p>
           <Dropdown options={options} onChange={handleSelectChange} value={selectedOption} />
+          <Button color="primary" className="w-full sm:w-3/5 mx-auto" onClick={handleBuscar}>
+            Filtrar
+          </Button>
         </div>
-        <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto" onClick={handleBuscar}>
-          Filtrar
-        </Button>
-        <Divider className="my-5" />
+        <Divider className="mb-5" />
         {loading ? (
           <Loading />
         ) : resultados.length > 0 ? (
           <>
-            <div className="flex w-full flex-row flex-wrap gap-4">
+            <div className="flex w-full flex-row flex-wrap gap-4 pb-5">
               {resultados?.map((persona, idx) => (
                 <div
                   key={idx}
-                  className="m-auto min-w-[300px] max-w-[500px] sm:min-w-[500px] cursor-pointer"
+                  className="m-auto min-w-[300px] max-w-[500px] sm:min-w-[500px] cursor-pointer dark:border-white border-1 rounded-xl"
                   onClick={() => {
                     setPersonSelected(persona);
                     onOpen();
@@ -328,7 +327,7 @@ const C_persona_buscar = () => {
             </Modal>
           </>
         ) : (
-          <p>No hay resultados</p>
+          <p className="mx-auto my-10">No hay resultados</p>
         )}
       </div>
     </>
