@@ -47,7 +47,21 @@ router.get("/retiro/getall", async (req, res) => {
   }
 });
 
-// ======= obtener todos los retiros =======
+// ======= obtener todos los retiros por nombre =======
+router.post("/retiro/getbyname", async (req, res) => {
+  try {
+    const { nombreRetiro } = req.body;
+    const data = await Retiro.find({ nombreRetiro: { $regex: nombreRetiro, $options: "i" } }).sort({ fechainicio: 1 });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los Retiros",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener todos los retiros solo nombrey ID =======
 router.get("/retiro/getallname", async (req, res) => {
   try {
     const data = await Retiro.find().sort({ nombreRetiro: 1 }).select("nombreRetiro _id");
