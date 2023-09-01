@@ -156,8 +156,7 @@ const C_persona_buscar = () => {
                     <Divider />
                     <CardFooter>
                       <p className="text-md">
-                        <b>Dones:</b>{" "}
-                        {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
+                        <b>Dones:</b> {persona?.dones?.length > 0 ? persona?.dones?.join(", ") ?? "" : "N/A - "}
                       </p>
                       <p className="w-3/12"></p>
                       <p className="text-md">
@@ -207,9 +206,7 @@ const C_persona_buscar = () => {
                           <TableRow key="7">
                             <TableCell className="font-bold">Dones</TableCell>
                             <TableCell>
-                              {personSelected?.dones?.length > 0
-                                ? personSelected?.dones?.join(", ") ?? ""
-                                : "N/A"}
+                              {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
                             </TableCell>
                           </TableRow>
                           <TableRow key="8">
@@ -240,13 +237,9 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha primer retiro</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(
-                                    new Date(personSelected?.fechainicio),
-                                    "EEEE d 'de' MMMM 'de' yyyy",
-                                    {
-                                      locale: es,
-                                    }
-                                  )
+                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                    locale: es,
+                                  })
                                 : ""}
                             </TableCell>
                           </TableRow>
@@ -274,13 +267,9 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(
-                                    new Date(personSelected?.fechainicio),
-                                    "EEEE d 'de' MMMM 'de' yyyy",
-                                    {
-                                      locale: es,
-                                    }
-                                  )
+                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                    locale: es,
+                                  })
                                 : ""}
                             </TableCell>
                           </TableRow>

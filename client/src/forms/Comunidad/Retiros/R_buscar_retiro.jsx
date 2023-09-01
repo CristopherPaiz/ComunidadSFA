@@ -29,25 +29,21 @@ import { es } from "date-fns/locale";
 import { Link as Linky } from "react-router-dom";
 
 const R_buscar_retiro = () => {
-  const [valueComunidad, setValueComunidad] = useState(new Set([]));
-  const [comunidades, setComunidades] = useState([]);
+  const [valueretiro, setValueretiro] = useState(new Set([]));
+  const [retiroes, setretiroes] = useState([]);
 
   ///////////////////////////////
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
   const [personSelected, setPersonSelected] = useState();
 
-  const options = ["Predicador", "Músico", "Orador", "Avivador"];
   const [loading, setLoading] = useState(false);
-
-  const [resultados, setResultados] = useState([]);
 
   const [resultadosPersonas, setResultadosPersonas] = useState([]);
 
-  //fetch para cargar las comunidades
-  const buscarComunidad = async () => {
+  //fetch para cargar las retiroes
+  const buscarretiro = async () => {
     try {
-      const response = await fetch(`${API_URL}/comunidad/getallname`, {
+      const response = await fetch(`${API_URL}/retiro/getallname`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -55,43 +51,44 @@ const R_buscar_retiro = () => {
         credentials: "include",
       });
       if (!response.ok) {
-        toast.error("Error al obtener la lista de comunidades");
-        throw new Error("Error al filtrar las comunidades", {});
+        toast.error("Error al obtener la lista de retiroes");
+        throw new Error("Error al filtrar las retiroes", {});
       }
 
       const data = await response.json();
-      setComunidades(data);
+      setretiroes(data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    buscarComunidad();
+    buscarretiro();
   }, []);
 
-  // filtrar por comunidad
-  const handleBuscarPorComunidad = async () => {
+  // filtrar por retiro
+  const handleBuscarPorretiro = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/persona/getbycomunidad`, {
+      const response = await fetch(`${API_URL}/persona/getrbyretiro`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          idcomunidad: valueComunidad.currentKey,
+          idretiro: valueretiro.currentKey,
         }),
         credentials: "include",
       });
       if (!response.ok) {
-        throw new Error("Error al filtrar las comunidades", {});
+        throw new Error("Error al filtrar las retiroes", {});
       }
       const data = await response.json();
       setResultadosPersonas(data);
+      toast.success("Persona por retiro filtrado con éxito");
       setLoading(false);
     } catch (error) {
-      toast.error("Error al filtrar las comunidades");
+      toast.error("Error al filtrar las retiroes");
       setLoading(false);
       console.log(error);
     }
@@ -106,25 +103,25 @@ const R_buscar_retiro = () => {
       <div className="grid mx-auto gap-6  w-11/12 sm:w-3/5 sm:grid-cols-2">
         <p className="font-bold text-[18px] sm:hidden -mb-2 ">Seleccione el retiro:</p>
         <Select
-          label="Comunidad"
+          label="retiro"
           variant="bordered"
-          placeholder="Seleccione una Comunidad o Célula"
-          selectedKeys={valueComunidad}
+          placeholder="Seleccione una retiro o Célula"
+          selectedKeys={valueretiro}
           className="max-w-xs mx-auto"
-          onSelectionChange={setValueComunidad}
+          onSelectionChange={setValueretiro}
         >
-          {comunidades.length > 0 ? (
-            comunidades.map((comunidad) => (
-              <SelectItem key={comunidad?._id} value={comunidad?.nombreComunidad}>
-                {comunidad?.nombreComunidad ?? ""}
+          {retiroes.length > 0 ? (
+            retiroes.map((retiro) => (
+              <SelectItem key={retiro?._id} value={retiro?.nombreRetiro} s>
+                {retiro?.nombreRetiro ?? ""}
               </SelectItem>
             ))
           ) : (
-            <SelectItem value="cargando" text="Cargando comunidades..." disabled />
+            <SelectItem value="cargando" text="Cargando retiroes..." disabled />
           )}
         </Select>
 
-        <Button color="primary" onClick={handleBuscarPorComunidad} className="sm:h-full">
+        <Button color="primary" onClick={handleBuscarPorretiro} className="sm:h-full">
           Filtrar
         </Button>
       </div>
@@ -202,8 +199,8 @@ const R_buscar_retiro = () => {
                           <TableCell>{personSelected?.direccion ?? ""}</TableCell>
                         </TableRow>
                         <TableRow key="6">
-                          <TableCell className="font-bold">Comunidad</TableCell>
-                          <TableCell>{personSelected?.idcomunidad.nombreComunidad ?? ""}</TableCell>
+                          <TableCell className="font-bold">retiro</TableCell>
+                          <TableCell>{personSelected?.idretiro?.nombreRetiro ?? ""}</TableCell>
                         </TableRow>
                         <TableRow key="7">
                           <TableCell className="font-bold">Dones</TableCell>
@@ -312,7 +309,7 @@ const R_buscar_retiro = () => {
                   </ModalBody>
                   <ModalFooter>
                     <Linky
-                      to={`/comunidad/persona/${personSelected._id}`}
+                      to={`/retiro/persona/${personSelected._id}`}
                       state={{ personSelected }}
                       className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
                     >
