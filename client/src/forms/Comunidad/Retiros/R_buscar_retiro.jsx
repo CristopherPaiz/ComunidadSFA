@@ -97,7 +97,7 @@ const R_buscar_retiro = () => {
   return (
     <div className="flex w-full flex-col h-screen ">
       <Toaster />
-      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-whited">
+      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl">
         Filtrar por retiro
       </h2>
       <div className="grid mx-auto gap-6  w-11/12 sm:w-3/5 sm:grid-cols-2">

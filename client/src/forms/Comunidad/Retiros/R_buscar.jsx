@@ -80,7 +80,7 @@ const R_buscar = () => {
     <>
       <Toaster />
       <div className="flex w-full flex-col h-screen ">
-        <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
+        <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-whited">
           Buscar Retiro
         </h2>
         <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 mx-auto  sm:w-3/5 ">
@@ -92,11 +92,7 @@ const R_buscar = () => {
             placeholder="Ingrese nombre del retiro"
             onChange={(e) => setNombreRetiroUS(e.target.value)}
           />
-          <Button
-            color="primary"
-            className="w-11/12 sm:w-3/5 mx-auto sm:h-full"
-            onClick={handleBuscarPorComunidad}
-          >
+          <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto sm:h-full" onClick={handleBuscarPorComunidad}>
             Filtrar
           </Button>
         </div>
@@ -142,9 +138,7 @@ const R_buscar = () => {
               <ModalContent>
                 {(onClose) => (
                   <>
-                    <ModalHeader className="flex flex-col gap-1">
-                      {retiroSelected?.nombreRetiro ?? ""}
-                    </ModalHeader>
+                    <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreRetiro ?? ""}</ModalHeader>
                     <ModalBody>
                       <Table removeWrapper isStriped aria-label="Example static collection table">
                         <TableHeader>
@@ -178,22 +172,16 @@ const R_buscar = () => {
                           </TableRow>
                           <TableRow key="7">
                             <TableCell className="font-bold">Encargados</TableCell>
-                            <TableCell className="capitalize">
-                              {retiroSelected?.encargados.join(", ") ?? ""}
-                            </TableCell>
+                            <TableCell className="capitalize">{retiroSelected?.encargados.join(", ") ?? ""}</TableCell>
                           </TableRow>
 
                           <TableRow key="8">
                             <TableCell className="font-bold">Fecha inicio</TableCell>
                             <TableCell className="capitalize">
                               {retiroSelected?.fechainicio
-                                ? format(
-                                    new Date(retiroSelected?.fechainicio),
-                                    "EEEE d 'de' MMMM 'de' yyyy",
-                                    {
-                                      locale: es,
-                                    }
-                                  )
+                                ? format(new Date(retiroSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                    locale: es,
+                                  })
                                 : ""}
                             </TableCell>
                           </TableRow>
