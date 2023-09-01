@@ -14,6 +14,7 @@ import A_buscar from "../forms/Comunidad/Actividades/A_buscar";
 import R_buscar_retiro from "../forms/Comunidad/Retiros/R_buscar_retiro";
 import EditarCurso from "../forms/VariosForms/EditarCurso";
 import EditarComunidad from "../forms/VariosForms/EditarComunidad";
+import C_buscar_Curso from "../forms/Comunidad/Cursos/C_buscar_Curso";
 
 const Navbutton = () => {
   const [selected, setSelected] = useState("");
@@ -96,7 +97,7 @@ const Navbutton = () => {
                   <C_nuevo />
                 </Tab>
                 <Tab key="cursosLista" title="Por Crecimiento/curso">
-                  <EditarCurso />
+                  <C_buscar_Curso />
                 </Tab>
               </Tabs>
             </CardBody>

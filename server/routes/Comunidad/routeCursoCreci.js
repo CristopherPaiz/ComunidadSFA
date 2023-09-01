@@ -57,14 +57,30 @@ router.get("/cursocreci/getall", async (req, res) => {
   }
 });
 
-// ======= obtener todos los retiros =======
+// ======= obtener todos los retiros por nombre =======
+router.post("/cursocreci/getbyname", async (req, res) => {
+  try {
+    const { nombreCursoCreci } = req.body;
+    const data = await CursoCreci.find({ nombreCursoCreci: { $regex: nombreCursoCreci, $options: "i" } }).sort({
+      fechainicio: 1,
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los Retiros",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener todos los retiros solo nombrey ID =======
 router.get("/cursocreci/getallname", async (req, res) => {
   try {
     const data = await CursoCreci.find().sort({ nombreCursoCreci: 1 }).select("nombreCursoCreci _id");
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
-      messageDev: "No se pudo obtener los Crecimientos",
+      messageDev: "No se pudo obtener los cursos o retiros",
       messageSys: error.message,
     });
   }

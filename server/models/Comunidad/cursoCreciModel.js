@@ -8,7 +8,10 @@ const cursoCreciSchema = new Schema({
   ofrenda: Number,
   horario: String,
   ubicacion: String,
-  dirigidoA: String,
+  dirigidoA: {
+    type: String,
+    default: "Pueblo",
+  },
   dirigidoPor: String,
   tipo: String,
   estado: Boolean,
