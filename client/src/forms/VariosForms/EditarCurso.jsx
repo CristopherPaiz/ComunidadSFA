@@ -12,7 +12,6 @@ const EditarCurso = () => {
   const { retiroSelected } = location.state;
 
   // const retiroSelected = personSelected;
-
   if (!location.state) {
     return <Navigate to={"/comunidad"} />;
   }
