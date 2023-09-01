@@ -11,6 +11,7 @@ import Social from "./views/Social";
 
 import EditarPersona from "./forms/VariosForms/EditarPersona";
 import EditarRetiro from "./forms/VariosForms/EditarRetiro";
+import EditarCurso from "./forms/VariosForms/EditarCurso";
 
 import ContextProvider from "./context/ContextProvider.jsx";
 
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/comunidad" element={<Comunidad />} />
         <Route path="/comunidad/persona/:id" element={<EditarPersona />} />
         <Route path="/comunidad/retiro/:id" element={<EditarRetiro />} />
+        <Route path="/comunidad/cursoCreci/:id" element={<EditarCurso />} />
         <Route path="/farmacia" element={<Farmacia />} />
         <Route path="/Social" element={<Social />} />
         <Route path="*" element={<NotFoundPage />} />

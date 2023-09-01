@@ -134,11 +134,11 @@ const C_buscar = () => {
                 </div>
               ))}
             </div>
-            {/* <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
               <ModalContent>
                 {(onClose) => (
                   <>
-                    <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreRetiro ?? ""}</ModalHeader>
+                    <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreCursoCreci ?? ""}</ModalHeader>
                     <ModalBody>
                       <Table removeWrapper isStriped aria-label="Example static collection table">
                         <TableHeader>
@@ -148,7 +148,7 @@ const C_buscar = () => {
                         <TableBody>
                           <TableRow key="1">
                             <TableCell className="font-bold">Nombre</TableCell>
-                            <TableCell>{retiroSelected?.nombreRetiro ?? ""}</TableCell>
+                            <TableCell>{retiroSelected?.nombreCursoCreci ?? ""}</TableCell>
                           </TableRow>
                           <TableRow key="2">
                             <TableCell className="font-bold">Ofrenda</TableCell>
@@ -160,21 +160,20 @@ const C_buscar = () => {
                           </TableRow>
                           <TableRow key="4">
                             <TableCell className="font-bold">Dirigido A</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.tipoPara ?? ""}</TableCell>
+                            <TableCell className="capitalize">{retiroSelected?.dirigidoA ?? ""}</TableCell>
                           </TableRow>
                           <TableRow key="5">
+                            <TableCell className="font-bold">Dirigido Por</TableCell>
+                            <TableCell className="capitalize">{retiroSelected?.dirigidoPor ?? ""}</TableCell>
+                          </TableRow>
+                          <TableRow key="6">
                             <TableCell className="font-bold">Ubicación</TableCell>
                             <TableCell>{retiroSelected?.ubicacion ?? ""}</TableCell>
                           </TableRow>
-                          <TableRow key="6">
+                          <TableRow key="7">
                             <TableCell className="font-bold">Tipo</TableCell>
                             <TableCell className="capitalize">{retiroSelected?.tipo ?? ""}</TableCell>
                           </TableRow>
-                          <TableRow key="7">
-                            <TableCell className="font-bold">Encargados</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.encargados.join(", ") ?? ""}</TableCell>
-                          </TableRow>
-
                           <TableRow key="8">
                             <TableCell className="font-bold">Fecha inicio</TableCell>
                             <TableCell className="capitalize">
@@ -200,7 +199,7 @@ const C_buscar = () => {
                     </ModalBody>
                     <ModalFooter>
                       <Linky
-                        to={`/comunidad/retiro/${retiroSelected._id}`}
+                        to={`/comunidad/cursoCreci/${retiroSelected._id}`}
                         state={{ retiroSelected }}
                         className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
                       >
@@ -214,7 +213,7 @@ const C_buscar = () => {
                   </>
                 )}
               </ModalContent>
-            </Modal> */}
+            </Modal>
           </>
         ) : (
           <p className="mx-auto my-10">No hay resultados</p>
