@@ -57,6 +57,24 @@ router.get("/comunidad/getallname", async (req, res) => {
   }
 });
 
+// ======= obtener todos los retiros por nombre =======
+router.post("/comunidad/getbyname", async (req, res) => {
+  try {
+    const { nombreComunidad } = req.body;
+    const data = await ComunidadModel.find({
+      nombreComunidad: { $regex: nombreComunidad, $options: "i" },
+    }).sort({
+      nombreComunidad: 1,
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener las comunidades",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener una comunidad por su id =======
 router.get("/comunidad/getbyid/:id", async (req, res) => {
   try {
@@ -114,7 +132,9 @@ router.post("/comunidad/addofrenda/:id", async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ message: "Nuevo año de ofrenda añadido a la comunidad", comunidad: updatedComunidad });
+    res
+      .status(200)
+      .json({ message: "Nuevo año de ofrenda añadido a la comunidad", comunidad: updatedComunidad });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo añadir nuevo año de ofrendas a la comunidad",
@@ -134,9 +154,10 @@ router.put("/comunidad/updateofrenda/:id", async (req, res) => {
       { new: true }
     );
 
-    res
-      .status(200)
-      .json({ message: "Valores de ofrenda actualizados para el año especificado", comunidad: updatedComunidad });
+    res.status(200).json({
+      message: "Valores de ofrenda actualizados para el año especificado",
+      comunidad: updatedComunidad,
+    });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo actualizar los valores de  ofrendas para el año especificado",

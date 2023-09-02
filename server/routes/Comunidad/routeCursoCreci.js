@@ -61,7 +61,9 @@ router.get("/cursocreci/getall", async (req, res) => {
 router.post("/cursocreci/getbyname", async (req, res) => {
   try {
     const { nombreCursoCreci } = req.body;
-    const data = await CursoCreci.find({ nombreCursoCreci: { $regex: nombreCursoCreci, $options: "i" } }).sort({
+    const data = await CursoCreci.find({
+      nombreCursoCreci: { $regex: nombreCursoCreci, $options: "i" },
+    }).sort({
       fechainicio: 1,
     });
     res.status(200).json(data);

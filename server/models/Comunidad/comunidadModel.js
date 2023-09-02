@@ -7,7 +7,10 @@ const comunidadSchema = new Schema({
   fechacreacion: Date,
   horarios: String,
   fotos: [String],
-  tipo: String, // celula o iglesia
+  tipo: {
+    type: String,
+    default: "Comunidad",
+  },
   ofrenda: [
     {
       anio: String,

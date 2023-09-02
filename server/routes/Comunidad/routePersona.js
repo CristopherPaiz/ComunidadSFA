@@ -144,6 +144,27 @@ router.post("/persona/getrbycursocreci", async (req, res) => {
   }
 });
 
+// ======= obtener una persona por curso/creci por su id =======
+router.post("/persona/getbycomunidad", async (req, res) => {
+  try {
+    const { idcomunidad } = req.body;
+
+    // Asumiendo que idretiro es una cadena (si es ObjectId, convierte adecuadamente)
+    const personas = await Persona.find({ "comunidad.idcomunidad": idcomunidad })
+      .populate("retiros.idretiro", "nombreRetiro")
+      .populate("crecimientos.idcursocreci", "nombreCursoCreci") // Cargar datos relacionados del retiro
+      .sort({ nombre: 1 })
+      .exec();
+
+    res.status(200).json(personas);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo realizar la búsqueda de personas",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= actualizar una actividad comunidad por su id =======
 router.put("/persona/update/:id", async (req, res) => {
   try {

@@ -39,24 +39,24 @@ const C_comunidad_buscar = () => {
     if (nombreRetiroUS === "") return toast.error("Ingrese el nombre del retiro");
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/cursocreci/getbyname`, {
+      const response = await fetch(`${API_URL}/comunidad/getbyname`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nombreCursoCreci: nombreRetiroUS,
+          nombreComunidad: nombreRetiroUS,
         }),
         credentials: "include",
       });
       if (!response.ok) {
-        throw new Error("Error al filtrar los cursos", {});
+        throw new Error("Error al filtrar las comunidades", {});
       }
       const data = await response.json();
       setResultadosRetiros(data);
       setLoading(false);
     } catch (error) {
-      toast.error("Error al filtrar los cursos");
+      toast.error("Error al filtrar las comunidades");
       setLoading(false);
       console.log(error);
     }
@@ -92,7 +92,11 @@ const C_comunidad_buscar = () => {
             placeholder="Ingrese nombre de la comunidad"
             onChange={(e) => setNombreRetiroUS(e.target.value)}
           />
-          <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto sm:h-full" onClick={handleBuscarPorComunidad}>
+          <Button
+            color="primary"
+            className="w-11/12 sm:w-3/5 mx-auto sm:h-full"
+            onClick={handleBuscarPorComunidad}
+          >
             Filtrar
           </Button>
         </div>
@@ -105,7 +109,7 @@ const C_comunidad_buscar = () => {
               {resultadosRetiros?.map((retiro, idx) => (
                 <div
                   key={idx}
-                  className="mx-auto min-w-[300px] max-w-[500px] sm:min-w-[500px] cursor-pointer dark:border-white border-1 rounded-xl"
+                  className="mx-auto min-w-[300px] w-[320px] max-w-[500px] sm:min-w-[500px] cursor-pointer dark:border-white border-1 rounded-xl"
                   onClick={() => {
                     setRetiroSelected(retiro);
                     onOpen();
@@ -115,17 +119,17 @@ const C_comunidad_buscar = () => {
                     <CardHeader className="flex p-0 m-0">
                       <div className="flex items-center">
                         <div className="transform -rotate-90 opacity-30 origin-center text-2xl p-0 -m-2 font-extrabold">
-                          {formatYear(retiro?.fechainicio) ?? ""}
+                          {retiro?.tipo ?? ""}
                         </div>
                         <div className="flex flex-col flex-grow p-2 gap-1 py-3">
                           <p className="text-md">
-                            <b>Nombre:</b> {retiro?.nombreCursoCreci ?? ""}
+                            <b>Nombre:</b> {retiro?.nombreComunidad ?? ""}
                           </p>
                           <p className="text-md">
-                            <b>Fecha:</b> {formatfecha(retiro?.fechainicio) ?? ""}
+                            <b>Ubicación:</b> {retiro?.ubicacion ?? ""}
                           </p>
                           <p className="text-md">
-                            <b>Dirigido a:</b> {retiro?.dirigidoA ?? ""}
+                            <b>Horarios:</b> {retiro?.horarios ?? ""}
                           </p>
                         </div>
                       </div>
@@ -138,7 +142,9 @@ const C_comunidad_buscar = () => {
               <ModalContent>
                 {(onClose) => (
                   <>
-                    <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreCursoCreci ?? ""}</ModalHeader>
+                    <ModalHeader className="flex flex-col gap-1">
+                      {retiroSelected?.nombreCursoCreci ?? ""}
+                    </ModalHeader>
                     <ModalBody>
                       <Table removeWrapper isStriped aria-label="Example static collection table">
                         <TableHeader>
@@ -178,9 +184,13 @@ const C_comunidad_buscar = () => {
                             <TableCell className="font-bold">Fecha inicio</TableCell>
                             <TableCell className="capitalize">
                               {retiroSelected?.fechainicio
-                                ? format(new Date(retiroSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
-                                    locale: es,
-                                  })
+                                ? format(
+                                    new Date(retiroSelected?.fechainicio),
+                                    "EEEE d 'de' MMMM 'de' yyyy",
+                                    {
+                                      locale: es,
+                                    }
+                                  )
                                 : ""}
                             </TableCell>
                           </TableRow>

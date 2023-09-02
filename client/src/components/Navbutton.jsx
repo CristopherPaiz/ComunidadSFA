@@ -12,9 +12,8 @@ import C_comunidad_buscar from "../forms/Comunidad/Comunidades/C_comunidad_busca
 import A_nueva from "../forms/Comunidad/Actividades/A_nueva";
 import A_buscar from "../forms/Comunidad/Actividades/A_buscar";
 import R_buscar_retiro from "../forms/Comunidad/Retiros/R_buscar_retiro";
-import EditarCurso from "../forms/VariosForms/EditarCurso";
-import EditarComunidad from "../forms/VariosForms/EditarComunidad";
 import C_buscar_Curso from "../forms/Comunidad/Cursos/C_buscar_Curso";
+import C_comunidad_buscar_comunidad from "../forms/Comunidad/Comunidades/C_comunidad_buscar_comunidad";
 
 const Navbutton = () => {
   const [selected, setSelected] = useState("");
@@ -26,7 +25,9 @@ const Navbutton = () => {
 
   return (
     <div className="flex w-full px-2 flex-col m-auto sm:w-11/12 sm:m-auto ">
-      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">← Desliza para ver las demás opciones → </p>
+      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">
+        ← Desliza para ver las demás opciones →{" "}
+      </p>
       <Tabs
         aria-label="Options"
         selectedKey={selected}
@@ -120,7 +121,7 @@ const Navbutton = () => {
                   <C_comunidad_nueva />
                 </Tab>
                 <Tab key="comunidadesLista" title="Por Comunidad">
-                  <EditarComunidad />
+                  <C_comunidad_buscar_comunidad />
                 </Tab>
               </Tabs>
             </CardBody>
