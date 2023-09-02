@@ -99,7 +99,7 @@ const C_buscar_Curso = () => {
       <Toaster />
       <h2 className="my-4 text-2xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl">
         Filtrar por Crecimiento o curso
-        </h2>
+      </h2>
       <div className="grid mx-auto gap-6  w-11/12 sm:w-3/5 sm:grid-cols-2">
         <p className="font-bold text-[17px] sm:hidden -mb-2 ">Seleccione el Crecimiento o curso:</p>
         <Select
@@ -205,7 +205,9 @@ const C_buscar_Curso = () => {
                         <TableRow key="7">
                           <TableCell className="font-bold">Dones</TableCell>
                           <TableCell>
-                            {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
+                            {personSelected?.dones?.length > 0
+                              ? personSelected?.dones?.join(", ") ?? ""
+                              : "N/A"}
                           </TableCell>
                         </TableRow>
                         <TableRow key="8">
@@ -309,7 +311,7 @@ const C_buscar_Curso = () => {
                   </ModalBody>
                   <ModalFooter>
                     <Linky
-                      to={`/retiro/persona/${personSelected._id}`}
+                      to={`/comunidad/persona/${personSelected._id}`}
                       state={{ personSelected }}
                       className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
                     >

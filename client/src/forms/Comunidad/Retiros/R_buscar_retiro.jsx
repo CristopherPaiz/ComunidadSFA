@@ -205,7 +205,9 @@ const R_buscar_retiro = () => {
                         <TableRow key="7">
                           <TableCell className="font-bold">Dones</TableCell>
                           <TableCell>
-                            {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
+                            {personSelected?.dones?.length > 0
+                              ? personSelected?.dones?.join(", ") ?? ""
+                              : "N/A"}
                           </TableCell>
                         </TableRow>
                         <TableRow key="8">
@@ -309,7 +311,7 @@ const R_buscar_retiro = () => {
                   </ModalBody>
                   <ModalFooter>
                     <Linky
-                      to={`/retiro/persona/${personSelected._id}`}
+                      to={`/comunidad/persona/${personSelected._id}`}
                       state={{ personSelected }}
                       className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
                     >
