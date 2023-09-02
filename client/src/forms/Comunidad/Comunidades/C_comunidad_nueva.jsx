@@ -14,27 +14,15 @@ const C_comunidad_nueva = () => {
   const [selected, setSelected] = React.useState([""]);
 
   return (
-    <div className="flex w-full flex-col">
-      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-whited">
+    <div className="flex w-full flex-col h-screen">
+      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tightmd:text-5xl lg:text-3xl dark:text-whited">
         Nueva Comunidad
       </h2>
-      <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 m-auto sm:w-3/5 ">
-        <Input
-          type="text"
-          label="Nombre de la comunidad"
-          placeholder="Ingrese el nombre de la comunidad"
-        />
-        <Input
-          type="text"
-          label="Lugar / ubicación"
-          placeholder="Ingrese una dirección"
-        />
-        <Input
-          type="text"
-          label="Horarios"
-          placeholder="Ingrese los horarios"
-        />
-        <p className="font-bold text-[18px] sm:hidden -mb-2">
+      <div className="grid gap-6 mb-6 md:grid-cols-2 w-11/12 mx-auto sm:w-3/5 ">
+        <Input type="text" label="Nombre de la comunidad" placeholder="Ingrese el nombre de la comunidad" />
+        <Input type="text" label="Lugar / ubicación" placeholder="Ingrese una dirección" />
+        <Input type="text" label="Horarios" placeholder="Ingrese los horarios" />
+        {/* <p className="font-bold text-[18px] sm:hidden -mb-2">
           Ingrese fotografías:
         </p>
         <div className="flex items-center justify-center w-full">
@@ -72,9 +60,9 @@ const C_comunidad_nueva = () => {
               accept="image/png, image/gif, image/jpeg"
             />
           </label>
-        </div>
+        </div> */}
       </div>
-      <Button color="success" className="w-11/12 m-auto sm:w-3/5">
+      <Button color="success" className="w-11/12 mx-auto sm:w-3/5">
         Guardar
       </Button>
     </div>

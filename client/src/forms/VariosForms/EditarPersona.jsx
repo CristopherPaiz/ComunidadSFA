@@ -13,7 +13,7 @@ import {
   useDisclosure,
   Select,
   SelectItem,
-  Divider
+  Divider,
 } from "@nextui-org/react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import Dropdown from "react-dropdown";
@@ -281,9 +281,9 @@ const EditarPersona = () => {
   }, [retirosActualizados, mensaje, crecimientosActualizados, selected]);
 
   return (
-    <div className="flex w-full flex-col mb-10 p-6">
+    <div className="flex w-full flex-col pb-10 p-6">
       <Toaster />
-      <h2 className="my-4 text-3xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-whited">
+      <h2 className="my-2 text-3xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-whited">
         Editar Hermano
       </h2>
       <div className="grid gap-6 mb-6 md:grid-cols-1 w-11/12 m-auto sm:w-5/12 ">
@@ -339,7 +339,12 @@ const EditarPersona = () => {
         />
         <p className="font-bold sm:hidden -mb-2">Seleccione el tipo de Dones</p>
         <div className="flex flex-col gap-3">
-          <CheckboxGroup color="primary" value={selected} orientation="horizontal" onValueChange={setSelected}>
+          <CheckboxGroup
+            color="primary"
+            value={selected}
+            orientation="horizontal"
+            onValueChange={setSelected}
+          >
             <Checkbox value="Predicador">Predicador</Checkbox>
             <Checkbox value="Avivador">Avivador</Checkbox>
             <Checkbox value="Músico">Músico</Checkbox>
@@ -371,7 +376,9 @@ const EditarPersona = () => {
                   <td className="border px-4 py-2">
                     <Textarea
                       type="text"
-                      value={Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""}
+                      value={
+                        Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""
+                      }
                       onChange={(e) => handleRetiroCuotasChange(index, e.target.value)}
                     />
                   </td>
@@ -383,7 +390,11 @@ const EditarPersona = () => {
         <Button color="primary" className="sm:h-13" onClick={handleBuscar}>
           Ingresar un nuevo retiro
         </Button>
-        {mensaje !== null ? <p className="text-danger-400 text-xl text-center font-extrabold">{mensaje}</p> : ""}
+        {mensaje !== null ? (
+          <p className="text-danger-400 text-xl text-center font-extrabold">{mensaje}</p>
+        ) : (
+          ""
+        )}
         <p className="font-bold text-[18px] -mb-2">Lista de Crecimientos / cursos</p>
         <div className="container w-full overflow-scroll sm:flex sm:overflow-auto">
           <table className="table-auto">
@@ -408,7 +419,9 @@ const EditarPersona = () => {
                   <td className="border px-4 py-2">
                     <Textarea
                       type="text"
-                      value={Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""}
+                      value={
+                        Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""
+                      }
                       onChange={(e) => handleCrecimientoCuotasChange(index, e.target.value)}
                     />
                   </td>
@@ -495,7 +508,9 @@ const EditarPersona = () => {
             ) : (
               (onClose) => (
                 <>
-                  <ModalHeader className="flex flex-col gap-1">Retiros de {personSelected?.nombre ?? ""}</ModalHeader>
+                  <ModalHeader className="flex flex-col gap-1">
+                    Retiros de {personSelected?.nombre ?? ""}
+                  </ModalHeader>
                   <ModalBody>
                     <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
                       <Select
