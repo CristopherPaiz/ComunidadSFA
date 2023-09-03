@@ -1,11 +1,30 @@
 import React, { createContext, useState } from "react";
 import API_URL from "../config.js";
+import { useTheme } from "next-themes";
 
 export const contexto = createContext();
 
 const ContextProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null); // setear el tipo de usuario activo
   const [loggedIn, setLoggedIn] = useState(false); // indicar si el usuario ha iniciado sesión
+  const { theme, setTheme } = useTheme();
+
+  //intentar recuperar el tema del localStorage
+  if (localStorage.getItem("themeSFA")) {
+    setTheme(localStorage.getItem("themeSFA"));
+  } else {
+    setTheme("light");
+  }
+
+  const changeTheme = (valor) => {
+    if (valor === "dark") {
+      setTheme("light");
+      localStorage.setItem("themeSFA", "light");
+    } else {
+      setTheme("dark");
+      localStorage.setItem("themeSFA", "dark");
+    }
+  };
 
   const fetchUser = async (username, contrasenia) => {
     try {
@@ -67,6 +86,8 @@ const ContextProvider = ({ children }) => {
         loggedIn,
         setLoggedIn,
         setUsuario,
+        changeTheme,
+        theme,
       }}
     >
       {children}
