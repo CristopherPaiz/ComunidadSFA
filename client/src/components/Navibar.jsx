@@ -56,15 +56,47 @@ const Navibar = () => {
             </NavbarBrand>
           </NavbarContent>
           <NavbarContent justify="end">
-            <NavbarItem className="hidden md:flex">
-              <Button className="text-white bg-primary" onClick={() => changeTheme(theme)}>
-                Cambiar tema
-              </Button>
-              <Button variant="flat" className="text-white bg-primary">
+            <NavbarItem className="hidden md:flex items-center">
+              <Button color="primary" variant="flat">
                 <RouterLink to={"/login"} className="py-2 -mx-3 px-3">
                   Iniciar sesión
                 </RouterLink>
               </Button>
+              {theme === "dark" ? (
+                <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly className="m-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                    />
+                  </svg>
+                </Button>
+              ) : (
+                <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly className="m-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                    />
+                  </svg>
+                </Button>
+              )}
             </NavbarItem>
           </NavbarContent>
           <Dropdown placement="bottom-end" className="sm:hidden">
@@ -77,10 +109,49 @@ const Navibar = () => {
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Menu Actions" variant="flat">
-              <DropdownItem key="login" className="text-primary dark:text-teal-400">
+              <DropdownItem key="login" className="text-primary">
                 <Link to={"/login"} className="pr-28 pl-3">
                   Login
                 </Link>
+              </DropdownItem>
+              <DropdownItem key="dark" className="text-primary">
+                {theme === "dark" ? (
+                  <Button onClick={() => changeTheme(theme)} variant="light">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                      />
+                    </svg>
+                    Modo Claro
+                  </Button>
+                ) : (
+                  <Button onClick={() => changeTheme(theme)} variant="light">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                      />
+                    </svg>
+                    Modo Oscuro
+                  </Button>
+                )}
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -112,11 +183,46 @@ const Navibar = () => {
           </NavbarContent>
           <NavbarContent justify="end">
             <NavbarItem className="hidden md:flex">
-              <Button variant="flat" className="text-primary dark:text-teal-400">
+              <Button color="primary" variant="flat">
                 <RouterLink to={"/login"} className="py-2 -mx-3 px-3">
                   Iniciar sesión
                 </RouterLink>
               </Button>
+              {theme === "dark" ? (
+                <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly className="m-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                    />
+                  </svg>
+                </Button>
+              ) : (
+                <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly className="m-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                    />
+                  </svg>
+                </Button>
+              )}
             </NavbarItem>
           </NavbarContent>
           <Dropdown placement="bottom-end" className="sm:hidden">
@@ -129,10 +235,49 @@ const Navibar = () => {
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Menu Actions" variant="flat">
-              <DropdownItem key="login" className="text-primary dark:text-teal-400">
+              <DropdownItem key="login" className="text-primary">
                 <Link to={"/login"} className="pr-28 pl-3">
                   Login
                 </Link>
+              </DropdownItem>
+              <DropdownItem key="dark" className="text-primary">
+                {theme === "dark" ? (
+                  <Button onClick={() => changeTheme(theme)} variant="light">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                      />
+                    </svg>
+                    Modo Claro
+                  </Button>
+                ) : (
+                  <Button onClick={() => changeTheme(theme)} variant="light">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                      />
+                    </svg>
+                    Modo Oscuro
+                  </Button>
+                )}
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -145,7 +290,7 @@ const Navibar = () => {
           <Navbar>
             <NavbarContent>
               <NavbarBrand>
-                <RouterLink to={"/"} className="py-2 -mx-3 px-3 text-[16px] ">
+                <RouterLink to={"/"} className="py-2 -mx-3 px-3 text-[16px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="1em"
@@ -178,11 +323,47 @@ const Navibar = () => {
                 </Button>
               </NavbarItem>
             </NavbarContent>
+
             <NavbarContent justify="end">
               <NavbarItem className="hidden md:flex">
                 <Button color="danger" variant="flat" onClick={logout}>
                   Cerrar Sesión
                 </Button>
+                {theme === "dark" ? (
+                  <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                      />
+                    </svg>
+                  </Button>
+                ) : (
+                  <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                      />
+                    </svg>
+                  </Button>
+                )}
               </NavbarItem>
             </NavbarContent>
             <Dropdown placement="bottom-end" className="sm:hidden">
@@ -204,6 +385,45 @@ const Navibar = () => {
                   <Link to={"/social"} className="pr-28 pl-3">
                     Social
                   </Link>
+                </DropdownItem>
+                <DropdownItem key="dark" className="text-primary">
+                  {theme === "dark" ? (
+                    <Button onClick={() => changeTheme(theme)} variant="light">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                        />
+                      </svg>
+                      Modo Claro
+                    </Button>
+                  ) : (
+                    <Button onClick={() => changeTheme(theme)} variant="light">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                        />
+                      </svg>
+                      Modo Oscuro
+                    </Button>
+                  )}
                 </DropdownItem>
                 <DropdownItem key="logout" className="text-danger" color="danger">
                   <Link to={"/"} onClick={logout} className="pr-28 pl-3">
@@ -265,6 +485,41 @@ const Navibar = () => {
                 <Button color="danger" variant="flat" onClick={logout}>
                   Cerrar Sesión
                 </Button>
+                {theme === "dark" ? (
+                  <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                      />
+                    </svg>
+                  </Button>
+                ) : (
+                  <Button onClick={() => changeTheme(theme)} variant="light" isIconOnly>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                      />
+                    </svg>
+                  </Button>
+                )}
               </NavbarItem>
             </NavbarContent>
             <Dropdown placement="bottom-end" className="sm:hidden">
@@ -291,6 +546,45 @@ const Navibar = () => {
                   <Link to={"/social"} className="pr-28 pl-3">
                     Social
                   </Link>
+                </DropdownItem>
+                <DropdownItem key="dark" className="text-primary">
+                  {theme === "dark" ? (
+                    <Button onClick={() => changeTheme(theme)} variant="light">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                        />
+                      </svg>
+                      Modo Claro
+                    </Button>
+                  ) : (
+                    <Button onClick={() => changeTheme(theme)} variant="light">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                        />
+                      </svg>
+                      Modo Oscuro
+                    </Button>
+                  )}
                 </DropdownItem>
                 <DropdownItem key="logout" className="text-danger" color="danger">
                   <Link to={"/"} onClick={logout} className="pr-28 pl-3">

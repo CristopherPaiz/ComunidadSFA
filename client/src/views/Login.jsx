@@ -56,7 +56,7 @@ const Login = () => {
     return (
       <>
         <Toaster />
-        <section className="bg-gray-50 dark:bg-gray-900 px-6 min-h-screen flex items-center justify-center h-screen -mt-[80px] sm:-mt-6">
+        <section className="bg-gray-50 dark:bg-gray-900 px-6 min-h-screen flex items-center justify-center h-screen -mt-[50px] sm:-mt-6">
           <div className="w-full max-w-md bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
             <a className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
               <img
@@ -87,7 +87,9 @@ const Login = () => {
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Contraseña
+                  </label>
                   <input
                     type="password"
                     name="password"
