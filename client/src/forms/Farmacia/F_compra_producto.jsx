@@ -84,7 +84,7 @@ const F_compra_producto = () => {
       <h2 className="my-6 text-3xl text-center font-extrabold leading-none tracking-tight  md:text-5xl lg:text-3xl dark:text-whited">
         Compra Producto
       </h2>
-      <div className="grid gap-6 mb-6 md:grid-cols-1 w-11/12 mx-auto sm:w-4/12 ">
+      <div className="grid gap-6 mb-6 md:grid-cols-1 w-11/12 mx-auto sm:w-5/12 ">
         {loading ? (
           <h2 className="mx-auto font-extrabold text-xl text-teal-500">Cargando medicamentos...</h2>
         ) : (

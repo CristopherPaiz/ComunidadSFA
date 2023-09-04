@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { contexto } from "../context/ContextProvider";
 
 const Homepage = () => {
   const list = [
@@ -64,6 +65,36 @@ const Homepage = () => {
       img: "https://images.squarespace-cdn.com/content/596f9e6edb29d6603ed3a7e3/1561136539292-PH1DAE0OVOQ7Y0EJ96ED/VA-mission-web2.jpg?content-type=image%2Fjpeg",
     },
   ];
+
+  const { setLoggedIn, setUsuario } = useContext(contexto);
+
+  const verificarExpiracionToken = () => {
+    const expirationDate = localStorage.getItem("miTokenExpiration");
+    if (expirationDate) {
+      const now = new Date();
+      const expired = now >= new Date(expirationDate);
+      if (expired) {
+        // El token ha expirado, borrarlo del LocalStorage
+        localStorage.removeItem("usuarioSFA");
+        localStorage.removeItem("loggedSFA");
+        localStorage.removeItem("demasdatosSFA");
+        localStorage.removeItem("miTokenExpiration");
+      }
+    }
+  };
+
+  useEffect(() => {
+    verificarExpiracionToken();
+    const usuarioLS = localStorage.getItem("usuarioSFA");
+    const loggedLS = localStorage.getItem("loggedSFA");
+    const demasDatosLS = localStorage.getItem("demasdatosSFA");
+    if (usuarioLS && loggedLS) {
+      setLoggedIn(true);
+      setUsuario(JSON.parse(demasDatosLS));
+    } else {
+      null;
+    }
+  }, []);
 
   return (
     <>

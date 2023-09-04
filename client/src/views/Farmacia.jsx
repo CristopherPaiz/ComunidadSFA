@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import NavbuttonFarmacia from "../components/NavButtonFarmacia";
 
 const Farmacia = () => {
-  const { loggedIn, usuario } = useContext(contexto);
+  const { loggedIn, usuario, setLoggedIn, setUsuario } = useContext(contexto);
 
   const verificarExpiracionToken = () => {
     const expirationDate = localStorage.getItem("miTokenExpiration");
@@ -23,6 +23,15 @@ const Farmacia = () => {
 
   useEffect(() => {
     verificarExpiracionToken();
+    const usuarioLS = localStorage.getItem("usuarioSFA");
+    const loggedLS = localStorage.getItem("loggedSFA");
+    const demasDatosLS = localStorage.getItem("demasdatosSFA");
+    if (usuarioLS && loggedLS) {
+      setLoggedIn(true);
+      setUsuario(JSON.parse(demasDatosLS));
+    } else {
+      null;
+    }
   }, []);
 
   if ((loggedIn && usuario.rol === "Admin") || (loggedIn && usuario.rol === "Moderator")) {

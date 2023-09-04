@@ -1,10 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Input, Button, Divider, useDisclosure } from "@nextui-org/react";
+import { Input, Button, Divider } from "@nextui-org/react";
 import Loading from "../../components/Loading";
 import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../config.js";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Link as Linky } from "react-router-dom";
 import { contexto } from "../../context/ContextProvider";
 import NFblack from "../../../public/notfoundblack.svg";
@@ -12,7 +10,6 @@ import NFWhite from "../../../public/notfoundwhite.svg";
 
 const F_venta_producto = () => {
   const { theme } = useContext(contexto);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [productSelected, setProductSelected] = useState(null);
   const [loading, setLoading] = useState(false);
   const [seleccionado, setSeleccionado] = useState(null);
@@ -20,7 +17,7 @@ const F_venta_producto = () => {
   const [resultados, setResultados] = useState([]);
 
   const handleBuscar = async () => {
-    if (seleccionado === "") {
+    if (seleccionado === "" || seleccionado === null) {
       toast.error("Ingrese un nombre de producto", {});
       setResultados([]);
       return null;
