@@ -1,14 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Input,
-  Button,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@nextui-org/react";
+import { Input, Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import Select from "react-select";
 import API_URL from "../../config";
 import { contexto } from "../../context/ContextProvider";
@@ -177,7 +168,6 @@ const F_compra_producto = () => {
               {seleccionado?.fotos.map((imagenSrc, index) => (
                 <img
                   key={index}
-                  centered
                   style={{
                     objectFit: "contain",
                     width: "auto",

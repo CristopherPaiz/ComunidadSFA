@@ -46,6 +46,22 @@ router.get("/medicamento/getall", async (req, res) => {
   }
 });
 
+// Agrega esta ruta al final del archivo de rutas
+router.post("/medicamento/filtrar", async (req, res) => {
+  try {
+    const { label } = req.body;
+
+    const medicamentos = await Medicamento.find({ label: { $regex: label, $options: "i" } }).sort({ label: 1 });
+
+    res.status(200).json(medicamentos);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo realizar la búsqueda de los medicamentos",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener un medicamento por su id =======
 router.get("/medicamento/getbyid/:id", async (req, res) => {
   try {
@@ -120,9 +136,7 @@ router.post("/IngresoMedicamento/add", async (req, res) => {
     );
 
     // Mandamos estado 200 de OK y el resultado de la operación
-    res
-      .status(200)
-      .json({ message: "Nueva compra de producto añadido correctamente", ingresoMedicamentoResultado });
+    res.status(200).json({ message: "Nueva compra de producto añadido correctamente", ingresoMedicamentoResultado });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo añadir una nueva compra del producto",
