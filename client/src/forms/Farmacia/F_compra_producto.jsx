@@ -162,7 +162,7 @@ const F_compra_producto = () => {
               style={{
                 display: "flex",
                 flexWrap: "wrap",
-                justifyContent: "space-between",
+                justifyContent: "space-around",
               }}
             >
               {seleccionado?.fotos.map((imagenSrc, index) => (
