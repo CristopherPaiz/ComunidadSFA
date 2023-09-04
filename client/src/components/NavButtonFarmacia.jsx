@@ -10,23 +10,17 @@ const NavbuttonFarmacia = () => {
 
   return (
     <div className="flex w-full px-2 flex-col m-auto sm:w-11/12">
-      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">← Desliza para ver las demás opciones → </p>
+      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">
+        ← Desliza para ver las demás opciones →{" "}
+      </p>
       <Tabs
         aria-label="Options"
         selectedKey={selected}
         onSelectionChange={setSelected}
         color="success"
-        className="sm:flex sm:flex-wrap sm:justify-center"
+        className="sm:flex sm:flex-wrap sm:justify-center mx-auto"
       >
         <Tab key="productos" title="Productos">
-          <CardExample
-            img={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScAWrXZsxWfiNFUJnhT41R5RdEfaCGQFmiOQ"}
-            title={"Nombre producto"}
-            txt={"Información del producto"}
-            subtxt={"Aquí van otros datos"}
-          />
-        </Tab>
-        <Tab key="ventas" title="Venta">
           <Card>
             <F_venta_producto />
           </Card>
@@ -38,7 +32,7 @@ const NavbuttonFarmacia = () => {
         </Tab>
         <Tab key="addproductos" title="Agregar Producto">
           <Card>
-            <F_agregar_producto />;
+            <F_agregar_producto />
           </Card>
         </Tab>
       </Tabs>

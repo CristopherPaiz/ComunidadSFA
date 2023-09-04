@@ -7,10 +7,10 @@ const EgresoMedicamento = require("../../models/Farmacia/egresoMedModel.js");
 //======= crear nuevo medicamento =======
 router.post("/medicamento/add", async (req, res) => {
   try {
-    const { nombre, cantidadTotal, tipo, precio, fotos, descripcion, observaciones, estado } = req.body;
+    const { label, cantidadTotal, tipo, precio, fotos, descripcion, observaciones, estado } = req.body;
 
     const medicamento = new Medicamento({
-      nombre,
+      label,
       cantidadTotal,
       tipo,
       precio,
@@ -120,7 +120,9 @@ router.post("/IngresoMedicamento/add", async (req, res) => {
     );
 
     // Mandamos estado 200 de OK y el resultado de la operación
-    res.status(200).json({ message: "Nueva compra de producto añadido correctamente", ingresoMedicamentoResultado });
+    res
+      .status(200)
+      .json({ message: "Nueva compra de producto añadido correctamente", ingresoMedicamentoResultado });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo añadir una nueva compra del producto",

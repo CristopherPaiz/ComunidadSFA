@@ -119,7 +119,7 @@ const C_persona_buscar = () => {
             onChange={(e) => setDireccion(e.target.value)}
           />
           <p className="p-0 sm:hidden">Tipo de don</p>
-          <Dropdown options={options} onChange={handleSelectChange} value={selectedOption} />
+          <Dropdown options={options} onChange={handleSelectChange} value={selectedOption} zz/>
           <Button color="primary" className="w-full sm:w-3/5 mx-auto" onClick={handleBuscar}>
             Filtrar
           </Button>
