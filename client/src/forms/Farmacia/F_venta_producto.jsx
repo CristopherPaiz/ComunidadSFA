@@ -63,7 +63,6 @@ const F_venta_producto = () => {
         const data = await response.json();
         setResultados(data);
         setLoading(false);
-        console.log(data);
         toast.success("Productos cargados correctamente" + error);
       } catch (error) {
         setLoading(false);
@@ -140,10 +139,10 @@ const F_venta_producto = () => {
         {loading ? (
           <Loading />
         ) : resultados.length > 0 ? (
-          resultados.map((producto) => (
+          resultados.map((producto, idx) => (
             <>
               <div
-                key={producto._id}
+                key={idx}
                 className="flex my-2 p-4 border-1 border-gray-300 dark:border-gray-600 rounded-xl shadow-lg dark:shadow-zinc-700 w-11/12 mx-auto sm:w-4/5"
                 onClick={() => {
                   setProductoSeleccionado(producto);
@@ -181,13 +180,9 @@ const F_venta_producto = () => {
                 <ModalContent>
                   {(onClose) => (
                     <>
-                      <ModalHeader className="flex flex-col gap-1">
-                        {productoSeleccionado?.label ?? ""}
-                      </ModalHeader>
+                      <ModalHeader className="flex flex-col gap-1">{productoSeleccionado?.label ?? ""}</ModalHeader>
                       <ModalBody>
-                        <h1 className="font-bold text-center text-xl text-gray-500">
-                          Fecha: {formatfecha(Date())}
-                        </h1>
+                        <h1 className="font-bold text-center text-xl text-gray-500">Fecha: {formatfecha(Date())}</h1>
                         <Table removeWrapper isStriped aria-label="Example static collection table">
                           <TableHeader>
                             <TableColumn className="font-bold text-xl">Disponibles</TableColumn>
@@ -209,10 +204,7 @@ const F_venta_producto = () => {
                         <div className="mx-auto">
                           <div className="text-center">
                             <p>Seleccione la cantidad a vender</p>
-                            <Button
-                              className="bg-danger"
-                              onClick={() => (restar > 0 ? setRestar(restar - 1) : null)}
-                            >
+                            <Button className="bg-danger" onClick={() => (restar > 0 ? setRestar(restar - 1) : null)}>
                               -1
                             </Button>
                             <Input
@@ -222,7 +214,7 @@ const F_venta_producto = () => {
                               min="0"
                               size="lg"
                               isRequired
-                              value={restar}
+                              value={restar.toString()}
                               max={`${productoSeleccionado?.cantidadTotal}`}
                             />
                             <Button
