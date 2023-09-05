@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Input, Button } from "@nextui-org/react";
-import "react-dropdown/style.css";
 import API_URL from "../../config";
 import Select from "react-select";
 import { contexto } from "../../context/ContextProvider";
