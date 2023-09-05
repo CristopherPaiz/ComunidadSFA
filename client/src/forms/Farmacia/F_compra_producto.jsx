@@ -1,5 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Input, Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
+import {
+  Input,
+  Button,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@nextui-org/react";
 import Select from "react-select";
 import API_URL from "../../config";
 import { contexto } from "../../context/ContextProvider";
@@ -30,7 +39,6 @@ const F_compra_producto = () => {
       const data = await response.json();
       setResultadosCrecimientos(data);
       setLoading(false);
-      console.log(data);
     } catch (error) {
       setLoading(false);
     }
@@ -74,7 +82,6 @@ const F_compra_producto = () => {
       }
       const data = await response.json();
       toast.success("Se añadió la compra correctamente", {});
-      console.log(data);
     } catch (error) {}
   };
 

@@ -10,7 +10,8 @@ const cloudinaryUploadUrl = "https://api.cloudinary.com/v1_1/duwvnqyeu/image/upl
 
 const EditarMedicamento = () => {
   const location = useLocation();
-  const { producto } = location.state;
+  const { productoSeleccionado } = location.state;
+  const producto = productoSeleccionado;
 
   if (!location.state) {
     return <Navigate to={"/comunidad"} />;
