@@ -77,6 +77,28 @@ router.get("/BeneficiarioSocial/getall", async (req, res) => {
   }
 });
 
+//obtener y cambiar nombre
+router.get("/BeneficiarioSocial/getallname", async (req, res) => {
+  try {
+    const data = await BeneficiarioSocial.find();
+
+    // Mapear los documentos para cambiar el nombre de la propiedad
+    const modifiedData = data.map((beneficiario) => {
+      return {
+        ...beneficiario._doc,
+        label: beneficiario._doc.nombre,
+      };
+    });
+
+    res.status(200).json(modifiedData);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los beneficiarios",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener una Actividad por su id =======
 router.get("/BeneficiarioSocial/getbyid/:id", async (req, res) => {
   try {
