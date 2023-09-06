@@ -5,7 +5,6 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import API_URL from "../../config";
 import toast, { Toaster } from "react-hot-toast";
-import { da } from "date-fns/locale";
 
 const EditarCurso = () => {
   const location = useLocation();

@@ -168,7 +168,9 @@ const C_comunidad_buscar = () => {
                           </TableRow>
                           <TableRow key="6">
                             <TableCell className="font-bold">Ofrendas</TableCell>
-                            <TableCell>{retiroSelected?.ofrenda ?? ""}</TableCell>
+                            <TableCell>
+                              {retiroSelected?.ofrenda?.length > 0 ? retiroSelected?.ofrenda?.join(", ") ?? "" : "N/A"}
+                            </TableCell>
                           </TableRow>
                         </TableBody>
                       </Table>
