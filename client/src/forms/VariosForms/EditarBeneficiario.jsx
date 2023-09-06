@@ -168,7 +168,6 @@ const EditarBeneficiario = () => {
       fotosdocumentos: [...datosBeneficiarioActualizado.fotosdocumentos, ...imagenesv2Doc],
     };
 
-
     try {
       const response = await fetch(`${API_URL}/BeneficiarioSocial/update/${beneficiario._id}`, {
         method: "PUT",
@@ -349,7 +348,9 @@ const EditarBeneficiario = () => {
           onChange={(e) =>
             setDatosBeneficiarioActualizado({
               ...datosBeneficiarioActualizado,
-              cumpleanios: e.target.value,
+              cumpleanios: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -361,7 +362,9 @@ const EditarBeneficiario = () => {
           onChange={(e) =>
             setDatosBeneficiarioActualizado({
               ...datosBeneficiarioActualizado,
-              fechainicio: e.target.value,
+              fechainicio: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -373,7 +376,9 @@ const EditarBeneficiario = () => {
           onChange={(e) =>
             setDatosBeneficiarioActualizado({
               ...datosBeneficiarioActualizado,
-              fechafinal: e.target.value,
+              fechafinal: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />

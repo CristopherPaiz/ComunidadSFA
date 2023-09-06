@@ -293,7 +293,13 @@ const S_nuevo = () => {
             label="Fecha de nacimiento"
             value={fechaNacimiento}
             placeholder="Ingrese una fecha de nacimiento"
-            onChange={(e) => setFechaNacimiento(e.target.value)}
+            onChange={(e) =>
+              setFechaNacimiento(
+                new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                  .toISOString()
+                  .split("T")[0]
+              )
+            }
           />
           <Input
             type="number"
@@ -376,14 +382,26 @@ const S_nuevo = () => {
             label="Fecha de registro al programa"
             placeholder="Fecha de registro al programa"
             value={formatfecha(Date())}
-            onChange={(e) => setFechaRegistro(e.target.value)}
+            onChange={(e) =>
+              setFechaRegistro(
+                new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                  .toISOString()
+                  .split("T")[0]
+              )
+            }
           />
           <Input
             type="date"
             label="Fecha de salida del programa"
             value={fechaSalida}
             placeholder="Fecha de salida del programa"
-            onChange={(e) => setFechaSalida(e.target.value)}
+            onChange={(e) =>
+              setFechaSalida(
+                new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                  .toISOString()
+                  .split("T")[0]
+              )
+            }
           />
         </div>
         <div className="grid gap-4 mb-6 md:grid-cols-1 w-11/12 m-auto sm:w-11/12 rounded-lg border border-gray-500 dark:border-white px-6 py-4">
