@@ -80,7 +80,7 @@ router.get("/BeneficiarioSocial/getall", async (req, res) => {
 //obtener y cambiar nombre
 router.get("/BeneficiarioSocial/getallname", async (req, res) => {
   try {
-    const data = await BeneficiarioSocial.find();
+    const data = await BeneficiarioSocial.find().sort({ nombre: 1 });
 
     // Mapear los documentos para cambiar el nombre de la propiedad
     const modifiedData = data.map((beneficiario) => {

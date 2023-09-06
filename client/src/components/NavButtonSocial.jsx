@@ -3,7 +3,7 @@ import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
 import S_nuevo from "../forms/Social/S_nuevo";
 import S_nuevoSaldo from "../forms/Social/S_nuevoSaldo";
 import S_quitarSaldo from "../forms/Social/S_quitarSaldo";
-import CardExample from "../forms/CardExample";
+import S_Beneficiarios from "../forms/Social/S_Beneficiarios";
 
 const NavButtonSocial = () => {
   const [selected, setSelected] = useState("");
@@ -19,12 +19,7 @@ const NavButtonSocial = () => {
         className="sm:flex sm:flex-wrap sm:justify-center"
       >
         <Tab key="beneficiarios" title="Beneficiarios">
-          <CardExample
-            img={"https://cdn-icons-png.flaticon.com/512/6000/6000659.png"}
-            title={"Nombre beneficiario"}
-            txt={"Información del beneficiario"}
-            subtxt={"Aquí van otros datos"}
-          />
+          <S_Beneficiarios />
         </Tab>
         <Tab key="addsaldo" title="Añadir Nuevo Saldo">
           <Card>
