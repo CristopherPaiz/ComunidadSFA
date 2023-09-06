@@ -266,7 +266,7 @@ const C_persona_buscar = () => {
                           <TableRow key="13">
                             <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
                             <TableCell>
-                              {personSelected?.fechainicio
+                              {personSelected?.fechasubcordi
                                 ? format(new Date(personSelected?.fechasubcordi), "EEEE d 'de' MMMM 'de' yyyy", {
                                     locale: es,
                                   })
