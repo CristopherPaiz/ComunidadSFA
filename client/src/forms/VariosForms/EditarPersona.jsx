@@ -393,7 +393,14 @@ const EditarPersona = () => {
                     <Input
                       type="Date"
                       value={formatfecha(item.fecha)}
-                      onChange={(e) => handleRetiroFechaChange(index, e.target.value)}
+                      onChange={(e) =>
+                        handleRetiroFechaChange(
+                          index,
+                          new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                            .toISOString()
+                            .split("T")[0]
+                        )
+                      }
                     />
                   </td>
                   <td className="border px-4 py-2">
@@ -430,7 +437,14 @@ const EditarPersona = () => {
                     <Input
                       type="Date"
                       value={formatfecha(item.fecha)}
-                      onChange={(e) => handleCrecimientoFechaChange(index, e.target.value)}
+                      onChange={(e) =>
+                        handleCrecimientoFechaChange(
+                          index,
+                          new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                            .toISOString()
+                            .split("T")[0]
+                        )
+                      }
                     />
                   </td>
                   <td className="border px-4 py-2">
@@ -457,7 +471,9 @@ const EditarPersona = () => {
           onChange={(e) =>
             setDatosPersonaActualizados({
               ...datosPersonaActualizados,
-              fechainicio: e.target.value,
+              fechainicio: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -470,7 +486,9 @@ const EditarPersona = () => {
           onChange={(e) =>
             setDatosPersonaActualizados({
               ...datosPersonaActualizados,
-              fechacreci: e.target.value,
+              fechacreci: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -483,7 +501,9 @@ const EditarPersona = () => {
           onChange={(e) =>
             setDatosPersonaActualizados({
               ...datosPersonaActualizados,
-              fechaservi: e.target.value,
+              fechaservi: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -496,7 +516,9 @@ const EditarPersona = () => {
           onChange={(e) =>
             setDatosPersonaActualizados({
               ...datosPersonaActualizados,
-              fechasubcordi: e.target.value,
+              fechasubcordi: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -509,7 +531,9 @@ const EditarPersona = () => {
           onChange={(e) =>
             setDatosPersonaActualizados({
               ...datosPersonaActualizados,
-              fechacordi: e.target.value,
+              fechacordi: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -545,7 +569,13 @@ const EditarPersona = () => {
                         label="Ingrese la fecha"
                         autoComplete="nope"
                         placeholder="Ingrese la fecha"
-                        onChange={(e) => setValueFecha(e.target.value)}
+                        onChange={(e) =>
+                          setValueFecha(
+                            new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                              .toISOString()
+                              .split("T")[0]
+                          )
+                        }
                       />
                       <Input
                         type="text"
@@ -601,7 +631,13 @@ const EditarPersona = () => {
                         label="Ingrese la fecha"
                         autoComplete="nope"
                         placeholder="Ingrese la fecha"
-                        onChange={(e) => setValueFechaCrecimiento(e.target.value)}
+                        onChange={(e) =>
+                          setValueFechaCrecimiento(
+                            new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                              .toISOString()
+                              .split("T")[0]
+                          )
+                        }
                       />
                       <Input
                         type="text"

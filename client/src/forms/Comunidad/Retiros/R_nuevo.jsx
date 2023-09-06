@@ -107,13 +107,25 @@ const R_nuevo = () => {
           type="Date"
           label="Fecha de inicio"
           placeholder="Fecha inicio"
-          onChange={(e) => setFechaInicio(e.target.value)}
+          onChange={(e) =>
+            setFechaInicio(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
         />
         <Input
           type="Date"
           label="Fecha final"
           placeholder="Fecha final"
-          onChange={(e) => setFechaFinal(e.target.value)}
+          onChange={(e) =>
+            setFechaFinal(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
         />
         <Input
           type="text"

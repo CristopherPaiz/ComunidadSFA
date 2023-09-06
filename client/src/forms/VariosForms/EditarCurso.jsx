@@ -129,7 +129,9 @@ const EditarCurso = () => {
           onChange={(e) =>
             setDatosCursoActualizado({
               ...datosCursoActualizado,
-              fechainicio: e.target.value,
+              fechainicio: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -141,7 +143,9 @@ const EditarCurso = () => {
           onChange={(e) =>
             setDatosCursoActualizado({
               ...datosCursoActualizado,
-              fechaFinal: e.target.value,
+              fechaFinal: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />

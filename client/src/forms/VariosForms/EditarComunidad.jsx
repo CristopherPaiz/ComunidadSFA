@@ -219,12 +219,14 @@ const EditarComunidad = () => {
           label="Fecha de creación"
           placeholder="Ingrese la fecha"
           defaultValue={formatfecha(comunidad?.fechacreacion) ?? ""}
-          onChange={(e) =>
+          onChange={(e) => {
             setDatosComunidadActualizado({
               ...datosComunidadActualizado,
-              fechacreacion: e.target.value,
-            })
-          }
+              fechacreacion: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
+            });
+          }}
         />
         <Input
           type="text"

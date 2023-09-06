@@ -179,35 +179,65 @@ const C_persona_nuevo = () => {
           type="Date"
           label="Fecha primer retiro"
           placeholder="Ingrese una dirección"
-          onChange={(e) => setFechaPrimerRetiro(e.target.value)}
+          onChange={(e) =>
+            setFechaPrimerRetiro(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
         />
         <p className="font-bold sm:hidden -m-2">Fecha primer crecimiento / curso</p>
         <Input
           type="Date"
           label="Fecha Primer crecimiento / curso"
           placeholder="Ingrese una dirección"
-          onChange={(e) => setFechaPrimerCrecimiento(e.target.value)}
+          onChange={(e) =>
+            setFechaPrimerCrecimiento(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
         />
         <p className="font-bold sm:hidden -m-2">Fecha inició a ser Servidor</p>
         <Input
           type="Date"
           label="Fecha inició a ser Servidor"
           placeholder="Ingrese un servidor"
-          onChange={(e) => setFechaServidor(e.target.value)}
+          onChange={(e) =>
+            setFechaServidor(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
         />
         <p className="font-bold sm:hidden -m-2">Fecha inició a ser Subcoordinador</p>
         <Input
           type="Date"
           label="Fecha inició a ser Subcoordinador"
           placeholder="Ingrese un subcoordinador"
-          onChange={(e) => setFechaSubcoordinador(e.target.value)}
+          onChange={(e) =>
+            setFechaSubcoordinador(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
         />
         <p className="font-bold sm:hidden -m-2">Fecha inició a ser Coordinador</p>
         <Input
           type="Date"
           label="Fecha inició a ser Coordinador"
           placeholder="Ingrese una dirección"
-          onChange={(e) => setFechaCoordinador(e.target.value)}
+          onChange={(e) =>
+            setFechaCoordinador(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
         />
         <Textarea
           type="text"

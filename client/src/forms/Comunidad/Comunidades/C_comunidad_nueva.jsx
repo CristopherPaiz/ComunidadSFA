@@ -24,7 +24,7 @@ const C_comunidad_nueva = () => {
     const dataFinal = {
       nombreComunidad: nombreCursoCreci,
       ubicacion: lugar,
-      fechacreacion: new Date(),
+      fechacreacion: new Date(Date.now() + 86400000).toISOString().split("T")[0],
       horarios: horarios,
       tipo: selectedTipo.value,
       estado: true,

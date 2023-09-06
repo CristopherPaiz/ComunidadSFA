@@ -147,7 +147,9 @@ const EditarRetiro = () => {
           onChange={(e) =>
             setDatosRetiroActualizado({
               ...datosRetiroActualizado,
-              fechainicio: e.target.value,
+              fechainicio: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
@@ -159,7 +161,9 @@ const EditarRetiro = () => {
           onChange={(e) =>
             setDatosRetiroActualizado({
               ...datosRetiroActualizado,
-              fechaFinal: e.target.value,
+              fechaFinal: new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0],
             })
           }
         />
