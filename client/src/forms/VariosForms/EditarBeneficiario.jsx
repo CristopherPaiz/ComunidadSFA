@@ -168,7 +168,6 @@ const EditarBeneficiario = () => {
       fotosdocumentos: [...datosBeneficiarioActualizado.fotosdocumentos, ...imagenesv2Doc],
     };
 
-    console.log(formattedData);
 
     try {
       const response = await fetch(`${API_URL}/BeneficiarioSocial/update/${beneficiario._id}`, {

@@ -58,7 +58,6 @@ const F_compra_producto = () => {
       toast.error("Debe ingresar una cantidad válida", {});
       return;
     }
-    console.log(seleccionado);
     const retiroFinal = {
       idmedicamento: seleccionado._id,
       cantidad: cantidad,

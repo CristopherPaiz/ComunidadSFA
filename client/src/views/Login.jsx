@@ -23,7 +23,6 @@ const Login = () => {
 
   const obtenerTipoUsuario = async () => {
     const respuesta = await fetchUser(nombreUsuario, password);
-    console.log(respuesta);
     if (respuesta === "Admin") {
       navigate("/comunidad");
     } else if (respuesta === "Moderator") {

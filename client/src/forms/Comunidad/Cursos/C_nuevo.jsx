@@ -54,7 +54,6 @@ const C_nuevo = () => {
       }
       const data = await response.json();
       toast.success("Se agrego el retiro correctamente", {});
-      console.log(data);
       //Setear todos los campos en blanco
       setNombreCursoCreci("");
       setFechaInicio("");

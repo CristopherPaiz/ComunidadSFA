@@ -49,7 +49,6 @@ const S_nuevoSaldo = () => {
       toast.error("Debe ingresar una cantidad válida", {});
       return;
     }
-    console.log(seleccionado);
 
     const formattedData = {
       idbeneficiario: seleccionado._id,

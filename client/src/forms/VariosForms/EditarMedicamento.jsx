@@ -95,8 +95,6 @@ const EditarMedicamento = () => {
       fotos: [...datosProductoActualizado.fotos, ...imagenesv2],
     };
 
-    console.log(formattedData);
-
     try {
       const response = await fetch(`${API_URL}/medicamento/update/${producto._id}`, {
         method: "PUT",

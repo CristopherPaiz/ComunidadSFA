@@ -225,7 +225,6 @@ const S_nuevo = () => {
         setShowLoadingToast(false);
         setShowLoadingToastDoc(false);
         toast.error("Error al añadir al Beneficiario");
-        console.log(response);
         return;
       }
       toast.success("Beneficiario añadido correctamente");

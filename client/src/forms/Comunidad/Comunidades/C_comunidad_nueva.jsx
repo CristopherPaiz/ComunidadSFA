@@ -47,7 +47,6 @@ const C_comunidad_nueva = () => {
       }
       const data = await response.json();
       toast.success("Se agrego la comunidad correctamente", {});
-      console.log(data);
       //Setear todos los campos en blanco
       setNombreCursoCreci("");
       setLugar("");

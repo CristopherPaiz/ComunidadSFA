@@ -5,7 +5,7 @@ const authenticateToken = (req, res, next) => {
 
   try {
     const validPayload = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(validPayload);
+    // console.log(validPayload);
     // Llamar a next solo si el token es válido
     next();
   } catch (error) {

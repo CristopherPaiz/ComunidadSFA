@@ -157,7 +157,6 @@ const S_quitarSaldo = () => {
         setLoadingImages(false);
         setShowLoadingToast(false);
         toast.error("Error al añadir un nuevo gasto al beneficiario");
-        console.log(response);
         return;
       }
       toast.success("Nuevo gasto añadido correctamente");
