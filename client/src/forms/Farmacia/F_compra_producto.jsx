@@ -1,14 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Input,
-  Button,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@nextui-org/react";
+import { Input, Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import Select from "react-select";
 import API_URL from "../../config";
 import { contexto } from "../../context/ContextProvider";
@@ -152,7 +143,7 @@ const F_compra_producto = () => {
                 </TableRow>
                 <TableRow key="3">
                   <TableCell className="font-bold">Precio</TableCell>
-                  <TableCell>{seleccionado.precio ?? ""}</TableCell>
+                  <TableCell>{"Q. " + seleccionado.precio ?? ""}</TableCell>
                 </TableRow>
                 <TableRow key="4">
                   <TableCell className="font-bold">Descripción</TableCell>
@@ -161,6 +152,10 @@ const F_compra_producto = () => {
                 <TableRow key="5">
                   <TableCell className="font-bold">Observaciones</TableCell>
                   <TableCell>{seleccionado.observaciones ?? ""}</TableCell>
+                </TableRow>
+                <TableRow key="5">
+                  <TableCell className="font-bold">Disponibles</TableCell>
+                  <TableCell>{seleccionado.cantidadTotal ?? ""}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
