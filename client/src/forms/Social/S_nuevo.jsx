@@ -381,7 +381,7 @@ const S_nuevo = () => {
             type="date"
             label="Fecha de registro al programa"
             placeholder="Fecha de registro al programa"
-            value={formatfecha(Date())}
+            value={formatfecha(new Date(Date().now + 86400000).toISOString().split("T")[0])}
             onChange={(e) =>
               setFechaRegistro(
                 new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
