@@ -140,9 +140,8 @@ const F_venta_producto = () => {
           <Loading />
         ) : resultados.length > 0 ? (
           resultados.map((producto, idx) => (
-            <>
+            <React.Fragment key={idx}>
               <div
-                key={idx}
                 className="flex my-2 p-4 border-1 border-gray-300 dark:border-gray-600 rounded-xl shadow-lg dark:shadow-zinc-700 w-11/12 mx-auto sm:w-4/5"
                 onClick={() => {
                   setProductoSeleccionado(producto);
@@ -249,7 +248,7 @@ const F_venta_producto = () => {
                   )}
                 </ModalContent>
               </Modal>
-            </>
+            </React.Fragment>
           ))
         ) : (
           <h2 className="mx-auto">No hay resultados</h2>
