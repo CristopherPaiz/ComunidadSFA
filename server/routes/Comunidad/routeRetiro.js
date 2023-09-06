@@ -37,7 +37,7 @@ router.post("/retiro/add", async (req, res) => {
 // ======= obtener todos los retiros =======
 router.get("/retiro/getall", async (req, res) => {
   try {
-    const data = await Retiro.find().sort({ nombreRetiro: 1 });
+    const data = await Retiro.find().where({ estado: true }).sort({ nombreRetiro: 1 }).exec();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -51,7 +51,10 @@ router.get("/retiro/getall", async (req, res) => {
 router.post("/retiro/getbyname", async (req, res) => {
   try {
     const { nombreRetiro } = req.body;
-    const data = await Retiro.find({ nombreRetiro: { $regex: nombreRetiro, $options: "i" } }).sort({ fechainicio: 1 });
+    const data = await Retiro.find({ nombreRetiro: { $regex: nombreRetiro, $options: "i" } })
+      .where({ estado: true })
+      .sort({ nombreRetiro: 1 })
+      .exec();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -64,7 +67,12 @@ router.post("/retiro/getbyname", async (req, res) => {
 // ======= obtener todos los retiros solo nombrey ID =======
 router.get("/retiro/getallname", async (req, res) => {
   try {
-    const data = await Retiro.find().sort({ nombreRetiro: 1 }).select("nombreRetiro _id");
+    const data = await Retiro.find()
+      .select("nombreRetiro _id")
+      .where({ estado: true })
+      .sort({ nombreRetiro: 1 })
+      .exec();
+
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({

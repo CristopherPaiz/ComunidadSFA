@@ -179,7 +179,6 @@ const EditarPersona = () => {
         throw new Error("Error al eliminar a la persona", {});
       }
       const data = await response.json();
-      console.log(data);
       toast.success("Se Eliminó a la persona correctamente", {});
       await new Promise((resolve) => setTimeout(resolve, 1300));
       navigate("/comunidad");
