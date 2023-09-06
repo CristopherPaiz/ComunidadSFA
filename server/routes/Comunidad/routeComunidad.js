@@ -34,7 +34,7 @@ router.post("/comunidad/add", async (req, res) => {
 // ======= obtener todas las comunidades =======
 router.get("/comunidad/getall", async (req, res) => {
   try {
-    const data = await ComunidadModel.find();
+    const data = await ComunidadModel.find().where({ estado: true }).sort({ nombreComunidad: 1 }).exec();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -47,7 +47,12 @@ router.get("/comunidad/getall", async (req, res) => {
 // ======= obtener todas las comunidades =======
 router.get("/comunidad/getallname", async (req, res) => {
   try {
-    const data = await ComunidadModel.find().sort({ nombreComunidad: 1 }).select("nombreComunidad _id");
+    const data = await ComunidadModel.find()
+      .select("nombreComunidad _id")
+      .where({ estado: true })
+      .sort({ nombreComunidad: 1 })
+      .exec();
+
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -63,9 +68,11 @@ router.post("/comunidad/getbyname", async (req, res) => {
     const { nombreComunidad } = req.body;
     const data = await ComunidadModel.find({
       nombreComunidad: { $regex: nombreComunidad, $options: "i" },
-    }).sort({
-      nombreComunidad: 1,
-    });
+    })
+      .where({ estado: true })
+      .sort({ nombreComunidad: 1 })
+      .exec();
+
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
