@@ -67,7 +67,7 @@ router.post("/BeneficiarioSocial/add", async (req, res) => {
 // ======= obtener todas los beneficiarios =======
 router.get("/BeneficiarioSocial/getall", async (req, res) => {
   try {
-    const data = await BeneficiarioSocial.find();
+    const data = await BeneficiarioSocial.find().where({ estado: true }).sort({ nombre: 1 }).exec();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -80,7 +80,7 @@ router.get("/BeneficiarioSocial/getall", async (req, res) => {
 //obtener y cambiar nombre
 router.get("/BeneficiarioSocial/getallname", async (req, res) => {
   try {
-    const data = await BeneficiarioSocial.find().sort({ nombre: 1 });
+    const data = await BeneficiarioSocial.find().where({ estado: true }).sort({ nombre: 1 }).exec();
 
     // Mapear los documentos para cambiar el nombre de la propiedad
     const modifiedData = data.map((beneficiario) => {
