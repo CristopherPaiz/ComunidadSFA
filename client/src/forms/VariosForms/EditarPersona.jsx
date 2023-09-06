@@ -645,7 +645,7 @@ const EditarPersona = () => {
             <PopoverContent>
               <div className="px-1 py-2">
                 <div className="text-small font-bold">¿Está seguro de querer eliminar a la persona?</div>
-                <div className="text-tiny">¡Esta acción no se puede deshacer, desea continuar?</div>
+                <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
                 <div className="mx-auto m-2 text-center">
                   <Button color="warning" className="mr-2" onClick={handleDelete}>
                     Sí, deseo eliminarla
