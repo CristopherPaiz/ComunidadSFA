@@ -64,7 +64,7 @@ router.post("/persona/add", async (req, res) => {
 // ======= obtener todas las actividad comunidades =======
 router.get("/persona/getall", async (req, res) => {
   try {
-    const data = await Persona.find();
+    const data = await Persona.find().where({ estado: true }).sort({ nombre: 1 }).exec();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -92,7 +92,7 @@ router.post("/persona/getbycomunidad", async (req, res) => {
   try {
     const { idcomunidad } = req.body;
 
-    const personas = await Persona.find({ idcomunidad }).sort({ nombre: 1 }).exec();
+    const personas = await Persona.find({ idcomunidad }).where({ estado: true }).sort({ nombre: 1 }).exec();
     res.status(200).json(personas);
   } catch (error) {
     res.status(500).json({
@@ -111,6 +111,7 @@ router.post("/persona/getrbyretiro", async (req, res) => {
     const personas = await Persona.find({ "retiros.idretiro": idretiro })
       .populate("retiros.idretiro", "nombreRetiro")
       .populate("crecimientos.idcursocreci", "nombreCursoCreci") // Cargar datos relacionados del retiro
+      .where({ estado: true })
       .sort({ nombre: 1 })
       .exec();
 
@@ -132,6 +133,7 @@ router.post("/persona/getrbycursocreci", async (req, res) => {
     const personas = await Persona.find({ "crecimientos.idcursocreci": idCursoCreci })
       .populate("retiros.idretiro", "nombreRetiro")
       .populate("crecimientos.idcursocreci", "nombreCursoCreci") // Cargar datos relacionados del retiro
+      .where({ estado: true })
       .sort({ nombre: 1 })
       .exec();
 
@@ -153,6 +155,7 @@ router.post("/persona/getbycomunidad", async (req, res) => {
     const personas = await Persona.find({ "comunidad.idcomunidad": idcomunidad })
       .populate("retiros.idretiro", "nombreRetiro")
       .populate("crecimientos.idcursocreci", "nombreCursoCreci") // Cargar datos relacionados del retiro
+      .where({ estado: true })
       .sort({ nombre: 1 })
       .exec();
 
@@ -224,6 +227,8 @@ router.post("/persona/filtrar", async (req, res) => {
       .populate("idcomunidad", "nombreComunidad")
       .populate("retiros.idretiro", "nombreRetiro")
       .populate("crecimientos.idcursocreci", "nombreCursoCreci")
+      .where({ estado: true })
+      .sort({ nombre: 1 })
       .exec();
 
     res.status(200).json(personas);

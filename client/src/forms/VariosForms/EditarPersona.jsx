@@ -13,7 +13,9 @@ import {
   useDisclosure,
   Select,
   SelectItem,
-  Divider,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@nextui-org/react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import Dropdown from "react-dropdown";
@@ -26,6 +28,8 @@ const EditarPersona = () => {
   const [loading, setLoading] = useState(false);
   const [mensaje, setMensaje] = useState(null);
   const [tipodeModal, setTipodeModal] = useState("");
+
+  const [popOver, setPopOver] = useState(false);
 
   const [resultadosRetiros, setResultadosRetiros] = useState([]);
   const [resultadosCrecimientos, setResultadosCrecimientos] = useState([]);
@@ -152,6 +156,31 @@ const EditarPersona = () => {
       }
       const data = await response.json();
       toast.success("Se actualizaron los datos correctamente", {});
+      await new Promise((resolve) => setTimeout(resolve, 1300));
+      navigate("/comunidad");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`${API_URL}/persona/delete/${datosPersonaActualizados._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          estado: false,
+        }),
+        credentials: "include", // Asegúrate de incluir esta opción
+      });
+      if (!response.ok) {
+        throw new Error("Error al eliminar a la persona", {});
+      }
+      const data = await response.json();
+      console.log(data);
+      toast.success("Se Eliminó a la persona correctamente", {});
       await new Promise((resolve) => setTimeout(resolve, 1300));
       navigate("/comunidad");
     } catch (error) {
@@ -339,12 +368,7 @@ const EditarPersona = () => {
         />
         <p className="font-bold sm:hidden -mb-2">Seleccione el tipo de Dones</p>
         <div className="flex flex-col gap-3">
-          <CheckboxGroup
-            color="primary"
-            value={selected}
-            orientation="horizontal"
-            onValueChange={setSelected}
-          >
+          <CheckboxGroup color="primary" value={selected} orientation="horizontal" onValueChange={setSelected}>
             <Checkbox value="Predicador">Predicador</Checkbox>
             <Checkbox value="Avivador">Avivador</Checkbox>
             <Checkbox value="Músico">Músico</Checkbox>
@@ -376,9 +400,7 @@ const EditarPersona = () => {
                   <td className="border px-4 py-2">
                     <Textarea
                       type="text"
-                      value={
-                        Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""
-                      }
+                      value={Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""}
                       onChange={(e) => handleRetiroCuotasChange(index, e.target.value)}
                     />
                   </td>
@@ -390,11 +412,7 @@ const EditarPersona = () => {
         <Button color="primary" className="sm:h-13" onClick={handleBuscar}>
           Ingresar un nuevo retiro
         </Button>
-        {mensaje !== null ? (
-          <p className="text-danger-400 text-xl text-center font-extrabold">{mensaje}</p>
-        ) : (
-          ""
-        )}
+        {mensaje !== null ? <p className="text-danger-400 text-xl text-center font-extrabold">{mensaje}</p> : ""}
         <p className="font-bold text-[18px] -mb-2">Lista de Crecimientos / cursos</p>
         <div className="container w-full overflow-scroll sm:flex sm:overflow-auto">
           <table className="table-auto">
@@ -419,9 +437,7 @@ const EditarPersona = () => {
                   <td className="border px-4 py-2">
                     <Textarea
                       type="text"
-                      value={
-                        Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""
-                      }
+                      value={Array.isArray(item?.cuota) ? (item.cuota.length > 0 ? item.cuota.join(", ") : "") : ""}
                       onChange={(e) => handleCrecimientoCuotasChange(index, e.target.value)}
                     />
                   </td>
@@ -508,9 +524,7 @@ const EditarPersona = () => {
             ) : (
               (onClose) => (
                 <>
-                  <ModalHeader className="flex flex-col gap-1">
-                    Retiros de {personSelected?.nombre ?? ""}
-                  </ModalHeader>
+                  <ModalHeader className="flex flex-col gap-1">Retiros de {personSelected?.nombre ?? ""}</ModalHeader>
                   <ModalBody>
                     <div className="grid gap-6 mb-6 w-11/12 m-auto sm:grid-cols-1">
                       <Select
@@ -617,9 +631,36 @@ const EditarPersona = () => {
       {mensaje !== null ? (
         ""
       ) : (
-        <Button color="success" className="w-11/12 m-auto sm:w-5/12" onClick={handleSubmit}>
-          Actualizar Datos
-        </Button>
+        <div className="mx-auto text-center w-11/12 sm:w-5/12">
+          <Popover placement="top" color="danger" isOpen={popOver}>
+            <PopoverTrigger>
+              <Button
+                color="danger"
+                className="mx-auto text-center w-11/12 mb-3 sm:w-5/12"
+                onClick={() => setPopOver(true)}
+              >
+                Eliminar
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className="px-1 py-2">
+                <div className="text-small font-bold">¿Está seguro de querer eliminar a la persona?</div>
+                <div className="text-tiny">¡Esta acción no se puede deshacer, desea continuar?</div>
+                <div className="mx-auto m-2 text-center">
+                  <Button color="warning" className="mr-2" onClick={handleDelete}>
+                    Sí, deseo eliminarla
+                  </Button>
+                  <Button color="primary" onClick={() => setPopOver(false)}>
+                    Cancelar
+                  </Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <Button color="success" className="w-11/12 mx-auto sm:w-5/12" onClick={handleSubmit}>
+            Actualizar Datos
+          </Button>
+        </div>
       )}
     </div>
   );
