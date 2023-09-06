@@ -36,7 +36,7 @@ router.post("/medicamento/add", async (req, res) => {
 // ======= obtener todos los medicamentos =======
 router.get("/medicamento/getall", async (req, res) => {
   try {
-    const data = await Medicamento.find();
+    const data = await Medicamento.find().where({ estado: true }).sort({ label: 1 }).exec();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -51,7 +51,10 @@ router.post("/medicamento/filtrar", async (req, res) => {
   try {
     const { label } = req.body;
 
-    const medicamentos = await Medicamento.find({ label: { $regex: label, $options: "i" } }).sort({ label: 1 });
+    const medicamentos = await Medicamento.find({ label: { $regex: label, $options: "i" } })
+      .where({ estado: true })
+      .sort({ label: 1 })
+      .exec();
 
     res.status(200).json(medicamentos);
   } catch (error) {
