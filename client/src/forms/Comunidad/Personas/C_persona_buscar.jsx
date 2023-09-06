@@ -119,7 +119,7 @@ const C_persona_buscar = () => {
             onChange={(e) => setDireccion(e.target.value)}
           />
           <p className="p-0 sm:hidden">Tipo de don</p>
-          <Dropdown options={options} onChange={handleSelectChange} value={selectedOption} zz/>
+          <Dropdown options={options} onChange={handleSelectChange} value={selectedOption} zz />
           <Button color="primary" className="w-full sm:w-3/5 mx-auto" onClick={handleBuscar}>
             Filtrar
           </Button>
@@ -267,7 +267,7 @@ const C_persona_buscar = () => {
                             <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
                             <TableCell>
                               {personSelected?.fechainicio
-                                ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                ? format(new Date(personSelected?.fechasubcordi), "EEEE d 'de' MMMM 'de' yyyy", {
                                     locale: es,
                                   })
                                 : ""}
