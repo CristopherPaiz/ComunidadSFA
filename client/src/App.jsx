@@ -17,6 +17,7 @@ import EditarMedicamento from "./forms/VariosForms/EditarMedicamento";
 
 import ContextProvider from "./context/ContextProvider.jsx";
 import EditarBeneficiario from "./forms/VariosForms/EditarBeneficiario";
+import EditarComunidad from "./forms/VariosForms/EditarComunidad";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/comunidad/persona/:id" element={<EditarPersona />} />
         <Route path="/comunidad/retiro/:id" element={<EditarRetiro />} />
         <Route path="/comunidad/cursoCreci/:id" element={<EditarCurso />} />
+        <Route path="/comunidad/comunidades/:id" element={<EditarComunidad />} />
         <Route path="/farmacia/medicamento/:id" element={<EditarMedicamento />} />
         <Route path="/social/beneficiario/:id" element={<EditarBeneficiario />} />
         <Route path="/farmacia" element={<Farmacia />} />

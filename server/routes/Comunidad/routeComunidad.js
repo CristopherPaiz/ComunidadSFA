@@ -132,9 +132,7 @@ router.post("/comunidad/addofrenda/:id", async (req, res) => {
       { new: true }
     );
 
-    res
-      .status(200)
-      .json({ message: "Nuevo año de ofrenda añadido a la comunidad", comunidad: updatedComunidad });
+    res.status(200).json({ message: "Nuevo año de ofrenda añadido a la comunidad", comunidad: updatedComunidad });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo añadir nuevo año de ofrendas a la comunidad",

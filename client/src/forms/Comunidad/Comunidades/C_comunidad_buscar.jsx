@@ -92,11 +92,7 @@ const C_comunidad_buscar = () => {
             placeholder="Ingrese nombre de la comunidad"
             onChange={(e) => setNombreRetiroUS(e.target.value)}
           />
-          <Button
-            color="primary"
-            className="w-11/12 sm:w-3/5 mx-auto sm:h-full"
-            onClick={handleBuscarPorComunidad}
-          >
+          <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto sm:h-full" onClick={handleBuscarPorComunidad}>
             Filtrar
           </Button>
         </div>
@@ -118,7 +114,7 @@ const C_comunidad_buscar = () => {
                   <Card className="w-full">
                     <CardHeader className="flex p-0 m-0">
                       <div className="flex items-center">
-                        <div className="transform -rotate-90 opacity-30 origin-center text-2xl p-0 -m-2 font-extrabold">
+                        <div className="transform -rotate-90 opacity-30 origin-center text-2xl -p-2 -m-4 font-extrabold">
                           {retiro?.tipo ?? ""}
                         </div>
                         <div className="flex flex-col flex-grow p-2 gap-1 py-3">
@@ -142,9 +138,7 @@ const C_comunidad_buscar = () => {
               <ModalContent>
                 {(onClose) => (
                   <>
-                    <ModalHeader className="flex flex-col gap-1">
-                      {retiroSelected?.nombreCursoCreci ?? ""}
-                    </ModalHeader>
+                    <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreComunidad ?? ""}</ModalHeader>
                     <ModalBody>
                       <Table removeWrapper isStriped aria-label="Example static collection table">
                         <TableHeader>
@@ -154,62 +148,55 @@ const C_comunidad_buscar = () => {
                         <TableBody>
                           <TableRow key="1">
                             <TableCell className="font-bold">Nombre</TableCell>
-                            <TableCell>{retiroSelected?.nombreCursoCreci ?? ""}</TableCell>
+                            <TableCell>{retiroSelected?.nombreComunidad ?? ""}</TableCell>
                           </TableRow>
                           <TableRow key="2">
-                            <TableCell className="font-bold">Ofrenda</TableCell>
-                            <TableCell>{"Q. " + retiroSelected?.ofrenda ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="3">
-                            <TableCell className="font-bold">Horario</TableCell>
-                            <TableCell>{retiroSelected?.horario ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="4">
-                            <TableCell className="font-bold">Dirigido A</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.dirigidoA ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="5">
-                            <TableCell className="font-bold">Dirigido Por</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.dirigidoPor ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="6">
                             <TableCell className="font-bold">Ubicación</TableCell>
                             <TableCell>{retiroSelected?.ubicacion ?? ""}</TableCell>
                           </TableRow>
-                          <TableRow key="7">
+                          <TableRow key="3">
+                            <TableCell className="font-bold">Fecha de creación</TableCell>
+                            <TableCell>{formatfecha(retiroSelected?.fechacreacion) ?? ""}</TableCell>
+                          </TableRow>
+                          <TableRow key="4">
+                            <TableCell className="font-bold">Horarios</TableCell>
+                            <TableCell className="capitalize">{retiroSelected?.horarios ?? ""}</TableCell>
+                          </TableRow>
+                          <TableRow key="5">
                             <TableCell className="font-bold">Tipo</TableCell>
                             <TableCell className="capitalize">{retiroSelected?.tipo ?? ""}</TableCell>
                           </TableRow>
-                          <TableRow key="8">
-                            <TableCell className="font-bold">Fecha inicio</TableCell>
-                            <TableCell className="capitalize">
-                              {retiroSelected?.fechainicio
-                                ? format(
-                                    new Date(retiroSelected?.fechainicio),
-                                    "EEEE d 'de' MMMM 'de' yyyy",
-                                    {
-                                      locale: es,
-                                    }
-                                  )
-                                : ""}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow key="9">
-                            <TableCell className="font-bold">Fecha Finaliza</TableCell>
-                            <TableCell className="capitalize">
-                              {retiroSelected?.fechaFinal
-                                ? format(new Date(retiroSelected?.fechaFinal), "EEEE d 'de' MMMM 'de' yyyy", {
-                                    locale: es,
-                                  })
-                                : ""}
-                            </TableCell>
+                          <TableRow key="6">
+                            <TableCell className="font-bold">Ofrendas</TableCell>
+                            <TableCell>{retiroSelected?.ofrenda ?? ""}</TableCell>
                           </TableRow>
                         </TableBody>
                       </Table>
+                      <h1 className="font-bold text-[18px] -mb-2 mx-auto">Fotos de la comunidad</h1>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        {retiroSelected?.fotos.map((imagenSrc, index) => (
+                          <img
+                            key={index}
+                            style={{
+                              objectFit: "contain",
+                              width: "100%",
+                              height: "auto",
+                              margin: "5px",
+                            }}
+                            src={imagenSrc}
+                          />
+                        ))}
+                      </div>
                     </ModalBody>
                     <ModalFooter>
                       <Linky
-                        to={`/comunidad/cursoCreci/${retiroSelected._id}`}
+                        to={`/comunidad/comunidades/${retiroSelected._id}`}
                         state={{ retiroSelected }}
                         className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
                       >
