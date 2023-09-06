@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -7,6 +7,7 @@ import API_URL from "../../config";
 import toast, { Toaster } from "react-hot-toast";
 
 const EditarCurso = () => {
+  const [popOver, setPopOver] = useState(false);
   const location = useLocation();
   const { retiroSelected } = location.state;
 
@@ -73,6 +74,30 @@ const EditarCurso = () => {
       navigate("/comunidad");
     } catch (error) {
       toast.error("Error al actualizar los datos");
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`${API_URL}/cursocreci/delete/${datosCursoActualizado._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          estado: false,
+        }),
+        credentials: "include", // Asegúrate de incluir esta opción
+      });
+      if (!response.ok) {
+        throw new Error("Error al eliminar el curso o crecimiento", {});
+      }
+      const data = await response.json();
+      toast.success("Se Eliminó el curso o creciemiento correctamente", {});
+      await new Promise((resolve) => setTimeout(resolve, 1300));
+      navigate("/comunidad");
+    } catch (error) {
       console.log(error);
     }
   };
@@ -172,9 +197,36 @@ const EditarCurso = () => {
         <p className="font-bold text-[18px] sm:hidden -mb-2">Dirigido a:</p>
         <Dropdown options={tipo} onChange={handleSelectTipo} value={selectedTipo} />
       </div>
-      <Button color="success" className="w-11/12 m-auto sm:w-5/12" onClick={handleSubmit}>
-        Actualizar Datos del retiro
-      </Button>
+      <div className="mx-auto text-center w-11/12 sm:w-5/12">
+        <Popover placement="top" color="danger" isOpen={popOver}>
+          <PopoverTrigger>
+            <Button
+              color="danger"
+              className="mx-auto text-center w-11/12 mb-3 sm:w-5/12"
+              onClick={() => setPopOver(true)}
+            >
+              Eliminar
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="px-1 py-2">
+              <div className="text-small font-bold">¿Está seguro de querer eliminar el curso o crecimiento?</div>
+              <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
+              <div className="mx-auto m-2 text-center">
+                <Button color="warning" className="mr-2" onClick={handleDelete}>
+                  Sí, deseo eliminarlo
+                </Button>
+                <Button color="primary" onClick={() => setPopOver(false)}>
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Button color="success" className="w-11/12 mx-auto sm:w-5/12" onClick={handleSubmit}>
+          Actualizar Datos del curso o crecimiento
+        </Button>
+      </div>
     </div>
   );
 };

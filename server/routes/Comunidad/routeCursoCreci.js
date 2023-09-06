@@ -47,7 +47,7 @@ router.post("/cursocreci/add", async (req, res) => {
 // ======= obtener todas los cursos o crecimientos =======
 router.get("/cursocreci/getall", async (req, res) => {
   try {
-    const data = await CursoCreci.find();
+    const data = await CursoCreci.find().where({ estado: true }).sort({ nombreCursoCreci: 1 }).exec();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -63,9 +63,11 @@ router.post("/cursocreci/getbyname", async (req, res) => {
     const { nombreCursoCreci } = req.body;
     const data = await CursoCreci.find({
       nombreCursoCreci: { $regex: nombreCursoCreci, $options: "i" },
-    }).sort({
-      fechainicio: 1,
-    });
+    })
+      .where({ estado: true })
+      .sort({ nombreCursoCreci: 1 })
+      .exec();
+
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -78,7 +80,12 @@ router.post("/cursocreci/getbyname", async (req, res) => {
 // ======= obtener todos los retiros solo nombrey ID =======
 router.get("/cursocreci/getallname", async (req, res) => {
   try {
-    const data = await CursoCreci.find().sort({ nombreCursoCreci: 1 }).select("nombreCursoCreci _id");
+    const data = await CursoCreci.find()
+      .select("nombreCursoCreci _id")
+      .where({ estado: true })
+      .sort({ nombreCursoCreci: 1 })
+      .exec();
+
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
