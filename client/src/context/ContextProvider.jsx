@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import API_URL from "../config.js";
 import { useTheme } from "next-themes";
 
@@ -9,12 +9,15 @@ const ContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false); // indicar si el usuario ha iniciado sesión
   const { theme, setTheme } = useTheme();
 
-  //intentar recuperar el tema del localStorage
-  if (localStorage.getItem("themeSFA")) {
-    setTheme(localStorage.getItem("themeSFA"));
-  } else {
-    setTheme("light");
-  }
+  useEffect(() => {
+    // Intenta recuperar el tema del localStorage
+    const storedTheme = localStorage.getItem("themeSFA");
+    if (storedTheme) {
+      setTheme(storedTheme);
+    } else {
+      setTheme("light");
+    }
+  }, []);
 
   const changeTheme = (valor) => {
     if (valor === "dark") {

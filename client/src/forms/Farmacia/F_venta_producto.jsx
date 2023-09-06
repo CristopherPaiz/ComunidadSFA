@@ -21,8 +21,8 @@ import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../config.js";
 import { Link as Linky } from "react-router-dom";
 import { contexto } from "../../context/ContextProvider";
-import NFblack from "../../../public/notfoundblack.svg";
-import NFWhite from "../../../public/notfoundwhite.svg";
+import NFblack from "../../assets/notfoundblack.svg";
+import NFWhite from "../../assets/notfoundwhite.svg";
 
 const F_venta_producto = () => {
   const { theme } = useContext(contexto);
