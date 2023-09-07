@@ -144,7 +144,7 @@ const C_persona_comunidad = () => {
                   onOpen();
                 }}
               >
-                <Card className="w-full">
+                <Card className="w-full h-full grid center hover:bg-slate-500">
                   <CardHeader className="flex gap-3">
                     <div className="flex flex-col">
                       <p className="text-md">
@@ -208,7 +208,9 @@ const C_persona_comunidad = () => {
                         <TableRow key="7">
                           <TableCell className="font-bold">Dones</TableCell>
                           <TableCell>
-                            {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
+                            {personSelected?.dones?.length > 0
+                              ? personSelected?.dones?.join(", ") ?? ""
+                              : "N/A"}
                           </TableCell>
                         </TableRow>
                         <TableRow key="8">
@@ -269,9 +271,13 @@ const C_persona_comunidad = () => {
                           <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
                           <TableCell>
                             {personSelected?.fechasubcordi
-                              ? format(new Date(personSelected?.fechasubcordi), "EEEE d 'de' MMMM 'de' yyyy", {
-                                  locale: es,
-                                })
+                              ? format(
+                                  new Date(personSelected?.fechasubcordi),
+                                  "EEEE d 'de' MMMM 'de' yyyy",
+                                  {
+                                    locale: es,
+                                  }
+                                )
                               : ""}
                           </TableCell>
                         </TableRow>

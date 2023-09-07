@@ -92,7 +92,11 @@ const C_comunidad_buscar = () => {
             placeholder="Ingrese nombre de la comunidad"
             onChange={(e) => setNombreRetiroUS(e.target.value)}
           />
-          <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto sm:h-full" onClick={handleBuscarPorComunidad}>
+          <Button
+            color="primary"
+            className="w-11/12 sm:w-3/5 mx-auto sm:h-full"
+            onClick={handleBuscarPorComunidad}
+          >
             Filtrar
           </Button>
         </div>
@@ -105,13 +109,13 @@ const C_comunidad_buscar = () => {
               {resultadosRetiros?.map((retiro, idx) => (
                 <div
                   key={idx}
-                  className="mx-auto min-w-[300px] w-[320px] max-w-[500px] sm:min-w-[500px] cursor-pointer dark:border-white border-1 rounded-xl"
+                  className="mx-auto min-w-[300px] w-[320px] max-w-[500px] sm:min-w-[500px] cursor-pointer dark:border-white border-1 rounded-xl  "
                   onClick={() => {
                     setRetiroSelected(retiro);
                     onOpen();
                   }}
                 >
-                  <Card className="w-full">
+                  <Card className="w-full h-full grid center hover:bg-slate-500">
                     <CardHeader className="flex p-0 m-0">
                       <div className="flex items-center">
                         <div className="transform -rotate-90 opacity-30 origin-center text-2xl -p-2 -m-4 font-extrabold">
@@ -138,7 +142,9 @@ const C_comunidad_buscar = () => {
               <ModalContent>
                 {(onClose) => (
                   <>
-                    <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreComunidad ?? ""}</ModalHeader>
+                    <ModalHeader className="flex flex-col gap-1">
+                      {retiroSelected?.nombreComunidad ?? ""}
+                    </ModalHeader>
                     <ModalBody>
                       <Table removeWrapper isStriped aria-label="Example static collection table">
                         <TableHeader>
@@ -169,7 +175,9 @@ const C_comunidad_buscar = () => {
                           <TableRow key="6">
                             <TableCell className="font-bold">Ofrendas</TableCell>
                             <TableCell>
-                              {retiroSelected?.ofrenda?.length > 0 ? retiroSelected?.ofrenda?.join(", ") ?? "" : "N/A"}
+                              {retiroSelected?.ofrenda?.length > 0
+                                ? retiroSelected?.ofrenda?.join(", ") ?? ""
+                                : "N/A"}
                             </TableCell>
                           </TableRow>
                         </TableBody>

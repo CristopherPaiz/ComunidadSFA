@@ -141,7 +141,7 @@ const C_buscar_Curso = () => {
                   onOpen();
                 }}
               >
-                <Card className="w-full">
+                <Card className="w-full h-full grid center hover:bg-slate-500">
                   <CardHeader className="flex gap-3">
                     <div className="flex flex-col">
                       <p className="text-md">

@@ -92,7 +92,11 @@ const C_buscar = () => {
             placeholder="Ingrese nombre del curso"
             onChange={(e) => setNombreRetiroUS(e.target.value)}
           />
-          <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto sm:h-full" onClick={handleBuscarPorComunidad}>
+          <Button
+            color="primary"
+            className="w-11/12 sm:w-3/5 mx-auto sm:h-full"
+            onClick={handleBuscarPorComunidad}
+          >
             Filtrar
           </Button>
         </div>
@@ -111,7 +115,7 @@ const C_buscar = () => {
                     onOpen();
                   }}
                 >
-                  <Card className="w-full">
+                  <Card className="w-full h-full grid center hover:bg-slate-500">
                     <CardHeader className="flex p-0 m-0">
                       <div className="flex items-center">
                         <div className="transform -rotate-90 opacity-30 origin-center text-2xl p-0 -m-2 font-extrabold">
@@ -138,7 +142,9 @@ const C_buscar = () => {
               <ModalContent>
                 {(onClose) => (
                   <>
-                    <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreCursoCreci ?? ""}</ModalHeader>
+                    <ModalHeader className="flex flex-col gap-1">
+                      {retiroSelected?.nombreCursoCreci ?? ""}
+                    </ModalHeader>
                     <ModalBody>
                       <Table removeWrapper isStriped aria-label="Example static collection table">
                         <TableHeader>
@@ -178,9 +184,13 @@ const C_buscar = () => {
                             <TableCell className="font-bold">Fecha inicio</TableCell>
                             <TableCell className="capitalize">
                               {retiroSelected?.fechainicio
-                                ? format(new Date(retiroSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
-                                    locale: es,
-                                  })
+                                ? format(
+                                    new Date(retiroSelected?.fechainicio),
+                                    "EEEE d 'de' MMMM 'de' yyyy",
+                                    {
+                                      locale: es,
+                                    }
+                                  )
                                 : ""}
                             </TableCell>
                           </TableRow>
