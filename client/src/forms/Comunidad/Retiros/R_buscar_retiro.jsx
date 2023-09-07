@@ -103,7 +103,7 @@ const R_buscar_retiro = () => {
       <div className="grid mx-auto gap-6  w-11/12 sm:w-3/5 sm:grid-cols-2">
         <p className="font-bold text-[18px] sm:hidden -mb-2 ">Seleccione el retiro:</p>
         <Select
-          label="retiro"
+          label="Retiro"
           variant="bordered"
           placeholder="Seleccione una retiro o Célula"
           selectedKeys={valueretiro}
