@@ -15,6 +15,8 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Accordion,
+  AccordionItem,
 } from "@nextui-org/react";
 import Loading from "../../components/Loading";
 import toast, { Toaster } from "react-hot-toast";
@@ -27,8 +29,10 @@ import NFWhite from "../../assets/notfoundwhite.svg";
 const S_Beneficiarios = () => {
   const { theme } = useContext(contexto);
   const [loading, setLoading] = useState(false);
+  const [loadingGastos, setLoadingGastos] = useState(false);
 
   const [resultados, setResultados] = useState([]);
+  const [resultadosGastos, setResultadosGastos] = useState([]);
 
   //nuevos useState
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -66,6 +70,30 @@ const S_Beneficiarios = () => {
     }
   };
 
+  const obtenerBeneficiariosGastos = async (datosBeneficiario) => {
+    setLoadingGastos(true);
+
+    try {
+      const response = await fetch(`${API_URL}/egresoSaldo/${datosBeneficiario._id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        console.log("Error al obtener los gastos del beneficiario");
+        throw new Error("Error al filtrar los gastos beneficiario", {});
+      }
+
+      const data = await response.json();
+      setResultadosGastos(data.egresos);
+      setLoadingGastos(false);
+    } catch (error) {
+      setLoadingGastos(false);
+    }
+  };
+
   useEffect(() => {
     obtenerBeneficiarios();
   }, []);
@@ -86,6 +114,7 @@ const S_Beneficiarios = () => {
               <div
                 className="flex my-2 p-4 border-1 border-gray-300 dark:border-gray-600 rounded-xl shadow-lg dark:shadow-zinc-700 w-11/12 mx-auto sm:w-4/5"
                 onClick={() => {
+                  obtenerBeneficiariosGastos(beneficiario);
                   setBeneficiarioSeleccionado(beneficiario);
                   onOpen();
                 }}
@@ -120,7 +149,13 @@ const S_Beneficiarios = () => {
                   </span>
                 </div>
               </div>
-              <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside" size="2xl">
+              <Modal
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+                placement="center"
+                scrollBehavior="inside"
+                size="2xl"
+              >
                 <ModalContent>
                   {(onClose) => (
                     <>
@@ -164,11 +199,15 @@ const S_Beneficiarios = () => {
                             </TableRow>
                             <TableRow key="8">
                               <TableCell className="font-bold">Cumpleaños</TableCell>
-                              <TableCell>{formatfecha(beneficiarioSeleccionado?.cumpleanios) ?? ""}</TableCell>
+                              <TableCell>
+                                {formatfecha(beneficiarioSeleccionado?.cumpleanios) ?? ""}
+                              </TableCell>
                             </TableRow>
                             <TableRow key="9">
                               <TableCell className="font-bold">Fecha inició el programa</TableCell>
-                              <TableCell>{formatfecha(beneficiarioSeleccionado?.fechainicio) ?? ""}</TableCell>
+                              <TableCell>
+                                {formatfecha(beneficiarioSeleccionado?.fechainicio) ?? ""}
+                              </TableCell>
                             </TableRow>
                             <TableRow key="10">
                               <TableCell className="font-bold">Fecha salió el programa</TableCell>
@@ -200,48 +239,114 @@ const S_Beneficiarios = () => {
                             </TableRow>
                           </TableBody>
                         </Table>
-                        <h1 className="font-bold text-[18px] -mb-2 mx-auto">Fotos del Beneficiario</h1>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "space-around",
-                          }}
-                        >
-                          {beneficiarioSeleccionado?.fotosbeneficiario.map((imagenSrc, index) => (
-                            <img
-                              key={index}
+                        <Accordion>
+                          <AccordionItem
+                            key="1"
+                            aria-label="Fotos del Beneficiario"
+                            title="Fotos del Beneficiario"
+                          >
+                            <div
                               style={{
-                                objectFit: "contain",
-                                width: "100%",
-                                height: "auto",
-                                margin: "5px",
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-around",
                               }}
-                              src={imagenSrc}
-                            />
-                          ))}
-                        </div>
-                        <h1 className="font-bold text-[18px] -mb-2 mx-auto">Fotos de otros documentos</h1>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "space-around",
-                          }}
-                        >
-                          {beneficiarioSeleccionado?.fotosdocumentos.map((imagenSrc, index) => (
-                            <img
-                              key={index}
+                            >
+                              {beneficiarioSeleccionado?.fotosbeneficiario.map((imagenSrc, index) => (
+                                <img
+                                  key={index}
+                                  style={{
+                                    objectFit: "contain",
+                                    width: "100%",
+                                    height: "auto",
+                                    margin: "5px",
+                                  }}
+                                  src={imagenSrc}
+                                />
+                              ))}
+                            </div>
+                          </AccordionItem>
+                          <AccordionItem
+                            key="2"
+                            aria-label="Fotos de otros documentos"
+                            title="Fotos de otros documentos"
+                          >
+                            <div
                               style={{
-                                objectFit: "contain",
-                                width: "100%",
-                                height: "auto",
-                                margin: "5px",
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-around",
                               }}
-                              src={imagenSrc}
-                            />
-                          ))}
-                        </div>
+                            >
+                              {beneficiarioSeleccionado?.fotosdocumentos.map((imagenSrc, index) => (
+                                <img
+                                  key={index}
+                                  style={{
+                                    objectFit: "contain",
+                                    width: "100%",
+                                    height: "auto",
+                                    margin: "5px",
+                                  }}
+                                  src={imagenSrc}
+                                />
+                              ))}
+                            </div>
+                          </AccordionItem>
+                          <AccordionItem key="3" aria-label="Fotos de gastos" title="Fotos de gastos">
+                            {loadingGastos ? (
+                              <h2>Cargando gastos...</h2>
+                            ) : resultadosGastos.length > 0 ? (
+                              <Accordion>
+                                {resultadosGastos.map((gasto, index) => (
+                                  <AccordionItem key={index} title={formatfecha(gasto.fecha)}>
+                                    <Table
+                                      removeWrapper
+                                      isStriped
+                                      aria-label="Example static collection table"
+                                    >
+                                      <TableHeader>
+                                        <TableColumn className="font-bold text-xl">Campos</TableColumn>
+                                        <TableColumn className="font-bold text-xl">Datos</TableColumn>
+                                      </TableHeader>
+                                      <TableBody>
+                                        <TableRow key="1">
+                                          <TableCell className="font-bold">Monto Gastado:</TableCell>
+                                          <TableCell>{"Q. " + gasto?.monto ?? ""}</TableCell>
+                                        </TableRow>
+                                        <TableRow key="2">
+                                          <TableCell className="font-bold">Observaciones</TableCell>
+                                          <TableCell>{gasto?.observaciones ?? ""}</TableCell>
+                                        </TableRow>
+                                      </TableBody>
+                                    </Table>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        justifyContent: "space-around",
+                                      }}
+                                    >
+                                      {gasto?.fotos.map((imagenSrc, fotoIndex) => (
+                                        <img
+                                          key={fotoIndex}
+                                          style={{
+                                            objectFit: "contain",
+                                            width: "100%",
+                                            height: "auto",
+                                            margin: "5px",
+                                          }}
+                                          src={imagenSrc}
+                                        />
+                                      ))}
+                                    </div>
+                                  </AccordionItem>
+                                ))}
+                              </Accordion>
+                            ) : (
+                              <h2>No hay gastos</h2>
+                            )}
+                          </AccordionItem>
+                        </Accordion>
                       </ModalBody>
                       <ModalFooter>
                         <Linky

@@ -194,6 +194,24 @@ router.delete("/IngresoSaldo/delete/:id", async (req, res) => {
 // ============================ Añadir egreso beneficiario =========================== //
 /////////////////////////////////////////////////////////////////////////////////////////
 
+// Agregar una nueva ruta GET para obtener todos los egresos de un beneficiario por su ID
+router.get("/egresoSaldo/:idbeneficiario", async (req, res) => {
+  try {
+    const idbeneficiario = req.params.idbeneficiario;
+
+    // Buscar todos los egresosSaldo asociados al ID del beneficiario
+    const egresos = await egresoSaldo.find({ idbeneficiario });
+
+    // Devolver los egresos encontrados
+    res.status(200).json({ message: "Egresos del beneficiario obtenidos correctamente", egresos });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudieron obtener los egresos del beneficiario",
+      messageSys: error.message,
+    });
+  }
+});
+
 router.post("/egresoSaldo/add", async (req, res) => {
   try {
     const { idbeneficiario, fecha, monto, fotos, observaciones } = req.body;

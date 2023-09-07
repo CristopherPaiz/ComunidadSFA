@@ -153,7 +153,7 @@ const F_compra_producto = () => {
                   <TableCell className="font-bold">Observaciones</TableCell>
                   <TableCell>{seleccionado.observaciones ?? ""}</TableCell>
                 </TableRow>
-                <TableRow key="5">
+                <TableRow key="6">
                   <TableCell className="font-bold">Disponibles</TableCell>
                   <TableCell>{seleccionado.cantidadTotal ?? ""}</TableCell>
                 </TableRow>

@@ -185,7 +185,9 @@ const S_nuevo = () => {
 
       // Upload each image to Cloudinary and get the URLs
       const uploadedImages = await Promise.all(imagenes.map((file) => uploadImageToCloudinary(file)));
-      const uploadedImagesDoc = await Promise.all(imagenesDoc.map((file) => uploadImageToCloudinaryDoc(file)));
+      const uploadedImagesDoc = await Promise.all(
+        imagenesDoc.map((file) => uploadImageToCloudinaryDoc(file))
+      );
 
       // Format the data including the uploaded image URLs
       const formattedData = {
@@ -381,7 +383,7 @@ const S_nuevo = () => {
             type="date"
             label="Fecha de registro al programa"
             placeholder="Fecha de registro al programa"
-            value={formatfecha(new Date(Date().now + 86400000).toISOString().split("T")[0])}
+            value={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
             onChange={(e) =>
               setFechaRegistro(
                 new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
