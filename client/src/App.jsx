@@ -8,6 +8,7 @@ import Navibar from "./components/Navibar";
 import Comunidad from "./views/Comunidad";
 import Farmacia from "./views/Farmacia";
 import Social from "./views/Social";
+import Usuarios from "./views/Usuarios";
 
 import EditarPersona from "./forms/VariosForms/EditarPersona";
 import EditarRetiro from "./forms/VariosForms/EditarRetiro";
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/social/beneficiario/:id" element={<EditarBeneficiario />} />
         <Route path="/farmacia" element={<Farmacia />} />
         <Route path="/Social" element={<Social />} />
+        <Route path="/usuarios" element={<Usuarios />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ContextProvider>

@@ -74,10 +74,10 @@ const ContextProvider = ({ children }) => {
   };
 
   const USER_TYPES = {
-    PUBLIC: "Public",
-    MODERATOR_USER: "Moderator",
+    SUPER: "Super",
     ADMIN_USER: "Admin",
-    SECRETARY: "Secretary",
+    MODERATOR_USER: "Moderator",
+    PUBLIC: "Public",
   };
 
   return (

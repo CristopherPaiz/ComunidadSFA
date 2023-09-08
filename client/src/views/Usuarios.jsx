@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { contexto } from "../context/ContextProvider";
 import { Navigate } from "react-router-dom";
-import Navbutton from "../components/Navbutton";
+import NavButtonUsuarios from "../components/NavButtonUsuarios";
 
-const Comunidad = () => {
+const Usuarios = () => {
   const { loggedIn, usuario } = useContext(contexto);
 
   const verificarExpiracionToken = () => {
@@ -12,7 +12,6 @@ const Comunidad = () => {
       const now = new Date();
       const expired = now >= new Date(expirationDate);
       if (expired) {
-        // El token ha expirado, borrarlo del LocalStorage
         localStorage.removeItem("usuarioSFA");
         localStorage.removeItem("loggedSFA");
         localStorage.removeItem("demasdatosSFA");
@@ -25,10 +24,10 @@ const Comunidad = () => {
     verificarExpiracionToken();
   }, []);
 
-  if ((loggedIn && usuario.rol === "Admin") || (loggedIn && usuario.rol === "Super")) {
+  if (loggedIn && usuario.rol === "Super") {
     return (
       <>
-        <Navbutton />
+        <NavButtonUsuarios />
       </>
     );
   } else {
@@ -36,4 +35,4 @@ const Comunidad = () => {
   }
 };
 
-export default Comunidad;
+export default Usuarios;

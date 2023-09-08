@@ -34,7 +34,11 @@ const Farmacia = () => {
     }
   }, []);
 
-  if ((loggedIn && usuario.rol === "Admin") || (loggedIn && usuario.rol === "Moderator")) {
+  if (
+    (loggedIn && usuario.rol === "Admin") ||
+    (loggedIn && usuario.rol === "Moderator") ||
+    (loggedIn && usuario.rol === "Super")
+  ) {
     return (
       <>
         <NavbuttonFarmacia />

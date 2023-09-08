@@ -27,6 +27,8 @@ const Login = () => {
       navigate("/comunidad");
     } else if (respuesta === "Moderator") {
       navigate("/farmacia");
+    } else if (respuesta === "Super") {
+      navigate("/comunidad");
     } else {
       toast.error(respuesta);
     }
@@ -44,8 +46,10 @@ const Login = () => {
     if (loggedIn) {
       if (usuario.rol === "Admin") {
         navigate("/comunidad");
-      } else {
+      } else if (usuario.rol === "Moderator") {
         navigate("/farmacia");
+      } else {
+        navigate("/comunidad");
       }
     }
   }, [loggedIn, usuario]);
