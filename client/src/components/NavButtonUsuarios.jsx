@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import U_todos from "../forms/Usuarios/U_todos";
+import U_add from "../forms/Usuarios/U_add";
+import U_editar from "../forms/Usuarios/U_editar";
 
 const NavButtonUsuarios = () => {
   const [selected, setSelected] = useState("");
@@ -18,21 +21,14 @@ const NavButtonUsuarios = () => {
         <Tab key="user1" title="Todos los usuarios">
           <Card>
             <CardBody>
-              <h1>Todos los usuarios</h1>
+              <U_todos />
             </CardBody>
           </Card>
         </Tab>
         <Tab key="user2" title="Crear nuevo usuario">
           <Card>
             <CardBody>
-              <h1>Crear nuevo usuario</h1>
-            </CardBody>
-          </Card>
-        </Tab>
-        <Tab key="user3" title="Editar un usuario">
-          <Card>
-            <CardBody>
-              <h1>Editar al usuario</h1>
+              <U_add />
             </CardBody>
           </Card>
         </Tab>

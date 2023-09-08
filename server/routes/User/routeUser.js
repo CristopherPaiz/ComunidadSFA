@@ -31,9 +31,11 @@ router.post("/user/add", async (req, res) => {
 });
 
 // ======= obtener todos los usuarios =======
-router.get("/user/getall", async (req, res) => {
+router.get("/user/getall/:username", async (req, res) => {
+  const { username } = req.params;
+
   try {
-    const data = await Usuario.find();
+    const data = await Usuario.find({ username: { $ne: username } }).where({ estado: true });
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -55,6 +57,11 @@ router.post("/user/getbyusername", async (req, res) => {
       return res.status(403).json({ message: "El usuario no existe" });
     }
 
+    // Verificar si el campo "estado" del usuario es falso
+    if (!user.estado) {
+      return res.status(403).json({ message: "El usuario ha sido eliminado, contacte al administrador" });
+    }
+
     // Verificar si la contraseña coincide con la almacenada en la base de datos
     if (user.contrasenia !== contrasenia) {
       return res.status(401).json({ message: "Contraseña inválida" });
@@ -66,7 +73,7 @@ router.post("/user/getbyusername", async (req, res) => {
 
     const { nombre, foto, rol } = user;
 
-    //devolver una cookie para guardar el token con una duración de 15 días y que sea solo accesible por HTTP y no por JS
+    // Devolver una cookie para guardar el token con una duración de 15 días y que sea solo accesible por HTTP y no por JS
     res.cookie("token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 15,
       sameSite: "none",
