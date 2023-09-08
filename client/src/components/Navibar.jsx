@@ -361,7 +361,7 @@ const Navibar = () => {
                   as="button"
                   className="transition-transform sm:hidden bg-transparent"
                   size="md"
-                  src={comunidad}
+                  src={usuario.foto}
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Menu Actions" variant="flat">
@@ -516,7 +516,7 @@ const Navibar = () => {
                   as="button"
                   className="transition-transform sm:hidden bg-transparent"
                   size="md"
-                  src={comunidad}
+                  src={usuario.foto}
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Menu Actions" variant="flat">
@@ -681,7 +681,7 @@ const Navibar = () => {
                   as="button"
                   className="transition-transform sm:hidden bg-transparent"
                   size="md"
-                  src={comunidad}
+                  src={usuario.foto}
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Menu Actions" variant="flat">

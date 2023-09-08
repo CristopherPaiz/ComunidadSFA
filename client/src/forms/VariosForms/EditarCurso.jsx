@@ -43,7 +43,7 @@ const EditarCurso = () => {
   const handleSubmit = async () => {
     const datosfinales = {
       nombreCursoCreci: datosCursoActualizado.nombreCursoCreci,
-      fechainicio: datosCursoActualizado.fechaInicio,
+      fechainicio: datosCursoActualizado.fechainicio,
       fechaFinal: datosCursoActualizado.fechaFinal,
       ofrenda: datosCursoActualizado.ofrenda,
       horario: datosCursoActualizado.horarios,

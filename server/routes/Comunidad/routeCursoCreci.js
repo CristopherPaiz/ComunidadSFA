@@ -57,6 +57,34 @@ router.get("/cursocreci/getall", async (req, res) => {
   }
 });
 
+// ======= obtener todas los cursos o crecimientos por año actual=======
+
+router.get("/cursocreci/getallbyyear", async (req, res) => {
+  try {
+    const currentYear = new Date().getFullYear(); // Obtener el año actual
+
+    // Crear una fecha para el último día del año actual
+    const lastDayOfYear = new Date(currentYear, 11, 31); // 11 representa diciembre (los meses van de 0 a 11)
+
+    const data = await CursoCreci.find({
+      estado: true,
+      fechainicio: {
+        $gte: new Date(currentYear, 0, 1), // 1 de enero del año actual
+        $lte: lastDayOfYear, // Último día del año actual
+      },
+    })
+      .sort({ nombreCursoCreci: 1 })
+      .exec();
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los Cursos o crecimientos",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener todos los retiros por nombre =======
 router.post("/cursocreci/getbyname", async (req, res) => {
   try {
