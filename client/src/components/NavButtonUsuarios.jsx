@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
 import U_todos from "../forms/Usuarios/U_todos";
 import U_add from "../forms/Usuarios/U_add";
-import U_editar from "../forms/Usuarios/U_editar";
 
 const NavButtonUsuarios = () => {
   const [selected, setSelected] = useState("");

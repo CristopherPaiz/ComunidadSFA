@@ -185,9 +185,6 @@ const U_todos = () => {
                     {usuario?.username}
                   </span>
                   <span className="mt-[3px] block">
-                    <strong>Nombre de usuario: </strong> {usuario?.username ?? ""}
-                  </span>
-                  <span className="mt-[3px] block">
                     <strong>Contraseña: </strong>{" "}
                     <div>
                       {visiblePasswords[usuario?.username] ? (
