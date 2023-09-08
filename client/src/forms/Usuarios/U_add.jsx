@@ -103,7 +103,6 @@ const U_add = () => {
         foto: uploadedImages[0], // Adding the uploaded image URLs to the data
         estado: true,
       };
-      console.log(formattedData);
       const response = await fetch(`${API_URL}/user/add`, {
         method: "POST",
         headers: {
@@ -119,6 +118,11 @@ const U_add = () => {
 
         // Show a success toast if the client was added successfully
         toast.success("Usuario añadido correctamente");
+        setNombre("");
+        setUsername("");
+        setPassword("");
+        setUsuarios(null);
+        setImagenes([]);
 
         //esperamos 2 segundos
         await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -147,18 +151,21 @@ const U_add = () => {
           type="text"
           label="Nombre de la persona"
           isRequired
+          defaultValue={nombre}
           placeholder="Ingrese el nombre de la persona"
           onChange={(e) => setNombre(e.target.value)}
         />
         <Input
           type="text"
-          label="Nombre de usaurio"
+          label="Nombre de usuario"
           placeholder="Ingrese un nombre de usuario"
+          defaultValue={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
           type="text"
           label="Contraseña"
+          defaultValue={password}
           placeholder="Ingrese una contraseña"
           onChange={(e) => setPassword(e.target.value)}
         />
