@@ -37,16 +37,19 @@ const EditarPersona = () => {
   //////////////////////////////////////////////////////////////////////////////////////////
 
   //captura de datos para retiro
-  const [valueRetiro, setValueRetiro] = React.useState(new Set([]));
-  const [valueFecha, setValueFecha] = React.useState("");
-  const [valueOfrendas, setValueOfrendas] = React.useState("");
+  const [valueRetiro, setValueRetiro] = useState(new Set([]));
+  const [valueFecha, setValueFecha] = useState("");
+  const [valueOfrendas, setValueOfrendas] = useState("");
 
   //captura de datos para crecimientos
-  const [valueCrecimiento, setValueCrecimiento] = React.useState(new Set([]));
-  const [valueFechaCrecimiento, setValueFechaCrecimiento] = React.useState("");
-  const [valueOfrendasCrecimiento, setValueOfrendasCrecimiento] = React.useState("");
+  const [valueCrecimiento, setValueCrecimiento] = useState(new Set([]));
+  const [valueFechaCrecimiento, setValueFechaCrecimiento] = useState("");
+  const [valueOfrendasCrecimiento, setValueOfrendasCrecimiento] = useState("");
 
   //////////////////////////////////////////////////////////////////////////////////////////
+
+  const [nombresComunidades, setNombresComunidades] = useState(new Set([]));
+  const [nombreComunidadesValue, setNombreComunidadesValues] = useState([]);
 
   const location = useLocation();
   const { personSelected } = location.state;
@@ -138,6 +141,7 @@ const EditarPersona = () => {
       retiros: retirosActualizados,
       crecimientos: crecimientosActualizados,
       tipo: selectedTipo.value,
+      idcomunidad: nombresComunidades.currentKey,
     };
 
     try {
@@ -300,6 +304,32 @@ const EditarPersona = () => {
     }
   };
 
+  const obtenerComunidades = async () => {
+    try {
+      const response = await fetch(`${API_URL}/comunidad/getallname`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        toast.error("Error al obtener la lista de comunidades");
+        throw new Error("Error al filtrar las comunidades", {});
+      }
+
+      const data = await response.json();
+      setNombreComunidadesValues(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerComunidades();
+  }, []);
+
   //useEffect para escuchar los cambios de retirosActualizados y crecimientosActualizados
   useEffect(() => {
     setDatosPersonaActualizados({
@@ -365,6 +395,24 @@ const EditarPersona = () => {
             })
           }
         />
+        <Select
+          label="Comunidad a la que pertenece"
+          variant="bordered"
+          placeholder={personSelected.idcomunidad.nombreComunidad ?? "Seleccione la comunidad"}
+          selectedKeys={nombresComunidades}
+          className="mx-auto"
+          onSelectionChange={setNombresComunidades}
+        >
+          {nombreComunidadesValue.length > 0 ? (
+            nombreComunidadesValue.map((retiro) => (
+              <SelectItem key={retiro?._id} value={retiro?.nombreComunidad} s>
+                {retiro?.nombreComunidad ?? ""}
+              </SelectItem>
+            ))
+          ) : (
+            <SelectItem value="cargando" text="Cargando comunidades..." disabled />
+          )}
+        </Select>
         <p className="font-bold sm:hidden -mb-2">Seleccione el tipo de Dones</p>
         <div className="flex flex-col gap-3">
           <CheckboxGroup color="primary" value={selected} orientation="horizontal" onValueChange={setSelected}>
