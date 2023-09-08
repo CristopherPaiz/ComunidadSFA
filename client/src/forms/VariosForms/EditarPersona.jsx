@@ -320,7 +320,6 @@ const EditarPersona = () => {
 
       const data = await response.json();
       setNombreComunidadesValues(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
