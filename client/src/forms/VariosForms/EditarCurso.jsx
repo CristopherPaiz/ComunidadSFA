@@ -19,7 +19,17 @@ const EditarCurso = () => {
   const navigate = useNavigate();
 
   //////////////////////////////////////////////////////////////////////////////
-  const tipo = ["Pueblo", "Servidores", "Subcoordinadores", "Coordinadores", "Todos", "Otros"];
+  const tipo = [
+    "Pueblo",
+    "Servidores",
+    "Subcoordinadores",
+    "Coordinadores",
+    "Músicos",
+    "Predicadores",
+    "Oradores",
+    "Todos",
+    "Otros",
+  ];
   const [selectedTipo, setSelectedTipo] = useState(tipo[0]);
 
   const handleSelectTipo = (selected) => {
@@ -46,8 +56,8 @@ const EditarCurso = () => {
       fechainicio: datosCursoActualizado.fechainicio,
       fechaFinal: datosCursoActualizado.fechaFinal,
       ofrenda: datosCursoActualizado.ofrenda,
-      horario: datosCursoActualizado.horarios,
-      ubicacion: datosCursoActualizado.lugar,
+      horario: datosCursoActualizado.horario,
+      ubicacion: datosCursoActualizado.ubicacion,
       dirigidoA: selectedTipo.value,
       dirigidoPor: datosCursoActualizado.encargados,
       tipo: "Curso",
@@ -214,7 +224,9 @@ const EditarCurso = () => {
           </PopoverTrigger>
           <PopoverContent>
             <div className="px-1 py-2">
-              <div className="text-small font-bold">¿Está seguro de querer eliminar el curso o crecimiento?</div>
+              <div className="text-small font-bold">
+                ¿Está seguro de querer eliminar el curso o crecimiento?
+              </div>
               <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
               <div className="mx-auto m-2 text-center">
                 <Button color="warning" className="mr-2" onClick={handleDelete}>

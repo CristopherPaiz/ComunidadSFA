@@ -6,7 +6,17 @@ import API_URL from "../../../config";
 import toast, { Toaster } from "react-hot-toast";
 
 const C_nuevo = () => {
-  const tipo = ["Pueblo", "Servidores", "Subcoordinadores", "Coordinadores", "Todos", "Otros"];
+  const tipo = [
+    "Pueblo",
+    "Servidores",
+    "Subcoordinadores",
+    "Coordinadores",
+    "Músicos",
+    "Predicadores",
+    "Oradores",
+    "Todos",
+    "Otros",
+  ];
   const [selectedTipo, setSelectedTipo] = useState(tipo[0]);
 
   const handleSelectTipo = (selected) => {

@@ -118,7 +118,6 @@ const Homepage = () => {
       const respuesta = await fetch(`${API_URL}/cursocreci/getallbyyear`);
       const resultado = await respuesta.json();
       setCursos(resultado);
-      console.log(resultado);
       setLoading(false);
     } catch (error) {
       setCursos([]);
@@ -167,16 +166,18 @@ const Homepage = () => {
           {loading ? (
             <Loading />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10">
               {cursos.map((curso, index) => (
                 <div className="bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md" key={index}>
                   <div className="relative">
-                    <span className="absolute top-20 right-6 bg-primary text-white text-2xl px-4 py-2 rounded-full">
-                      Q. {curso.ofrenda}
+                    <span className="absolute top-[90px] right-2 bg-primary text-white text-2xl px-4 py-2 rounded-full">
+                      Q. {curso.ofrenda}{" "}
                     </span>
                   </div>
                   <div className="p-6">
-                    <h5 className="mb-2 text-2xl font-black text-gray-900 dark:text-white">{curso.nombreCursoCreci}</h5>
+                    <h5 className="mb-2 text-2xl font-black text-gray-900 dark:text-white">
+                      {curso.nombreCursoCreci}
+                    </h5>
                     <p className="mb-2 text-gray-700 dark:text-gray-300">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
