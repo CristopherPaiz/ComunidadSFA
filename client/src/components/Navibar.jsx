@@ -56,7 +56,7 @@ const Navibar = () => {
             </NavbarBrand>
           </NavbarContent>
           <NavbarContent justify="end">
-            <NavbarItem className="hidden md:flex items-center">
+            <NavbarItem className="hidden md:flex items-center md:ml-4">
               <Button color="primary" variant="flat">
                 <RouterLink to={"/login"} className="py-2 -mx-3 px-3">
                   Iniciar sesión
@@ -101,7 +101,12 @@ const Navibar = () => {
           </NavbarContent>
           <Dropdown placement="bottom-end" className="sm:hidden">
             <DropdownTrigger className="sm:hidden">
-              <Avatar as="button" className="transition-transform sm:hidden bg-transparent" size="md" src={comunidad} />
+              <Avatar
+                as="button"
+                className="transition-transform sm:hidden bg-transparent"
+                size="md"
+                src={comunidad}
+              />
             </DropdownTrigger>
             <DropdownMenu aria-label="Menu Actions" variant="flat">
               <DropdownItem key="login" className="text-primary">
@@ -222,7 +227,12 @@ const Navibar = () => {
           </NavbarContent>
           <Dropdown placement="bottom-end" className="sm:hidden">
             <DropdownTrigger className="sm:hidden">
-              <Avatar as="button" className="transition-transform sm:hidden bg-transparent" size="md" src={comunidad} />
+              <Avatar
+                as="button"
+                className="transition-transform sm:hidden bg-transparent"
+                size="md"
+                src={comunidad}
+              />
             </DropdownTrigger>
             <DropdownMenu aria-label="Menu Actions" variant="flat">
               <DropdownItem key="login" className="text-primary">
@@ -296,7 +306,7 @@ const Navibar = () => {
                 </p>
               </NavbarBrand>
             </NavbarContent>
-            <NavbarContent className="hidden sm:flex gap-1 " justify="center">
+            <NavbarContent className="hidden sm:flex gap-1 md:ml-12" justify="center">
               <NavbarItem isActive>
                 <Button className="bg-transparent hover:bg-success-100" variant="flat">
                   <RouterLink to={"/farmacia"} className="py-2 -mx-3 px-3">
@@ -445,7 +455,7 @@ const Navibar = () => {
                 </p>
               </NavbarBrand>
             </NavbarContent>
-            <NavbarContent className="hidden sm:flex gap-1 " justify="center">
+            <NavbarContent className="hidden sm:flex gap-1 md:ml-12" justify="center">
               <NavbarItem isActive>
                 <Button className="bg-transparent hover:bg-primary-100">
                   <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3">
@@ -603,7 +613,7 @@ const Navibar = () => {
                 </p>
               </NavbarBrand>
             </NavbarContent>
-            <NavbarContent className="hidden sm:flex gap-1 " justify="center">
+            <NavbarContent className="hidden sm:flex gap-1 md:ml-12" justify="center">
               <NavbarItem isActive>
                 <Button className="bg-transparent hover:bg-primary-100">
                   <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3">

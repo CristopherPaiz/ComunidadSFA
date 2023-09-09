@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import API_URL from "../config";
-import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { contexto } from "../context/ContextProvider";
 import Loading from "../components/Loading";
 
@@ -107,10 +107,10 @@ const Homepage = () => {
   return (
     <>
       {/* botones */}
-      <div className="flex gap-2 mx-auto justify-center my-4">
+      <div className="flex gap-2 w-10/12 sm:max-w-7xl mx-auto justify-center my-4">
         {active === "Curso" ? (
           <Button color="primary" variant="solid">
-            Crecimientos / cursos
+            Crecimientos/cursos
           </Button>
         ) : (
           <Button
@@ -169,9 +169,9 @@ const Homepage = () => {
           {loading ? (
             <Loading />
           ) : (
-            <>
+            <div className="w-full sm:max-w-7xl mx-auto">
               <h1 className="text-xl font-extrabold text-center">Todos los cursos o crecimientos</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10  sm:max-w-7xl mx-auto">
                 {cursos?.map((curso, index) => (
                   <div className="bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md" key={index}>
                     <div className="relative">
@@ -243,7 +243,7 @@ const Homepage = () => {
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
         </>
       )}
@@ -254,7 +254,7 @@ const Homepage = () => {
           ) : (
             <>
               <h1 className="text-xl font-extrabold text-center">Todos los retiros</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10 sm:max-w-7xl mx-auto">
                 {retiros?.map((retiro, index) => (
                   <div className="bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md" key={index}>
                     <div className="relative">
@@ -337,7 +337,7 @@ const Homepage = () => {
           ) : (
             <>
               <h1 className="text-xl font-extrabold text-center">Todas las Comunidades o células</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 p-3 sm:p-4 md:p-6 lg:p-8 xl:px-40 xl:py-10  sm:max-w-7xl mx-auto">
                 {comunidades.map((comunidad, index) => (
                   <div className="bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md" key={index}>
                     <div className="p-6">
