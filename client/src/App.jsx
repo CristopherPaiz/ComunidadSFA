@@ -9,6 +9,8 @@ import Comunidad from "./views/Comunidad";
 import Farmacia from "./views/Farmacia";
 import Social from "./views/Social";
 import Usuarios from "./views/Usuarios";
+import AboutPage from "./views/AboutPage";
+import Terms from "./views/Terms";
 
 import EditarPersona from "./forms/VariosForms/EditarPersona";
 import EditarRetiro from "./forms/VariosForms/EditarRetiro";
@@ -37,6 +39,8 @@ const App = () => {
         <Route path="/farmacia" element={<Farmacia />} />
         <Route path="/Social" element={<Social />} />
         <Route path="/usuarios" element={<Usuarios />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ContextProvider>

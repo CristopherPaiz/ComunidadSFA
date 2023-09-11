@@ -56,10 +56,15 @@ const Navibar = () => {
             </NavbarBrand>
           </NavbarContent>
           <NavbarContent justify="end">
-            <NavbarItem className="hidden md:flex items-center md:ml-4">
-              <Button color="primary" variant="flat">
+            <NavbarItem className="hidden md:flex items-center md:ml-4 ">
+              <Button color="primary" variant="flat" className=" hover:bg-primary-300 hover:text-white">
                 <RouterLink to={"/login"} className="py-2 -mx-3 px-3">
                   Iniciar sesión
+                </RouterLink>
+              </Button>
+              <Button color="secondary" variant="ghost">
+                <RouterLink to={"/about"} className="py-2 -mx-3 px-3">
+                  Sobre nosotros
                 </RouterLink>
               </Button>
               {theme === "dark" ? (
@@ -101,17 +106,17 @@ const Navibar = () => {
           </NavbarContent>
           <Dropdown placement="bottom-end" className="sm:hidden">
             <DropdownTrigger className="sm:hidden">
-              <Avatar
-                as="button"
-                className="transition-transform sm:hidden bg-transparent"
-                size="md"
-                src={comunidad}
-              />
+              <Avatar as="button" className="transition-transform sm:hidden bg-transparent" size="md" src={comunidad} />
             </DropdownTrigger>
             <DropdownMenu aria-label="Menu Actions" variant="flat">
               <DropdownItem key="login" className="text-primary">
                 <Link to={"/login"} className="pr-28 pl-3">
                   Login
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="about" className="text-secondary">
+                <Link to={"/about"} className="pr-28 pl-3">
+                  Sobre Nosotros
                 </Link>
               </DropdownItem>
               <DropdownItem key="dark" className="text-primary">
@@ -183,9 +188,14 @@ const Navibar = () => {
           </NavbarContent>
           <NavbarContent justify="end">
             <NavbarItem className="hidden md:flex">
-              <Button color="primary" variant="flat">
+              <Button color="primary" variant="flat" className=" hover:bg-primary-300 hover:text-white">
                 <RouterLink to={"/login"} className="py-2 -mx-3 px-3">
                   Iniciar sesión
+                </RouterLink>
+              </Button>
+              <Button color="secondary" variant="ghost">
+                <RouterLink to={"/about"} className="py-2 -mx-3 px-3">
+                  Sobre nosotros
                 </RouterLink>
               </Button>
               {theme === "dark" ? (
@@ -227,17 +237,17 @@ const Navibar = () => {
           </NavbarContent>
           <Dropdown placement="bottom-end" className="sm:hidden">
             <DropdownTrigger className="sm:hidden">
-              <Avatar
-                as="button"
-                className="transition-transform sm:hidden bg-transparent"
-                size="md"
-                src={comunidad}
-              />
+              <Avatar as="button" className="transition-transform sm:hidden bg-transparent" size="md" src={comunidad} />
             </DropdownTrigger>
             <DropdownMenu aria-label="Menu Actions" variant="flat">
               <DropdownItem key="login" className="text-primary">
                 <Link to={"/login"} className="pr-28 pl-3">
                   Login
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="about" className="text-secondary">
+                <Link to={"/about"} className="pr-28 pl-3">
+                  Sobre Nosotros
                 </Link>
               </DropdownItem>
               <DropdownItem key="dark" className="text-primary">

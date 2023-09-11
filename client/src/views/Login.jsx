@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import comunidad from "/comunidad.svg";
-import { Button } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
+import { Button, Checkbox } from "@nextui-org/react";
+import { Link, Link as RouterLink, useNavigate } from "react-router-dom";
 import { contexto } from "../context/ContextProvider";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { fetchUser, loggedIn, setUsuario, setLoggedIn, usuario } = useContext(contexto);
   const navigate = useNavigate();
+  const [accepted, setAccepted] = useState(true);
 
   useEffect(() => {
     const usuarioLS = localStorage.getItem("usuarioSFA");
@@ -99,10 +100,15 @@ const Login = () => {
                   onChange={handleInputChangePassword}
                   value={password}
                 />
+                <Checkbox onValueChange={() => setAccepted(!accepted)} className="mt-2"></Checkbox>
+                <RouterLink to={"/terms"} className="text-primary-500 underline">
+                  He leído los términos y condiciones
+                </RouterLink>
               </div>
               <Button
                 onClick={obtenerTipoUsuario}
                 className="w-full text-white bg-danger-600 hover:bg-danger-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                isDisabled={accepted}
               >
                 Iniciar sesión
               </Button>
