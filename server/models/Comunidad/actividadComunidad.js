@@ -2,21 +2,32 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const actividadComunidadSchema = new Schema({
-  nombre: String,
-  fechayhorainicial: Date,
-  fechayhorafinal: Date,
-  comunidad: String,
-  ubicacion: String,
-  horario: String,
-  encargados: [String],
-  predicador: [String],
-  alabanzas: [String],
-  avivador: [String],
-  orador: [String],
-  fotos: [String],
-  tipo: String,
-  especificaciones: String,
-  observaciones: String,
+  actividades: [
+    {
+      event_id: {
+        type: String,
+        required: true,
+      },
+      title: {
+        type: String,
+        required: true,
+      },
+      start: {
+        type: Date,
+        required: true,
+      },
+      end: {
+        type: Date,
+        required: true,
+      },
+      description: {
+        type: String,
+      },
+      isPersona: {
+        type: String,
+      },
+    },
+  ],
   estado: Boolean,
 });
 

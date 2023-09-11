@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aldabil/react-scheduler": "^2.7.19",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@nextui-org/react": "^2.0.8",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.15.1",
