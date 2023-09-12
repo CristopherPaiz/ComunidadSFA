@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Scheduler } from "@aldabil/react-scheduler";
 import es from "date-fns/locale/es";
+import { Button, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { Typography } from "@mui/material";
 import API_URL from "../../../config.js";
 import Loading from "../../../components/Loading.jsx";
-
-const defaultDatos = [{ id: 123456, text: "Ninguno", value: 123456 }];
+import toast, { Toaster } from "react-hot-toast";
+import { format, parseISO, subHours } from "date-fns";
 
 const A_nueva = () => {
   const [events, setEvents] = useState([]);
@@ -13,6 +14,8 @@ const A_nueva = () => {
   const [lastAddedEventDate, setLastAddedEventDate] = useState(new Date());
   const [personas, setPersonas] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [popOver, setPopOver] = useState(false);
+  const [popOver2, setPopOver2] = useState(false);
 
   //fetch para cargar las personas
   const CargarPersonas = async () => {
@@ -46,11 +49,13 @@ const A_nueva = () => {
     const storedEvents = localStorage.getItem("events");
     if (storedEvents) {
       const parsedEvents = JSON.parse(storedEvents);
+
       const eventsWithDateObjects = parsedEvents.map((event) => ({
         ...event,
-        start: new Date(event.start),
-        end: new Date(event.end),
+        start: parseISO(event.start),
+        end: parseISO(event.end),
       }));
+
       setEvents(eventsWithDateObjects);
       setForceUpdate((prevForceUpdate) => prevForceUpdate + 1);
     }
@@ -66,7 +71,18 @@ const A_nueva = () => {
 
   // Eventos de agregar
   const handleConfirm = async (newEvent) => {
-    const addedEvent = { ...newEvent, event_id: (Date.now() + Math.random()).toFixed(0) };
+    // Formatear la fecha de inicio y fin
+    const formattedStart = subHours(new Date(newEvent.start), 3);
+    const formattedEnd = subHours(new Date(newEvent.end), 6);
+
+    // Crear un nuevo objeto con las fechas formateadas
+    const addedEvent = {
+      ...newEvent,
+      start: formattedStart,
+      end: formattedEnd,
+      event_id: (Date.now() + Math.random()).toFixed(0),
+    };
+
     setEvents((prevEvents) => [...prevEvents, addedEvent]);
     setForceUpdate((prevForceUpdate) => prevForceUpdate + 1);
     setLastAddedEventDate(addedEvent.start);
@@ -85,12 +101,135 @@ const A_nueva = () => {
     }
   };
 
+  //subir datos a la nube
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`${API_URL}/actividadComunidad/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          actividades: events,
+          estado: true,
+        }),
+        credentials: "include", // Asegúrate de incluir esta opción
+      });
+      if (!response.ok) {
+        toast.error("Error al añadir las actividades", {});
+        throw new Error("Error al añadir las actividades", {});
+      }
+      const data = await response.json();
+      toast.success("Se agregaron las actividades correctamente", {});
+      await new Promise((resolve) => setTimeout(resolve, 1300));
+      setPopOver(false);
+    } catch (error) {
+      toast.error("Error al añadir las actividades: " + error);
+    }
+  };
+
+  const handleDescargar = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/actividadComunidad/getall`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Asegúrate de incluir esta opción
+      });
+      if (!response.ok) {
+        toast.error("Error al obtener las actividades", {});
+        throw new Error("Error al obtener las actividades", {});
+      }
+      const data = await response.json();
+
+      // Parsear las fechas en cada actividad
+      const actividadesParseadas = data.actividades.map((actividad) => {
+        return {
+          ...actividad,
+          start: new Date(actividad.start), // Parsear la fecha de inicio
+          end: new Date(actividad.end), // Parsear la fecha de fin
+        };
+      });
+
+      setEvents(actividadesParseadas);
+      toast.success("Se actualizaron las actividades correctamente", {});
+      await new Promise((resolve) => setTimeout(resolve, 1300));
+      setPopOver2(false);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Error al obtener las actividades: " + error);
+    }
+  };
+
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <div>
+    <>
+      <Toaster />
+      <div className="flex gap-2 text-center justify-end m-2">
+        <Popover placement="top" color="success" isOpen={popOver}>
+          <PopoverTrigger>
+            <Button
+              color="success"
+              className="mx-auto text-center text-white"
+              onClick={() => setPopOver(true)}
+            >
+              Guardar en la nube
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="px-1 py-2">
+              <div className="text-small font-bold">
+                Esta acción, tomará todos los datos locales y los subirá a la nube, esto reemplazará los datos
+                que puedan existir.
+              </div>
+              <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
+              <div className="mx-auto m-2 text-center">
+                <Button color="warning" className="mr-2" onClick={handleSubmit}>
+                  Sí, deseo subir los cambios
+                </Button>
+                <Button color="danger" onClick={() => setPopOver(false)}>
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+
+        <Popover placement="top" color="warning" isOpen={popOver2}>
+          <PopoverTrigger>
+            <Button
+              color="warning"
+              variant="bordered"
+              className="mx-auto text-center"
+              onClick={() => setPopOver2(true)}
+            >
+              Descargar datos de la nube
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="px-1 py-2">
+              <div className="text-small font-bold">
+                Esta acción, tomará todos los datos de la nube y reemplazará los datos locales, esto
+                reemplazará los datos que puedan existir.
+              </div>
+              <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
+              <div className="mx-auto m-2 text-center">
+                <Button color="success" className="mr-2" onClick={handleDescargar}>
+                  Sí, descargar los datos de la nube
+                </Button>
+                <Button color="danger" onClick={() => setPopOver2(false)}>
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
       <Scheduler
         selectedDate={lastAddedEventDate}
         editable={false}
@@ -99,6 +238,7 @@ const A_nueva = () => {
         onConfirm={handleConfirm}
         onDelete={(eventId, eventStart) => handleDelete(eventId, eventStart)}
         view="month"
+        hourFormat="12"
         navigation={true}
         fields={[
           {
@@ -160,7 +300,10 @@ const A_nueva = () => {
           return (
             <div>
               <p style={{ fontWeight: "800" }}>Descripción: </p>
-              <Typography key={event.event_id} style={{ display: "flex", fontSize: "15px", alignItems: "center" }}>
+              <Typography
+                key={event.event_id}
+                style={{ display: "flex", fontSize: "15px", alignItems: "center" }}
+              >
                 {event.description}
               </Typography>
               <p style={{ fontWeight: "800" }}>Encargado: </p>
@@ -174,7 +317,7 @@ const A_nueva = () => {
           );
         }}
       />
-    </div>
+    </>
   );
 };
 

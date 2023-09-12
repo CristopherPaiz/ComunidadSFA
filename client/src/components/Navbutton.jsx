@@ -25,7 +25,9 @@ const Navbutton = () => {
 
   return (
     <div className="flex w-full px-2 flex-col m-auto sm:w-11/12 sm:m-auto ">
-      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">← Desliza para ver las demás opciones → </p>
+      <p className="m-auto sm:hidden mb-3 mt-1 animate-bounceEdit">
+        ← Desliza para ver las demás opciones →{" "}
+      </p>
       <Tabs
         aria-label="Options"
         selectedKey={selected}
@@ -126,14 +128,6 @@ const Navbutton = () => {
           </Card>
         </Tab>
         <Tab key="actividades" title="Actividades">
-          <div className="flex gap-2 text-center justify-end mb-2">
-            <Button color="success" className="text-white">
-              Guardar en la nube
-            </Button>
-            <Button color="warning" variant="bordered">
-              Obtener datos de la nube
-            </Button>
-          </div>
           <Card>
             <A_nueva />
           </Card>

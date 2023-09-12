@@ -14,16 +14,14 @@ const actividadComunidadSchema = new Schema({
       },
       start: {
         type: Date,
-        required: true,
       },
       end: {
         type: Date,
-        required: true,
       },
       description: {
         type: String,
       },
-      isPersona: {
+      idPersona: {
         type: String,
       },
     },

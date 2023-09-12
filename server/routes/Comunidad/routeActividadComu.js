@@ -2,68 +2,34 @@ const express = require("express");
 const router = express.Router();
 const ActividadComu = require("../../models/Comunidad/actividadComunidad.js");
 
-//======= crear nueva actividad comunidad =======
+// ======= crear nueva actividad comunidad =======
 router.post("/actividadComunidad/add", async (req, res) => {
   try {
-    const {
-      nombre,
-      fechayhorainicial,
-      fechayhorafinal,
-      comunidad,
-      ubicacion,
-      horario,
-      encargados,
-      predicador,
-      alabanzas,
-      avivador,
-      orador,
-      fotos,
-      tipo,
-      especificaciones,
-      observaciones,
-      estado,
-    } = req.body;
+    const { actividades, estado } = req.body;
 
-    const ActiComunidad = new ActividadComu({
-      nombre,
-      fechayhorainicial,
-      fechayhorafinal,
-      comunidad,
-      ubicacion,
-      horario,
-      encargados,
-      predicador,
-      alabanzas,
-      avivador,
-      orador,
-      fotos,
-      tipo,
-      especificaciones,
-      observaciones,
-      estado,
-    });
+    // Verificar si ya existe una entrada
+    const existingActividadComu = await ActividadComu.findOne();
 
-    // Guardar el objeto user en la base de datos u otras operaciones necesarias
-    const resultado = await ActiComunidad.save();
-
-    //mandamos estado 200 de OK y el resultado de la operacion
-    res.status(200).json({ message: "Actividad añadida correctamente", resultado });
+    if (existingActividadComu) {
+      // Si existe, reemplázala con los nuevos datos
+      existingActividadComu.actividades = actividades;
+      existingActividadComu.estado = estado;
+      await existingActividadComu.save();
+      res
+        .status(200)
+        .json({ message: "Actividad actualizada correctamente", resultado: existingActividadComu });
+    } else {
+      // Si no existe, crea una nueva entrada
+      const newActividadComu = new ActividadComu({
+        actividades,
+        estado,
+      });
+      const resultado = await newActividadComu.save();
+      res.status(200).json({ message: "Actividad añadida correctamente", resultado });
+    }
   } catch (error) {
     res.status(500).json({
-      messageDev: "No se pudo añadir la actividad",
-      messageSys: error.message,
-    });
-  }
-});
-
-// ======= obtener todas las actividad comunidades =======
-router.get("/actividadComunidad/getall", async (req, res) => {
-  try {
-    const data = await ActividadComu.find();
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json({
-      messageDev: "No se pudo obtener las actividades",
+      messageDev: "No se pudo añadir o actualizar la actividad",
       messageSys: error.message,
     });
   }
@@ -109,6 +75,19 @@ router.put("/actividadComunidad/delete/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo eliminar la Actividad",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener todas las actividad comunidades =======
+router.get("/actividadComunidad/getall", async (req, res) => {
+  try {
+    const data = await ActividadComu.findOne();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener las actividades",
       messageSys: error.message,
     });
   }
