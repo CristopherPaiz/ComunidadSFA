@@ -4,28 +4,23 @@ import { Link as RouterLink, useNavigate, Navigate } from "react-router-dom";
 
 const R_VerReportes = () => {
   const { loggedIn, usuario } = useContext(contexto);
-
-  const verificarExpiracionToken = () => {
-    const expirationDate = localStorage.getItem("miTokenExpiration");
-    if (expirationDate) {
-      const now = new Date();
-      const expired = now >= new Date(expirationDate);
-      if (expired) {
-        // El token ha expirado, borrarlo del LocalStorage
-        localStorage.removeItem("usuarioSFA");
-        localStorage.removeItem("loggedSFA");
-        localStorage.removeItem("demasdatosSFA");
-        localStorage.removeItem("miTokenExpiration");
-      }
-    }
-  };
+  const [loadingUsuario, setLoadingUsuario] = useState(true);
 
   useEffect(() => {
-    verificarExpiracionToken();
+    setTimeout(() => {
+      setLoadingUsuario(false);
+    }, 500);
   }, []);
 
-  console.log(usuario);
-  if ((loggedIn && usuario.rol === "Admin") || (loggedIn && usuario.rol === "Super")) {
+  if (loadingUsuario) {
+    return <Loading />;
+  }
+
+  if (!loggedIn) {
+    return <Navigate to={"/login"} />;
+  }
+
+  if (usuario && (usuario.rol === "Admin" || usuario.rol === "Super" || usuario.rol === "Reports")) {
     return (
       <>
         <h1 className="text-3xl font-black text-center m-2 mb-6">Reportes</h1>
@@ -51,7 +46,7 @@ const R_VerReportes = () => {
       </>
     );
   } else {
-    return <Navigate to={"/login"} />; // Redirige a la página de inicio
+    return <Navigate to={"/login"} />;
   }
 };
 

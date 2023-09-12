@@ -2,36 +2,34 @@ import React, { useContext, useState, useEffect } from "react";
 import { contexto } from "../context/ContextProvider";
 import { Navigate } from "react-router-dom";
 import NavButtonUsuarios from "../components/NavButtonUsuarios";
+import Loading from "../components/Loading";
 
 const Usuarios = () => {
   const { loggedIn, usuario } = useContext(contexto);
-
-  const verificarExpiracionToken = () => {
-    const expirationDate = localStorage.getItem("miTokenExpiration");
-    if (expirationDate) {
-      const now = new Date();
-      const expired = now >= new Date(expirationDate);
-      if (expired) {
-        localStorage.removeItem("usuarioSFA");
-        localStorage.removeItem("loggedSFA");
-        localStorage.removeItem("demasdatosSFA");
-        localStorage.removeItem("miTokenExpiration");
-      }
-    }
-  };
+  const [loadingUsuario, setLoadingUsuario] = useState(true);
 
   useEffect(() => {
-    verificarExpiracionToken();
+    setTimeout(() => {
+      setLoadingUsuario(false);
+    }, 500);
   }, []);
 
-  if (loggedIn && usuario.rol === "Super") {
+  if (loadingUsuario) {
+    return <Loading />;
+  }
+
+  if (!loggedIn) {
+    return <Navigate to={"/login"} />;
+  }
+
+  if (usuario && usuario.rol === "Super") {
     return (
       <>
         <NavButtonUsuarios />
       </>
     );
   } else {
-    return <Navigate to={"/login"} />; // Redirige a la página de inicio
+    return <Navigate to={"/login"} />;
   }
 };
 

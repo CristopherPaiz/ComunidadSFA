@@ -20,6 +20,10 @@ const U_add = () => {
       value: "Super",
       label: "Super Administrador",
     },
+    {
+      value: "Reports",
+      label: "Reportería",
+    },
   ];
 
   const [nombre, setNombre] = useState("");
