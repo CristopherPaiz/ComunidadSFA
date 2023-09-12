@@ -33,12 +33,13 @@ const styles = StyleSheet.create({
     fontWeight: "black",
   },
   text: { margin: 0 },
-  en1: { width: "75px", height: "auto", maxHeight: "60px" },
-  en2: { width: "80px", height: "auto", maxHeight: "60px" },
-  en3: { width: "90px", height: "auto", maxHeight: "60px" },
-  en4: { width: "80px", height: "auto", maxHeight: "60px" },
-  en5: { width: "90px", height: "auto", maxHeight: "60px" },
-  en6: { width: "135px", height: "auto", maxHeight: "60px" },
+  en0: { width: "130px", height: "auto", maxHeight: "60px" },
+  en1: { width: "55px", height: "auto", maxHeight: "60px" },
+  en2: { width: "70px", height: "auto", maxHeight: "60px" },
+  en3: { width: "60px", height: "auto", maxHeight: "60px" },
+  en4: { width: "60px", height: "auto", maxHeight: "60px" },
+  en5: { width: "70px", height: "auto", maxHeight: "60px" },
+  en6: { width: "130px", height: "auto", maxHeight: "60px" },
 });
 
 function DataToPDF({ data }) {
@@ -57,6 +58,9 @@ function DataToPDF({ data }) {
           <View style={styles.table}>
             {/* Encabezado de la tabla */}
             <View style={[styles.tableRow, styles.tableHeader]}>
+              <View style={[styles.tableCol, styles.en0]}>
+                <Text>Producto</Text>
+              </View>
               <View style={[styles.tableCol, styles.en1]}>
                 <Text>Cantidad</Text>
               </View>
@@ -80,8 +84,11 @@ function DataToPDF({ data }) {
             {/* Datos de la tabla */}
             {data.map((item, index) => (
               <View key={index} style={styles.tableRow}>
+                <View style={[styles.tableCol, styles.en0]}>
+                  <Text>{item.idmedicamento.label}</Text>
+                </View>
                 <View style={[styles.tableCol, styles.en1]}>
-                  <Text>{item.cantidad} uds.</Text>
+                  <Text>{item.cantidad}</Text>
                 </View>
                 <View style={[styles.tableCol, styles.en2]}>
                   <Text>{formatfecha(item.fecha)}</Text>
@@ -134,7 +141,6 @@ function RR_compraMedicamentos() {
       }
       const data = await response.json();
       setResultados(data.ingresosMedicamentos);
-      console.log(data.ingresosMedicamentos);
       setLoading(false);
     } catch (error) {
       toast.error("Error al filtrar las compras");
@@ -148,6 +154,7 @@ function RR_compraMedicamentos() {
     <>
       <Toaster />
       <div className="flex flex-col gap-4 m-4 w-10/12 sm:w-6/12 mx-auto">
+        <h1>Reporte de Compra de Medicamentos</h1>
         <div className="flex flex-row gap-4">
           <Input
             type="date"

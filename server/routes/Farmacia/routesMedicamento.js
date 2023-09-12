@@ -161,7 +161,10 @@ router.post("/IngresoMedicamento/getbyrange", async (req, res) => {
         $gte: new Date(fechaInicio),
         $lte: new Date(fechaFinal),
       },
-    });
+    })
+      .select("idmedicamento cantidad fecha precioCompra precioVenta proveedor observaciones")
+      .populate("idmedicamento", "label")
+      .exec();
 
     res.status(200).json({ ingresosMedicamentos });
   } catch (error) {
@@ -215,6 +218,27 @@ router.post("/EgresoMedicamento/add", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo añadir un nuevo egreso al producto",
+      messageSys: error.message,
+    });
+  }
+});
+
+// Ruta GET para filtrar ingresos de medicamentos por rango de fechas
+router.post("/EgresoMedicamento/getbyrange", async (req, res) => {
+  try {
+    const { fechaInicio, fechaFinal } = req.body;
+
+    const engresoMedicamentos = await EgresoMedicamento.find({
+      fecha: {
+        $gte: new Date(fechaInicio),
+        $lte: new Date(fechaFinal),
+      },
+    });
+
+    res.status(200).json({ engresoMedicamentos });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "Error al filtrar los ingresos de medicamentos por fecha",
       messageSys: error.message,
     });
   }
