@@ -154,7 +154,7 @@ function RR_compraMedicamentos() {
     <>
       <Toaster />
       <div className="flex flex-col gap-4 m-4 w-10/12 sm:w-6/12 mx-auto">
-        <h1>Reporte de Compra de Medicamentos</h1>
+        <h1 className="font-bold text-2xl mx auto text-center">Reporte de Compra de Medicamentos</h1>
         <div className="flex flex-row gap-4">
           <Input
             type="date"
@@ -188,7 +188,7 @@ function RR_compraMedicamentos() {
         </Button>
       </div>
       {loading ? (
-        <h1 className="font-bold text-xl text-center w-9/12 mx-auto">Seleccione un rango de fechas para generar</h1>
+        <h1 className="font-bold text-center w-9/12 mx-auto">Seleccione un rango de fechas para generar</h1>
       ) : (
         <div className="flex flex-col text-center align-middle justify-items-center justify-center">
           {isMobile ? (
