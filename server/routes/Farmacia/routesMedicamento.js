@@ -228,17 +228,20 @@ router.post("/EgresoMedicamento/getbyrange", async (req, res) => {
   try {
     const { fechaInicio, fechaFinal } = req.body;
 
-    const engresoMedicamentos = await EgresoMedicamento.find({
+    const egresoMedicamentos = await EgresoMedicamento.find({
       fecha: {
         $gte: new Date(fechaInicio),
         $lte: new Date(fechaFinal),
       },
-    });
+    })
+      .select("idmedicamento cantidad fecha precioVenta")
+      .populate("idmedicamento", "label")
+      .exec();
 
-    res.status(200).json({ engresoMedicamentos });
+    res.status(200).json({ egresoMedicamentos });
   } catch (error) {
     res.status(500).json({
-      messageDev: "Error al filtrar los ingresos de medicamentos por fecha",
+      messageDev: "Error al filtrar los egresos de medicamentos por fecha",
       messageSys: error.message,
     });
   }
