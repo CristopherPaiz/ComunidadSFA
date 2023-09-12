@@ -9,6 +9,7 @@ const medicamentoSchema = new Schema({
   fotos: [String],
   descripcion: String,
   observaciones: String,
+  antibiotico: Boolean,
   estado: Boolean,
 });
 

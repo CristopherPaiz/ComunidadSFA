@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button, Checkbox } from "@nextui-org/react";
 import { fromBlob } from "image-resize-compress";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ const F_agregar_producto = () => {
   const [casaFarmaceutica, setCasaFarmaceutica] = useState("");
   const [proveedor, setProveedor] = useState("");
   const [observaciones, setObservaciones] = useState("");
+  const [antibiotico, setAntibiotico] = useState(false);
 
   //useState para las imágenes
   const [imagenes, setImagenes] = useState([]);
@@ -89,6 +90,7 @@ const F_agregar_producto = () => {
         precio: precio,
         descripcion: casaFarmaceutica,
         observaciones: observaciones,
+        antibiotico: antibiotico,
         estado: true,
         fotos: uploadedImages.map((url) => url), // Adding the uploaded image URLs to the data
       };
@@ -149,6 +151,7 @@ const F_agregar_producto = () => {
             placeholder="Ingrese el nombre del producto"
             onChange={(e) => setNombre(e.target.value)}
           />
+          <Checkbox onValueChange={() => setAntibiotico(!antibiotico)}>¿Es antibiótico?</Checkbox>
           <Input
             type="Number"
             label="Cantidad Inicio"

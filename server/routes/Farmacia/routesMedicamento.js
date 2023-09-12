@@ -7,7 +7,8 @@ const EgresoMedicamento = require("../../models/Farmacia/egresoMedModel.js");
 //======= crear nuevo medicamento =======
 router.post("/medicamento/add", async (req, res) => {
   try {
-    const { label, cantidadTotal, tipo, precio, fotos, descripcion, observaciones, estado } = req.body;
+    const { label, cantidadTotal, tipo, precio, fotos, descripcion, observaciones, antibiotico, estado } =
+      req.body;
 
     const medicamento = new Medicamento({
       label,
@@ -17,6 +18,7 @@ router.post("/medicamento/add", async (req, res) => {
       fotos,
       descripcion,
       observaciones,
+      antibiotico,
       estado,
     });
 
