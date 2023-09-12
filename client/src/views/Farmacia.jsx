@@ -1,51 +1,35 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { contexto } from "../context/ContextProvider";
 import { Navigate } from "react-router-dom";
 import NavbuttonFarmacia from "../components/NavButtonFarmacia";
+import Loading from "../components/Loading";
 
 const Farmacia = () => {
-  const { loggedIn, usuario, setLoggedIn, setUsuario } = useContext(contexto);
-
-  const verificarExpiracionToken = () => {
-    const expirationDate = localStorage.getItem("miTokenExpiration");
-    if (expirationDate) {
-      const now = new Date();
-      const expired = now >= new Date(expirationDate);
-      if (expired) {
-        // El token ha expirado, borrarlo del LocalStorage
-        localStorage.removeItem("usuarioSFA");
-        localStorage.removeItem("loggedSFA");
-        localStorage.removeItem("demasdatosSFA");
-        localStorage.removeItem("miTokenExpiration");
-      }
-    }
-  };
+  const { loggedIn, usuario } = useContext(contexto);
+  const [loadingUsuario, setLoadingUsuario] = useState(true);
 
   useEffect(() => {
-    verificarExpiracionToken();
-    const usuarioLS = localStorage.getItem("usuarioSFA");
-    const loggedLS = localStorage.getItem("loggedSFA");
-    const demasDatosLS = localStorage.getItem("demasdatosSFA");
-    if (usuarioLS && loggedLS) {
-      setLoggedIn(true);
-      setUsuario(JSON.parse(demasDatosLS));
-    } else {
-      null;
-    }
+    setTimeout(() => {
+      setLoadingUsuario(false);
+    }, 500);
   }, []);
 
-  if (
-    (loggedIn && usuario.rol === "Admin") ||
-    (loggedIn && usuario.rol === "Moderator") ||
-    (loggedIn && usuario.rol === "Super")
-  ) {
+  if (loadingUsuario) {
+    return <Loading />;
+  }
+
+  if (!loggedIn) {
+    return <Navigate to={"/login"} />;
+  }
+
+  if (usuario && (usuario.rol === "Admin" || usuario.rol === "Moderator" || usuario.rol === "Super")) {
     return (
       <>
         <NavbuttonFarmacia />
       </>
     );
   } else {
-    return <Navigate to={"/login"} />; // Redirige a la página de inicio
+    return <Navigate to={"/login"} />;
   }
 };
 

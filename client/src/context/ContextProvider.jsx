@@ -9,6 +9,34 @@ const ContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false); // indicar si el usuario ha iniciado sesión
   const { theme, setTheme } = useTheme();
 
+  const verificarExpiracionToken = () => {
+    const expirationDate = localStorage.getItem("miTokenExpiration");
+    if (expirationDate) {
+      const now = new Date();
+      const expired = now >= new Date(expirationDate);
+      if (expired) {
+        // El token ha expirado, borrarlo del LocalStorage
+        localStorage.removeItem("usuarioSFA");
+        localStorage.removeItem("loggedSFA");
+        localStorage.removeItem("demasdatosSFA");
+        localStorage.removeItem("miTokenExpiration");
+      }
+    }
+  };
+
+  useEffect(() => {
+    verificarExpiracionToken();
+    const usuarioSFA = localStorage.getItem("usuarioSFA");
+    const loggedSFA = localStorage.getItem("loggedSFA");
+    const demasDatosSFA = localStorage.getItem("demasdatosSFA");
+    if (usuarioSFA && loggedSFA) {
+      setLoggedIn(true);
+      setUsuario(JSON.parse(demasDatosSFA));
+    } else {
+      null;
+    }
+  }, []);
+
   useEffect(() => {
     // Intenta recuperar el tema del localStorage
     const storedTheme = localStorage.getItem("themeSFA");
@@ -77,6 +105,7 @@ const ContextProvider = ({ children }) => {
     SUPER: "Super",
     ADMIN_USER: "Admin",
     MODERATOR_USER: "Moderator",
+    REPORTS: "Reports",
     PUBLIC: "Public",
   };
 

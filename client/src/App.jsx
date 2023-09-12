@@ -18,9 +18,12 @@ import EditarCurso from "./forms/VariosForms/EditarCurso";
 
 import EditarMedicamento from "./forms/VariosForms/EditarMedicamento";
 
+import R_VerReportes from "./forms/Comunidad/Reportes/R_VerReportes";
+
 import ContextProvider from "./context/ContextProvider.jsx";
 import EditarBeneficiario from "./forms/VariosForms/EditarBeneficiario";
 import EditarComunidad from "./forms/VariosForms/EditarComunidad";
+import RR_compraMedicamentos from "./forms/Comunidad/Reportes/Reports/RR_compraMedicamentos";
 
 const App = () => {
   return (
@@ -38,9 +41,13 @@ const App = () => {
         <Route path="/social/beneficiario/:id" element={<EditarBeneficiario />} />
         <Route path="/farmacia" element={<Farmacia />} />
         <Route path="/Social" element={<Social />} />
+        <Route path="/reports" element={<R_VerReportes />} />
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<Terms />} />
+        {/* Reportería */}
+        <Route path="/reports/farmacia/compras" element={<RR_compraMedicamentos />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ContextProvider>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -465,7 +465,7 @@ const Navibar = () => {
                 </p>
               </NavbarBrand>
             </NavbarContent>
-            <NavbarContent className="hidden sm:flex gap-1 md:ml-12" justify="center">
+            <NavbarContent className="hidden sm:flex gap-1 md:ml-6" justify="center">
               <NavbarItem isActive>
                 <Button className="bg-transparent hover:bg-primary-100">
                   <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3">
@@ -484,6 +484,13 @@ const Navibar = () => {
                 <Button className="bg-transparent hover:bg-warning-100">
                   <RouterLink to={"/social"} className="py-2 -mx-3 px-3">
                     Social
+                  </RouterLink>
+                </Button>
+              </NavbarItem>
+              <NavbarItem>
+                <Button className="bg-transparent hover:bg-purple-300">
+                  <RouterLink to={"/reports"} className="py-2 -mx-3 px-3">
+                    Reportes
                   </RouterLink>
                 </Button>
               </NavbarItem>
@@ -553,6 +560,11 @@ const Navibar = () => {
                 <DropdownItem key="social">
                   <Link to={"/social"} className="pr-28 pl-3">
                     Social
+                  </Link>
+                </DropdownItem>
+                <DropdownItem key="Reportes">
+                  <Link to={"/reports"} className="pr-28 pl-3">
+                    Reportes
                   </Link>
                 </DropdownItem>
                 <DropdownItem key="dark" className="text-primary">
@@ -623,7 +635,7 @@ const Navibar = () => {
                 </p>
               </NavbarBrand>
             </NavbarContent>
-            <NavbarContent className="hidden sm:flex gap-1 md:ml-12" justify="center">
+            <NavbarContent className="hidden sm:flex gap-1 md:ml-6" justify="center">
               <NavbarItem isActive>
                 <Button className="bg-transparent hover:bg-primary-100">
                   <RouterLink to={"/comunidad"} className="py-2 -mx-3 px-3">
@@ -649,6 +661,13 @@ const Navibar = () => {
                 <Button className="bg-transparent hover:bg-warning-100">
                   <RouterLink to={"/usuarios"} className="py-2 -mx-3 px-3">
                     Usuarios
+                  </RouterLink>
+                </Button>
+              </NavbarItem>
+              <NavbarItem>
+                <Button className="bg-transparent hover:bg-purple-300">
+                  <RouterLink to={"/reports"} className="py-2 -mx-3 px-3">
+                    Reportes
                   </RouterLink>
                 </Button>
               </NavbarItem>
@@ -718,6 +737,11 @@ const Navibar = () => {
                 <DropdownItem key="social">
                   <Link to={"/social"} className="pr-28 pl-3">
                     Social
+                  </Link>
+                </DropdownItem>
+                <DropdownItem key="reports">
+                  <Link to={"/reports"} className="pr-28 pl-3">
+                    Reportes
                   </Link>
                 </DropdownItem>
                 <DropdownItem key="dark" className="text-primary">
