@@ -136,14 +136,14 @@ const U_todos = () => {
     cargaUsuarios();
   }, []);
 
-  const [visiblePasswords, setVisiblePasswords] = useState({});
+  // const [visiblePasswords, setVisiblePasswords] = useState({});
 
-  const togglePasswordVisibility = (username) => {
-    setVisiblePasswords((prevState) => ({
-      ...prevState,
-      [username]: !prevState[username],
-    }));
-  };
+  // const togglePasswordVisibility = (username) => {
+  //   setVisiblePasswords((prevState) => ({
+  //     ...prevState,
+  //     [username]: !prevState[username],
+  //   }));
+  // };
 
   return (
     <>
@@ -184,7 +184,7 @@ const U_todos = () => {
                     <strong>Nombre de usuario: </strong>
                     {usuario?.username}
                   </span>
-                  <span className="mt-[3px] block">
+                  {/* <span className="mt-[3px] block">
                     <strong>Contraseña: </strong>{" "}
                     <div>
                       {visiblePasswords[usuario?.username] ? (
@@ -199,14 +199,16 @@ const U_todos = () => {
                         </Button>
                       )}
                     </div>
-                  </span>
+                  </span> */}
                 </div>
               </div>
               <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
                 <ModalContent>
                   {(onClose) => (
                     <>
-                      <ModalHeader className="flex flex-col gap-1">{userSeleccionado?.nombre ?? ""}</ModalHeader>
+                      <ModalHeader className="flex flex-col gap-1">
+                        {userSeleccionado?.nombre ?? ""}
+                      </ModalHeader>
                       <ModalBody>
                         <Input
                           type="text"
@@ -226,7 +228,7 @@ const U_todos = () => {
                           onChange={(e) => setUsername(e.target.value)}
                         ></Input>
 
-                        <span className="">
+                        {/* <span className="">
                           <div>
                             {visiblePasswords[userSeleccionado?.username] ? (
                               <div className="num">
@@ -250,7 +252,7 @@ const U_todos = () => {
                               </Button>
                             )}
                           </div>
-                        </span>
+                        </span> */}
 
                         <p className="font-bold text-[17px] sm:hidden -mb-2 ">Seleccione el rol:</p>
                         <Select
@@ -284,8 +286,12 @@ const U_todos = () => {
                           </PopoverTrigger>
                           <PopoverContent>
                             <div className="px-1 py-2">
-                              <div className="text-small font-bold">¿Está seguro de querer eliminar al usuario?</div>
-                              <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
+                              <div className="text-small font-bold">
+                                ¿Está seguro de querer eliminar al usuario?
+                              </div>
+                              <div className="text-tiny">
+                                ¡Esta acción no se puede deshacer!, ¿Desea continuar?
+                              </div>
                               <div className="mx-auto m-2 text-center">
                                 <Button color="warning" className="mr-2" onClick={handleEliminar}>
                                   Sí, deseo eliminarlo
