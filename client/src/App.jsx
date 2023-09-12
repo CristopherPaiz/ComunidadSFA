@@ -25,6 +25,7 @@ import EditarBeneficiario from "./forms/VariosForms/EditarBeneficiario";
 import EditarComunidad from "./forms/VariosForms/EditarComunidad";
 import RR_compraMedicamentos from "./forms/Comunidad/Reportes/Reports/RR_compraMedicamentos";
 import RR_ventaMedicamentos from "./forms/Comunidad/Reportes/Reports/RR_ventaMedicamentos";
+import RR_disponibilidadProductos from "./forms/Comunidad/Reportes/Reports/RR_disponibilidadProductos";
 
 const App = () => {
   return (
@@ -46,7 +47,8 @@ const App = () => {
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<Terms />} />
-        {/* Reportería */}
+        {/* FARMACIA */}
+        <Route path="/reports/farmacia/medicamentos"   element={<RR_disponibilidadProductos />} />
         <Route path="/reports/farmacia/compras" element={<RR_compraMedicamentos />} />
         <Route path="/reports/farmacia/ventas" element={<RR_ventaMedicamentos />} />
 

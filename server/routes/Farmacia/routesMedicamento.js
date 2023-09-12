@@ -47,6 +47,19 @@ router.get("/medicamento/getall", async (req, res) => {
   }
 });
 
+// ======= obtener todos los medicamentos =======
+router.get("/medicamento/getalldisponibility", async (req, res) => {
+  try {
+    const data = await Medicamento.find().where({ estado: true }).sort({ cantidadTotal: -1 }).exec();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los medicamentos",
+      messageSys: error.message,
+    });
+  }
+});
+
 // Agrega esta ruta al final del archivo de rutas
 router.post("/medicamento/filtrar", async (req, res) => {
   try {
