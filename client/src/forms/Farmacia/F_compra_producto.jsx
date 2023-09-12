@@ -1,5 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Input, Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
+import {
+  Input,
+  Button,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@nextui-org/react";
 import Select from "react-select";
 import API_URL from "../../config";
 import { contexto } from "../../context/ContextProvider";
@@ -10,6 +19,11 @@ const F_compra_producto = () => {
   const [loading, setLoading] = useState(true);
   const [resultadosMedicamentos, setResultadosCrecimientos] = useState([]);
   const [cantidad, setCantidad] = useState(0);
+  const [precioCompra, setPrecioCompra] = useState(0);
+  const [precioVenta, setPrecioVenta] = useState(0);
+  const [fechaVencimiento, setFechaVencimiento] = useState(null);
+  const [proveedor, setProveedor] = useState(null);
+  const [observaciones, setObservaciones] = useState(null);
   const { theme } = useContext(contexto);
 
   const obtenerProductos = async () => {
@@ -52,9 +66,14 @@ const F_compra_producto = () => {
     const retiroFinal = {
       idmedicamento: seleccionado._id,
       cantidad: cantidad,
-      fecha: new Date(),
+      fecha: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+      fechaVencimiento: fechaVencimiento,
+      precioCompra: precioCompra,
+      precioVenta: precioVenta,
+      proveedor: proveedor,
+      observaciones: observaciones,
     };
-
+    console.log(retiroFinal);
     try {
       const response = await fetch(`${API_URL}/IngresoMedicamento/add`, {
         method: "POST",
@@ -120,8 +139,42 @@ const F_compra_producto = () => {
           }}
         />
 
-        {/* <Input type="Number" label="Precio Compra" placeholder="Ingrese el precio de compra" />
-        <Input type="Number" label="Precio de venta" placeholder="Ingrese el precio de venta" /> */}
+        <Input
+          type="Number"
+          label="Precio Compra"
+          placeholder="Ingrese el precio de compra"
+          onChange={(e) => setPrecioCompra(e.target.value)}
+        />
+        <Input
+          type="Number"
+          label="Precio de venta"
+          placeholder="Ingrese el precio de venta"
+          onChange={(e) => setPrecioVenta(e.target.value)}
+        />
+        <Input
+          type="Date"
+          label="Fecha de vencimiento"
+          placeholder="Ingrese una fecha de vencimiento"
+          onChange={(e) =>
+            setFechaVencimiento(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
+        />
+        <Input
+          type="text"
+          label="Proveedor"
+          placeholder="Ingrese un proveedor"
+          onChange={(e) => setProveedor(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Observaciones"
+          placeholder="Ingrese observaciones"
+          onChange={(e) => setObservaciones(e.target.value)}
+        />
         <Button color="success" className="w-11/12 m-auto sm:w-3/5" onClick={handleSubmit}>
           Ingresar Compra
         </Button>

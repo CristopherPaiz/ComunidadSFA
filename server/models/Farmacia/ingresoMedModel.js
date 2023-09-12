@@ -8,6 +8,7 @@ const ingresoMedSchema = new Schema({
   },
   cantidad: Number,
   fecha: Date,
+  fechaVencimiento: Date,
   precioCompra: Number,
   precioVenta: Number,
   proveedor: String,
