@@ -25,6 +25,7 @@ import { Link as Linky } from "react-router-dom";
 import { contexto } from "../../context/ContextProvider";
 import NFblack from "../../assets/notfoundblack.svg";
 import NFWhite from "../../assets/notfoundwhite.svg";
+import { format, addDays } from "date-fns";
 
 const S_Beneficiarios = () => {
   const { theme } = useContext(contexto);
@@ -40,9 +41,14 @@ const S_Beneficiarios = () => {
 
   const formatfecha = (fechaRecibo) => {
     const date = new Date(fechaRecibo);
+
+    // Sumar un día
+    date.setDate(date.getDate() + 1);
+
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
+
     return `${day}-${month}-${year}`;
   };
 

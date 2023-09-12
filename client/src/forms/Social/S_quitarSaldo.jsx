@@ -233,7 +233,13 @@ const S_quitarSaldo = () => {
           type="Date"
           label="Fecha gasto"
           placeholder="Ingrese fecha"
-          onChange={(e) => setFechaGasto(e.target.value)}
+          onChange={(e) =>
+            setFechaGasto(
+              new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                .toISOString()
+                .split("T")[0]
+            )
+          }
           value={fechaGasto}
         />
         <Input
