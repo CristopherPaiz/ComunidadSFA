@@ -7,8 +7,7 @@ const EgresoMedicamento = require("../../models/Farmacia/egresoMedModel.js");
 //======= crear nuevo medicamento =======
 router.post("/medicamento/add", async (req, res) => {
   try {
-    const { label, cantidadTotal, tipo, precio, fotos, descripcion, observaciones, antibiotico, estado } =
-      req.body;
+    const { label, cantidadTotal, tipo, precio, fotos, descripcion, observaciones, antibiotico, estado } = req.body;
 
     const medicamento = new Medicamento({
       label,
@@ -119,16 +118,8 @@ router.put("/medicamento/delete/:id", async (req, res) => {
 //======= crear nuevo ingreso de medicamento =======
 router.post("/IngresoMedicamento/add", async (req, res) => {
   try {
-    const {
-      idmedicamento,
-      cantidad,
-      fecha,
-      precioCompra,
-      precioVenta,
-      fechaVencimiento,
-      proveedor,
-      observaciones,
-    } = req.body;
+    const { idmedicamento, cantidad, fecha, precioCompra, precioVenta, fechaVencimiento, proveedor, observaciones } =
+      req.body;
 
     const medicamento = new IngresoMedicamento({
       idmedicamento,
@@ -151,12 +142,31 @@ router.post("/IngresoMedicamento/add", async (req, res) => {
     );
 
     // Mandamos estado 200 de OK y el resultado de la operación
-    res
-      .status(200)
-      .json({ message: "Nueva compra de producto añadido correctamente", ingresoMedicamentoResultado });
+    res.status(200).json({ message: "Nueva compra de producto añadido correctamente", ingresoMedicamentoResultado });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo añadir una nueva compra del producto",
+      messageSys: error.message,
+    });
+  }
+});
+
+// Ruta GET para filtrar ingresos de medicamentos por rango de fechas
+router.post("/IngresoMedicamento/getbyrange", async (req, res) => {
+  try {
+    const { fechaInicio, fechaFinal } = req.body;
+
+    const ingresosMedicamentos = await IngresoMedicamento.find({
+      fecha: {
+        $gte: new Date(fechaInicio),
+        $lte: new Date(fechaFinal),
+      },
+    });
+
+    res.status(200).json({ ingresosMedicamentos });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "Error al filtrar los ingresos de medicamentos por fecha",
       messageSys: error.message,
     });
   }

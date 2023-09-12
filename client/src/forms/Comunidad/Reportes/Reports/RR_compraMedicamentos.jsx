@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PDFViewer, Document, Page, Text, View, StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
+import toast, { Toaster } from "react-hot-toast";
+import API_URL from "../../../../config.js";
 
 const styles = StyleSheet.create({
   page: {
@@ -27,8 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   tableHeader: {
-    backgroundColor: "#f2f2f2",
-    fontWeight: "bold",
+    backgroundColor: "#dedcdc",
+    fontWeight: "black",
   },
   text: { margin: 0 },
   en1: { width: "75px", height: "auto", maxHeight: "60px" },
@@ -106,61 +108,111 @@ function DataToPDF({ data }) {
 }
 
 function RR_compraMedicamentos() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [resultados, setResultados] = useState([]);
+  const [fechaInicio, setFechaInicio] = useState("");
+  const [fechaFinal, setFechaFinal] = useState("");
 
-  //cargar los datos de las compras de medicamentos
-  useEffect(() => {}, []);
+  // filtrar por comunidad
+  const handleBuscarPorComunidad = async () => {
+    if (fechaInicio === "" || fechaFinal === "") return toast.error("Ambas fechas son requeridas");
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/IngresoMedicamento/getbyrange`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fechaInicio: fechaInicio,
+          fechaFinal: fechaFinal,
+        }),
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Error al filtrar las compras", {});
+      }
+      const data = await response.json();
+      setResultados(data.ingresosMedicamentos);
+      console.log(data.ingresosMedicamentos);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Error al filtrar las compras");
+      setLoading(false);
+      console.log(error);
+    }
+  };
 
-  const data = [
-    {
-      idmedicamento: "64e648dd3462af19ec454a5b",
-      cantidad: "1005",
-      fecha: "2023-08-01T00:00:00.000Z",
-      precioCompra: "11",
-      precioVenta: "12",
-      proveedor: "Bayer",
-      observaciones: "El proveedor nos vendió los medicamentos a un precio más alto de lo acordado porque está pendejo",
-    },
-    {
-      idmedicamento: "64e648dd3462af19ec454a5c",
-      cantidad: "10",
-      fecha: "2023-08-02T00:00:00.000Z",
-      precioCompra: "8",
-      precioVenta: "9",
-      proveedor: "Pfizer",
-      observaciones: "Compra regular de medicamentos de Pfizer",
-    },
-  ];
   const isMobile = window.innerWidth <= 768;
   return (
-    <div className="h-screen flex flex-col text-center align-middle justify-items-center justify-center">
-      {isMobile ? ( // Mostrar botón de descarga solo en dispositivos móviles
-        <div className="p-8 -mt-32">
-          <h1 className="text-2xl font-bold text-danger">¡¡Parece que estás desde un dispositivo móvil!!</h1>
-          <h2 className="font-bold">
-            Por el momento el visor de documentos, solo está disponible en versión de escritorio
-          </h2>
-          <h3>Así que únicamente podrás descargar el archivo y verlo con alguna aplicación compatible.</h3>
-          <br />
-          <PDFDownloadLink document={<DataToPDF data={data} />} fileName="reporteCompraMedicamentos.pdf">
-            {({ blob, url, loading, error }) =>
-              loading ? (
-                <h1>Cargando documento...</h1>
-              ) : (
-                <Button className="text-white" color="success">
-                  Descargar PDF
-                </Button>
+    <>
+      <Toaster />
+      <div className="flex flex-col gap-4 m-4 w-10/12 sm:w-6/12 mx-auto">
+        <div className="flex flex-row gap-4">
+          <Input
+            type="date"
+            label="Fecha inicial"
+            placeholder="Ingrese una fecha inicial"
+            isRequired
+            onChange={(e) =>
+              setFechaInicio(
+                new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                  .toISOString()
+                  .split("T")[0]
               )
             }
-          </PDFDownloadLink>
+          />
+          <Input
+            type="date"
+            label="Fecha Final"
+            placeholder="Ingrese una fecha final"
+            isRequired
+            onChange={(e) =>
+              setFechaFinal(
+                new Date(e.target.valueAsNumber - (e.target.valueAsNumber % 86400000) + 86400000)
+                  .toISOString()
+                  .split("T")[0]
+              )
+            }
+          />
         </div>
+        <Button className="text-white" color="success" onClick={handleBuscarPorComunidad}>
+          Generar reporte
+        </Button>
+      </div>
+      {loading ? (
+        <h1 className="font-bold text-xl text-center w-9/12 mx-auto">Seleccione un rango de fechas para generar</h1>
       ) : (
-        // Mostrar visor de PDF en escritorio
-        <PDFViewer width="100%" height="600">
-          <DataToPDF data={data} />
-        </PDFViewer>
+        <div className="flex flex-col text-center align-middle justify-items-center justify-center">
+          {isMobile ? (
+            <div className="p-8">
+              <h1 className="text-2xl font-bold text-danger">¡¡Parece que estás desde un dispositivo móvil!!</h1>
+              <h2 className="font-bold">
+                Por el momento el visor de documentos, solo está disponible en versión de escritorio
+              </h2>
+              <h3>Así que únicamente podrás descargar el archivo y verlo con alguna aplicación compatible.</h3>
+              <br />
+              <PDFDownloadLink document={<DataToPDF data={resultados} />} fileName="reporteCompraMedicamentos.pdf">
+                {({ blob, url, loading, error }) =>
+                  loading ? (
+                    <h1>Cargando documento...</h1>
+                  ) : (
+                    <Button className="text-white" color="success">
+                      Descargar PDF
+                    </Button>
+                  )
+                }
+              </PDFDownloadLink>
+            </div>
+          ) : (
+            // Mostrar visor de PDF en escritorio
+            <PDFViewer width="90%" height="600" className="mx-auto">
+              <DataToPDF data={resultados} />
+            </PDFViewer>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

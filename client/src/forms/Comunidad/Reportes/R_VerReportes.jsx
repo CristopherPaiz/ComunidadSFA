@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { contexto } from "../../../context/ContextProvider";
 import { Link as RouterLink, useNavigate, Navigate } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 const R_VerReportes = () => {
   const { loggedIn, usuario } = useContext(contexto);
