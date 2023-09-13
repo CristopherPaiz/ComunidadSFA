@@ -99,7 +99,9 @@ function DataToPDF({ data, value }) {
                   <Text>{item.tipo}</Text>
                 </View>
                 <View style={[styles.tableCol, styles.en4]}>
-                  <Text>{item?.retiros[0]?.cuota.map((numero) => `Q${numero} `)}</Text>
+                  <Text>
+                    {item?.retiros[0].cuota[0] > 0 ? item?.retiros[0]?.cuota.map((numero) => `Q${numero} `) : "---"}
+                  </Text>
                 </View>
               </View>
             ))}
