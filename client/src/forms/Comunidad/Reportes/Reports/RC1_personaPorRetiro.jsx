@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../../../config.js";
 import { contexto } from "../../../../context/ContextProvider.jsx";
 import Select from "react-select";
+import Loading from "../../../../components/Loading.jsx";
 
 const styles = StyleSheet.create({
   page: {
@@ -49,13 +50,6 @@ const styles = StyleSheet.create({
 });
 
 function DataToPDF({ data, value }) {
-  const formatfecha = (fechaRecibo) => {
-    const date = new Date(fechaRecibo);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${day}-${month}-${year}`;
-  };
   return (
     <Document>
       <Page size="LETTER" orientation="landscape" style={styles.page}>
@@ -115,6 +109,7 @@ function DataToPDF({ data, value }) {
 const RC1_personaPorRetiro = () => {
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
+  const [loading3, setLoading3] = useState(false);
   const [resultados, setResultados] = useState([]);
 
   //cargar lista de beneficiarios
@@ -157,6 +152,7 @@ const RC1_personaPorRetiro = () => {
       return;
     }
     setLoading(true);
+    setLoading3(true);
     try {
       const response = await fetch(`${API_URL}/persona/getrbyretiroComunidad`, {
         method: "POST",
@@ -172,9 +168,11 @@ const RC1_personaPorRetiro = () => {
       const data = await response.json();
       setResultados(data);
       setLoading(false);
+      setLoading3(false);
     } catch (error) {
       toast.error("Error al filtrar las personas por retiro");
       setLoading(false);
+      setLoading3(false);
       console.log(error);
     }
   };
@@ -212,7 +210,10 @@ const RC1_personaPorRetiro = () => {
             noOptionsMessage={() => "¡¡No se encontró el retiro!!"}
             placeholder="Seleccione un retiro"
             onChange={(e) => setSeleccionado(e)}
-            onFocus={() => setSeleccionado(null)}
+            onFocus={() => {
+              setSeleccionado(null);
+              setLoading(true);
+            }}
           />
         )}
         <Button className="text-white" color="success" onClick={handleBuscarPorComunidad}>
@@ -220,7 +221,9 @@ const RC1_personaPorRetiro = () => {
         </Button>
       </div>
       {loading ? (
-        <h1 className="font-bold text-center w-9/12 mx-auto"></h1>
+        loading3 ? (
+          <Loading />
+        ) : null
       ) : (
         <div className="flex flex-col text-center align-middle justify-items-center justify-center">
           {isMobile ? (
