@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   en4: { width: "60px", height: "auto", maxHeight: "60px" },
   en5: { width: "70px", height: "auto", maxHeight: "60px" },
   en6: { width: "130px", height: "auto", maxHeight: "60px" },
+  en9: { width: "130px", height: "auto", maxHeight: "60px", border: 0, fontWeight: "1000" },
 });
 
 function DataToPDF({ data }) {
@@ -50,11 +51,18 @@ function DataToPDF({ data }) {
     const day = String(date.getDate()).padStart(2, "0");
     return `${day}-${month}-${year}`;
   };
+
+  // Calcular la suma total de precioCompra y precioVenta
+  const sumaTotalPrecioCompra = data.reduce((total, item) => total + item.precioCompra, 0);
+  const sumaTotalPrecioVenta = data.reduce((total, item) => total + item.precioVenta, 0);
+
   return (
     <Document>
       <Page size="LETTER" style={styles.page}>
         <View style={styles.section}>
-          <Text style={{ fontSize: 20, marginBottom: 10, textAlign: "center" }}>Reporte compra de Medicamentos</Text>
+          <Text style={{ fontSize: 20, marginBottom: 10, textAlign: "center" }}>
+            Reporte compra de Medicamentos
+          </Text>
           <View style={styles.table}>
             {/* Encabezado de la tabla */}
             <View style={[styles.tableRow, styles.tableHeader]}>
@@ -107,6 +115,31 @@ function DataToPDF({ data }) {
                 </View>
               </View>
             ))}
+            <View
+              style={(styles.tableRow, { backgroundColor: "#dedcdc", display: "flex", flexDirection: "row" })}
+            >
+              <View style={[styles.tableCol, styles.en9]}>
+                <Text>Total de compra y total de ventas estimadas</Text>
+              </View>
+              <View style={[styles.en1]}>
+                <Text></Text>
+              </View>
+              <View style={[styles.en2]}>
+                <Text></Text>
+              </View>
+              <View style={[styles.tableCol, styles.en3]}>
+                <Text>Q. {sumaTotalPrecioCompra}</Text>
+              </View>
+              <View style={[styles.tableCol, styles.en4]}>
+                <Text>Q. {sumaTotalPrecioVenta}</Text>
+              </View>
+              <View style={[styles.en5]}>
+                <Text></Text>
+              </View>
+              <View style={[styles.en6]}>
+                <Text></Text>
+              </View>
+            </View>
           </View>
         </View>
       </Page>
@@ -193,13 +226,20 @@ function RR_compraMedicamentos() {
         <div className="flex flex-col text-center align-middle justify-items-center justify-center">
           {isMobile ? (
             <div className="p-8">
-              <h1 className="text-2xl font-bold text-danger">¡¡Parece que estás desde un dispositivo móvil!!</h1>
+              <h1 className="text-2xl font-bold text-danger">
+                ¡¡Parece que estás desde un dispositivo móvil!!
+              </h1>
               <h2 className="font-bold">
                 Por el momento el visor de documentos, solo está disponible en versión de escritorio
               </h2>
-              <h3>Así que únicamente podrás descargar el archivo y verlo con alguna aplicación compatible.</h3>
+              <h3>
+                Así que únicamente podrás descargar el archivo y verlo con alguna aplicación compatible.
+              </h3>
               <br />
-              <PDFDownloadLink document={<DataToPDF data={resultados} />} fileName="reporteCompraMedicamentos.pdf">
+              <PDFDownloadLink
+                document={<DataToPDF data={resultados} />}
+                fileName="reporteCompraMedicamentos.pdf"
+              >
                 {({ blob, url, loading, error }) =>
                   loading ? (
                     <h1>Cargando documento...</h1>
