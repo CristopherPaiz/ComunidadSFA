@@ -151,6 +151,39 @@ router.post("/persona/getrbyretiro", async (req, res) => {
   }
 });
 
+// ======= obtener una persona por retiro por su id mejorado=======
+router.post("/persona/getrbyretiroComunidad", async (req, res) => {
+  try {
+    const { idretiro } = req.body;
+
+    // Asumiendo que idretiro es una cadena (si es ObjectId, convierte adecuadamente)
+    const personas = await Persona.find({ "retiros.idretiro": idretiro })
+      .populate("crecimientos.idcursocreci", "nombreCursoCreci")
+      .populate("idcomunidad", "nombreComunidad")
+      .where({ estado: true })
+      .sort({ nombre: 1 })
+      .exec();
+
+    // Filtrar el retiro específico dentro del array retiros
+    const personasFiltradas = personas.map((persona) => {
+      const retiroEspecifico = persona.retiros.find((retiro) => retiro.idretiro.equals(idretiro));
+      if (retiroEspecifico) {
+        persona.retiros = [retiroEspecifico];
+      } else {
+        persona.retiros = [];
+      }
+      return persona;
+    });
+
+    res.status(200).json(personasFiltradas);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo realizar la búsqueda de personas",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener una persona por curso/creci por su id =======
 router.post("/persona/getrbycursocreci", async (req, res) => {
   try {

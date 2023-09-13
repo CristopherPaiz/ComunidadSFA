@@ -5,18 +5,8 @@ const Retiro = require("../../models/Comunidad/retiroModel.js");
 //======= crear nuevo retiro =======
 router.post("/retiro/add", async (req, res) => {
   try {
-    const {
-      nombreRetiro,
-      fechainicio,
-      fechaFinal,
-      encargados,
-      ubicacion,
-      ofrenda,
-      horario,
-      tipo,
-      tipoPara,
-      estado,
-    } = req.body;
+    const { nombreRetiro, fechainicio, fechaFinal, encargados, ubicacion, ofrenda, horario, tipo, tipoPara, estado } =
+      req.body;
 
     const retiro = new Retiro({
       nombreRetiro,
@@ -112,6 +102,30 @@ router.get("/retiro/getallname", async (req, res) => {
       .exec();
 
     res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los Retiros",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener todos los retiros solo nombrey ID =======
+router.get("/retiro/getallnamelabel", async (req, res) => {
+  try {
+    const data = await Retiro.find()
+      .select("nombreRetiro _id")
+      .where({ estado: true })
+      .sort({ nombreRetiro: 1 })
+      .exec();
+
+    // Mapear los resultados para cambiar el nombre de la propiedad
+    const formattedData = data.map((item) => ({
+      label: item.nombreRetiro,
+      _id: item._id,
+    }));
+
+    res.status(200).json(formattedData);
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo obtener los Retiros",
