@@ -26,6 +26,9 @@ import EditarComunidad from "./forms/VariosForms/EditarComunidad";
 import RR_compraMedicamentos from "./forms/Comunidad/Reportes/Reports/RR_compraMedicamentos";
 import RR_ventaMedicamentos from "./forms/Comunidad/Reportes/Reports/RR_ventaMedicamentos";
 import RR_disponibilidadProductos from "./forms/Comunidad/Reportes/Reports/RR_disponibilidadProductos";
+import RB_Beneficiarios from "./forms/Comunidad/Reportes/Reports/RB_Beneficiarios";
+import RB_gastos from "./forms/Comunidad/Reportes/Reports/RB_gastos";
+import RB_saldosafavor from "./forms/Comunidad/Reportes/Reports/RB_saldosafavor";
 
 const App = () => {
   return (
@@ -48,9 +51,13 @@ const App = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<Terms />} />
         {/* FARMACIA */}
-        <Route path="/reports/farmacia/medicamentos"   element={<RR_disponibilidadProductos />} />
+        <Route path="/reports/farmacia/medicamentos" element={<RR_disponibilidadProductos />} />
         <Route path="/reports/farmacia/compras" element={<RR_compraMedicamentos />} />
         <Route path="/reports/farmacia/ventas" element={<RR_ventaMedicamentos />} />
+        {/* SOCIAL */}
+        <Route path="/reports/social/beneficiarios" element={<RB_Beneficiarios />} />
+        <Route path="/reports/social/gastos" element={<RB_gastos />} />
+        <Route path="/reports/social/saldosafavor" element={<RB_saldosafavor />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

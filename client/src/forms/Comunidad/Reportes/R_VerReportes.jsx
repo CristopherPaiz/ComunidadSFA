@@ -53,19 +53,19 @@ const R_VerReportes = () => {
         <div className="bg-slate-200 w-11/12 p-3 mx-auto my-3 rounded-md flex gap-2 flex-col sm:w-5/12 dark:bg-slate-800">
           <h1 className="font-bold">Reportes Beneficiarios</h1>
           <RouterLink
-            to={"/reports/farmacia/medicamentos"}
+            to={"/reports/social/beneficiarios"}
             className="underline text-blue-600 block dark:text-blue-400"
           >
             Lista de beneficiarios
           </RouterLink>
           <RouterLink
-            to={"/reports/farmacia/compras"}
+            to={"/reports/social/gastos"}
             className="underline text-blue-600 block dark:text-blue-400"
           >
             Reporte de gastos de beneficiarios
           </RouterLink>
           <RouterLink
-            to={"/reports/farmacia/ventas"}
+            to={"/reports/social/saldosafavor"}
             className="underline text-blue-600 block dark:text-blue-400"
           >
             Reportes de saldos a favor para los beneficiarios
