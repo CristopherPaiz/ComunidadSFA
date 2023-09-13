@@ -148,6 +148,24 @@ router.put("/BeneficiarioSocial/delete/:id", async (req, res) => {
 // ============================= Añadir saldo beneficiario =========================== //
 /////////////////////////////////////////////////////////////////////////////////////////
 
+// Agregar una nueva ruta GET para obtener todos los ingresos de un beneficiario por su ID
+router.get("/IngresoSaldo/:idbeneficiario", async (req, res) => {
+  try {
+    const idbeneficiario = req.params.idbeneficiario;
+
+    // Buscar todos los ingresosSaldo asociados al ID del beneficiario
+    const ingresos = await IngresoSaldo.find({ idbeneficiario });
+
+    // Devolver los ingresos encontrados
+    res.status(200).json({ message: "Ingresos del beneficiario obtenidos correctamente", ingresos });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudieron obtener los ingresos del beneficiario",
+      messageSys: error.message,
+    });
+  }
+});
+
 router.post("/IngresoSaldo/add", async (req, res) => {
   try {
     const { idbeneficiario, nombredonante, monto, observaciones } = req.body;

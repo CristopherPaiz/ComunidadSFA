@@ -6,6 +6,10 @@ const ingresoSaldoSocialSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beneficiario",
   },
+  fecha: {
+    type: Date,
+    default: Date.now,
+  },
   nombredonante: String,
   monto: Number,
   observaciones: String,
