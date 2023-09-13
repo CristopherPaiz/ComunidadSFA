@@ -29,6 +29,11 @@ import RR_disponibilidadProductos from "./forms/Comunidad/Reportes/Reports/RR_di
 import RB_Beneficiarios from "./forms/Comunidad/Reportes/Reports/RB_Beneficiarios";
 import RB_gastos from "./forms/Comunidad/Reportes/Reports/RB_gastos";
 import RB_saldosafavor from "./forms/Comunidad/Reportes/Reports/RB_saldosafavor";
+import RC1_personaPorRetiro from "./forms/Comunidad/Reportes/Reports/RC1_personaPorRetiro";
+import RC2_personasPorCurso from "./forms/Comunidad/Reportes/Reports/RC2_personasPorCurso";
+import RC3_personasPorComunidad from "./forms/Comunidad/Reportes/Reports/RC3_personasPorComunidad";
+import RC4_personaActividades from "./forms/Comunidad/Reportes/Reports/RC4_personaActividades";
+import RC5_actividades from "./forms/Comunidad/Reportes/Reports/RC5_actividades";
 
 const App = () => {
   return (
@@ -50,6 +55,12 @@ const App = () => {
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<Terms />} />
+        {/* COMUNIDAD */}
+        <Route path="/reports/comunidad/personaretiro" element={<RC1_personaPorRetiro />} />
+        <Route path="/reports/comunidad/personacurso" element={<RC2_personasPorCurso />} />
+        <Route path="/reports/comunidad/personacomunidad" element={<RC3_personasPorComunidad />} />
+        <Route path="/reports/comunidad/personaactividad" element={<RC4_personaActividades />} />
+        <Route path="/reports/comunidad/actividades" element={<RC5_actividades />} />
         {/* FARMACIA */}
         <Route path="/reports/farmacia/medicamentos" element={<RR_disponibilidadProductos />} />
         <Route path="/reports/farmacia/compras" element={<RR_compraMedicamentos />} />
