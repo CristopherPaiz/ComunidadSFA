@@ -151,7 +151,7 @@ const RC2_personasPorCurso = () => {
   // filtrar por comunidad
   const handleBuscarPorComunidad = async () => {
     if (seleccionado === null) {
-      toast.error("Debe seleccionar un retiro", {});
+      toast.error("Debe seleccionar un curso o crecimiento", {});
       return;
     }
     setLoading(true);

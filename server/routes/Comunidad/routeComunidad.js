@@ -62,6 +62,29 @@ router.get("/comunidad/getallname", async (req, res) => {
   }
 });
 
+// ======= obtener todas las comunidades =======
+router.get("/comunidad/getallnamelabel", async (req, res) => {
+  try {
+    const data = await ComunidadModel.find()
+      .select("nombreComunidad _id")
+      .where({ estado: true })
+      .sort({ nombreComunidad: 1 })
+      .exec();
+    // Mapear los resultados para cambiar el nombre de la propiedad
+    const formattedData = data.map((item) => ({
+      label: item.nombreComunidad,
+      _id: item._id,
+    }));
+
+    res.status(200).json(formattedData);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener las Comunidades o Células",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener todos los retiros por nombre =======
 router.post("/comunidad/getbyname", async (req, res) => {
   try {
