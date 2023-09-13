@@ -123,6 +123,30 @@ router.get("/cursocreci/getallname", async (req, res) => {
   }
 });
 
+// ======= obtener todos los retiros solo nombrey ID =======
+router.get("/cursocreci/getallnamelabel", async (req, res) => {
+  try {
+    const data = await CursoCreci.find()
+      .select("nombreCursoCreci _id")
+      .where({ estado: true })
+      .sort({ nombreCursoCreci: 1 })
+      .exec();
+
+    // Mapear los resultados para cambiar el nombre de la propiedad
+    const formattedData = data.map((item) => ({
+      label: item.nombreCursoCreci,
+      _id: item._id,
+    }));
+
+    res.status(200).json(formattedData);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener los cursos o retiros",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener un curso o crecimiento por su id =======
 router.get("/cursocreci/getbyid/:id", async (req, res) => {
   try {

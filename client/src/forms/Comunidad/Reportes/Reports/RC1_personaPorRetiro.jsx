@@ -129,8 +129,8 @@ const RC1_personaPorRetiro = () => {
         credentials: "include",
       });
       if (!response.ok) {
-        console.log("Error al obtener los beneficiarios");
-        throw new Error("Error al filtrar los beneficiarios", {});
+        console.log("Error al obtener los datos");
+        throw new Error("Error al filtrar los datos", {});
       }
 
       const data = await response.json();

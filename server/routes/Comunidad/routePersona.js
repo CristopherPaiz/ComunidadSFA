@@ -158,7 +158,6 @@ router.post("/persona/getrbyretiroComunidad", async (req, res) => {
 
     // Asumiendo que idretiro es una cadena (si es ObjectId, convierte adecuadamente)
     const personas = await Persona.find({ "retiros.idretiro": idretiro })
-      .populate("crecimientos.idcursocreci", "nombreCursoCreci")
       .populate("idcomunidad", "nombreComunidad")
       .where({ estado: true })
       .sort({ nombre: 1 })
@@ -198,6 +197,39 @@ router.post("/persona/getrbycursocreci", async (req, res) => {
       .exec();
 
     res.status(200).json(personas);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo realizar la búsqueda de personas",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener una persona por curso/creci por su id =======
+router.post("/persona/getrbycursocreciComunidad", async (req, res) => {
+  try {
+    const { idCursoCreci } = req.body;
+
+    // Asumiendo que idretiro es una cadena (si es ObjectId, convierte adecuadamente)
+    const personas = await Persona.find({ "crecimientos.idcursocreci": idCursoCreci })
+      .populate("idcomunidad", "nombreComunidad")
+      .populate("crecimientos.idcursocreci", "nombreCursoCreci") // Cargar datos relacionados del retiro
+      .where({ estado: true })
+      .sort({ nombre: 1 })
+      .exec();
+
+    // Filtrar el retiro específico dentro del array retiros
+    const personasFiltradas = personas.map((persona) => {
+      const cursoEspecifico = persona.crecimientos.find((curso) => curso.idcursocreci.equals(idCursoCreci));
+      if (cursoEspecifico) {
+        persona.crecimientos = [cursoEspecifico];
+      } else {
+        persona.crecimientos = [];
+      }
+      return persona;
+    });
+
+    res.status(200).json(personasFiltradas);
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo realizar la búsqueda de personas",
