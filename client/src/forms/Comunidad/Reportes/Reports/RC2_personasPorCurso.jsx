@@ -170,7 +170,6 @@ const RC2_personasPorCurso = () => {
       }
       const data = await response.json();
       setResultados(data);
-      console.log(data);
       setLoading(false);
       setLoading3(false);
     } catch (error) {
