@@ -101,6 +101,32 @@ router.get("/persona/getallActivity", async (req, res) => {
   }
 });
 
+// ======= obtener todas las actividad comunidades =======
+router.get("/persona/getallActivitylabel", async (req, res) => {
+  try {
+    const data = await Persona.find({ estado: true })
+      .select("_id nombre idcomunidad")
+      .populate("idcomunidad", "nombreComunidad")
+      .sort({ nombre: 1 })
+      .exec();
+
+    // Modifica el resultado para tener solo el nombre de la comunidad
+    const result = data.map((item) => {
+      return {
+        _id: item._id,
+        label: `${item.nombre} (${item.idcomunidad.nombreComunidad})`,
+      };
+    });
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener a la persona",
+      messageSys: error.message,
+    });
+  }
+});
+
 // ======= obtener una actividad comunidad por su id =======
 router.get("/persona/getbyid/:id", async (req, res) => {
   try {

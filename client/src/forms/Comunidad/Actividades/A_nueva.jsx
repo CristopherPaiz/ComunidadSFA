@@ -72,14 +72,21 @@ const A_nueva = () => {
   // Eventos de agregar
   const handleConfirm = async (newEvent) => {
     // Formatear la fecha de inicio y fin
-    const formattedStart = subHours(new Date(newEvent.start), 3);
-    const formattedEnd = subHours(new Date(newEvent.end), 6);
+    console.log(newEvent.start);
+    console.log(newEvent.end);
+
+    const fechaInicioLocal = new Date(newEvent.start);
+    const fechaFinLocal = new Date(newEvent.end);
+
+    // Convierte las fechas de inicio y finalización a UTC utilizando el método toISOString()
+    const fechaInicioUTC = fechaInicioLocal.toISOString();
+    const fechaFinUTC = fechaFinLocal.toISOString();
 
     // Crear un nuevo objeto con las fechas formateadas
     const addedEvent = {
       ...newEvent,
-      start: formattedStart,
-      end: formattedEnd,
+      start: fechaInicioUTC,
+      end: fechaFinUTC,
       event_id: (Date.now() + Math.random()).toFixed(0),
     };
 
@@ -173,19 +180,15 @@ const A_nueva = () => {
       <div className="flex gap-2 text-center justify-end m-2">
         <Popover placement="top" color="success" isOpen={popOver}>
           <PopoverTrigger>
-            <Button
-              color="success"
-              className="mx-auto text-center text-white"
-              onClick={() => setPopOver(true)}
-            >
+            <Button color="success" className="mx-auto text-center text-white" onClick={() => setPopOver(true)}>
               Guardar en la nube
             </Button>
           </PopoverTrigger>
           <PopoverContent>
             <div className="px-1 py-2">
               <div className="text-small font-bold">
-                Esta acción, tomará todos los datos locales y los subirá a la nube, esto reemplazará los datos
-                que puedan existir.
+                Esta acción, tomará todos los datos locales y los subirá a la nube, esto reemplazará los datos que
+                puedan existir.
               </div>
               <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
               <div className="mx-auto m-2 text-center">
@@ -214,8 +217,8 @@ const A_nueva = () => {
           <PopoverContent>
             <div className="px-1 py-2">
               <div className="text-small font-bold">
-                Esta acción, tomará todos los datos de la nube y reemplazará los datos locales, esto
-                reemplazará los datos que puedan existir.
+                Esta acción, tomará todos los datos de la nube y reemplazará los datos locales, esto reemplazará los
+                datos que puedan existir.
               </div>
               <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
               <div className="mx-auto m-2 text-center">
@@ -300,10 +303,7 @@ const A_nueva = () => {
           return (
             <div>
               <p style={{ fontWeight: "800" }}>Descripción: </p>
-              <Typography
-                key={event.event_id}
-                style={{ display: "flex", fontSize: "15px", alignItems: "center" }}
-              >
+              <Typography key={event.event_id} style={{ display: "flex", fontSize: "15px", alignItems: "center" }}>
                 {event.description}
               </Typography>
               <p style={{ fontWeight: "800" }}>Encargado: </p>

@@ -15,9 +15,7 @@ router.post("/actividadComunidad/add", async (req, res) => {
       existingActividadComu.actividades = actividades;
       existingActividadComu.estado = estado;
       await existingActividadComu.save();
-      res
-        .status(200)
-        .json({ message: "Actividad actualizada correctamente", resultado: existingActividadComu });
+      res.status(200).json({ message: "Actividad actualizada correctamente", resultado: existingActividadComu });
     } else {
       // Si no existe, crea una nueva entrada
       const newActividadComu = new ActividadComu({
@@ -30,6 +28,35 @@ router.post("/actividadComunidad/add", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo añadir o actualizar la actividad",
+      messageSys: error.message,
+    });
+  }
+});
+
+// ======= obtener una actividad comunidad por su id =======
+router.post("/actividadComunidad/getbyidActividad", async (req, res) => {
+  try {
+    // Extrae el id de la solicitud POST
+    const id = req.body.id;
+
+    const actividadComunidad = await ActividadComu.findOne();
+
+    if (!actividadComunidad) {
+      return res.status(404).json({ message: "Actividad Comunidad no encontrada" });
+    }
+
+    // Extrae el idPersona del cuerpo de la solicitud POST
+    const idPersona = req.body.idPersona;
+
+    // Filtra los objetos en el array 'actividades' por idPersona
+    const actividadesConIdPersona = actividadComunidad.actividades.filter(
+      (actividad) => actividad.idPersona === idPersona
+    );
+
+    res.status(200).json(actividadesConIdPersona);
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "No se pudo obtener la Actividad por el id",
       messageSys: error.message,
     });
   }
