@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ActividadComu = require("../../models/Comunidad/actividadComunidad.js");
+const Persona = require("../../models/Comunidad/personaModel.js");
 
 // ======= crear nueva actividad comunidad =======
 router.post("/actividadComunidad/add", async (req, res) => {
@@ -15,7 +16,9 @@ router.post("/actividadComunidad/add", async (req, res) => {
       existingActividadComu.actividades = actividades;
       existingActividadComu.estado = estado;
       await existingActividadComu.save();
-      res.status(200).json({ message: "Actividad actualizada correctamente", resultado: existingActividadComu });
+      res
+        .status(200)
+        .json({ message: "Actividad actualizada correctamente", resultado: existingActividadComu });
     } else {
       // Si no existe, crea una nueva entrada
       const newActividadComu = new ActividadComu({
@@ -70,6 +73,56 @@ router.get("/actividadComunidad/getbyid/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo obtener la Actividad por el id: " + req.params.id,
+      messageSys: error.message,
+    });
+  }
+});
+
+// Ruta GET para filtrar ingresos de medicamentos por rango de fechas
+router.post("/actividadComunidad/getbyrange", async (req, res) => {
+  try {
+    const { fechaInicio, fechaFinal } = req.body;
+
+    // Obtener el documento que contiene el arreglo de actividades
+    const documento = await ActividadComu.findOne();
+
+    if (!documento) {
+      return res.status(404).json({
+        messageDev: "No se encontraron documentos",
+        messageSys: "No se encontraron documentos en la colección ActividadComu.",
+      });
+    }
+
+    // Función para restar 12 horas a una fecha
+    const restar12Horas = (fecha) => {
+      const fechaModificada = new Date(fecha);
+      fechaModificada.setHours(fechaModificada.getDate() - 1);
+      return fechaModificada;
+    };
+
+    // Filtrar y ordenar las actividades dentro del arreglo
+    const actividadesFiltradas = documento.actividades
+      .filter((actividad) => {
+        const actividadFecha = restar12Horas(actividad.start);
+        return actividadFecha >= restar12Horas(fechaInicio) && actividadFecha <= restar12Horas(fechaFinal);
+      })
+      .sort((a, b) => restar12Horas(a.start) - restar12Horas(b.start));
+
+    // Obtener los nombres de las personas correspondientes y agregarlos a las actividades
+    const actividadesConNombres = await Promise.all(
+      actividadesFiltradas.map(async (actividad) => {
+        const persona = await Persona.findById(actividad.idPersona);
+        return {
+          ...actividad._doc, // Usar _doc para evitar problemas con Mongoose
+          nombrePersona: persona ? persona.nombre : "Desconocido",
+        };
+      })
+    );
+
+    res.status(200).json({ actividades: actividadesConNombres });
+  } catch (error) {
+    res.status(500).json({
+      messageDev: "Error al filtrar las actividades por fecha",
       messageSys: error.message,
     });
   }
