@@ -248,17 +248,17 @@ const A_nueva = () => {
         hourFormat="12"
         day={{
           startHour: 6,
-          endHour: 24,
+          endHour: 22,
           step: 60,
         }}
         month={{
           startHour: 6,
-          endHour: 24,
+          endHour: 22,
           step: 60,
         }}
         week={{
           startHour: 6,
-          endHour: 24,
+          endHour: 22,
           step: 60,
         }}
         navigation={true}

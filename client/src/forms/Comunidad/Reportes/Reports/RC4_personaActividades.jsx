@@ -85,7 +85,7 @@ function DataToPDF({ data, value }) {
       <Page size="LETTER" orientation="landscape" style={styles.page}>
         <View style={styles.section}>
           <Text style={{ fontSize: 20, marginBottom: 10, textAlign: "center" }}>
-            Reporte de Activades de: {value?.label}
+            Reporte de Actividades de: {value?.label}
           </Text>
           <View style={styles.table}>
             {/* Encabezado de la tabla */}
