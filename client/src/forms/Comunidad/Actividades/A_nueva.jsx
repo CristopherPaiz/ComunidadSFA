@@ -73,16 +73,13 @@ const A_nueva = () => {
   // Eventos de agregar
   const handleConfirm = async (newEvent) => {
     // Formatear la fecha de inicio y fin
-    console.log(newEvent);
 
     //Convertir a ISO
     const fechaInicio = new Date(newEvent.start);
     const fechaFormateada = format(fechaInicio, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    console.log(fechaFormateada);
 
     const fechaFinal = new Date(newEvent.end);
     const fechaFormateadFinal = format(fechaFinal, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    console.log(fechaFormateadFinal);
 
     // Crear un nuevo objeto con las fechas formateadas
     const addedEvent = {
