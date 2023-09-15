@@ -56,7 +56,7 @@ const Navibar = () => {
             </NavbarBrand>
           </NavbarContent>
           <NavbarContent justify="end">
-            <NavbarItem className="hidden md:flex items-center md:ml-4 ">
+            <NavbarItem className="hidden md:flex items-center md:ml-4 gap-x-2">
               <Button color="primary" variant="flat" className=" hover:bg-primary-300 hover:text-white">
                 <RouterLink to={"/login"} className="py-2 -mx-3 px-3">
                   Iniciar sesión
@@ -192,7 +192,7 @@ const Navibar = () => {
             </NavbarBrand>
           </NavbarContent>
           <NavbarContent justify="end">
-            <NavbarItem className="hidden md:flex">
+            <NavbarItem className="hidden md:flex gap-2">
               <Button color="primary" variant="flat" className=" hover:bg-primary-300 hover:text-white">
                 <RouterLink to={"/login"} className="py-2 -mx-3 px-3">
                   Iniciar sesión

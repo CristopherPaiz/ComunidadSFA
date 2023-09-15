@@ -62,11 +62,11 @@ const Login = () => {
   return (
     <>
       <Toaster />
-      <section className="bg-gray-50 dark:bg-gray-900 px-6 min-h-screen flex items-center justify-center h-screen -mt-[50px] sm:-mt-6">
-        <div className="w-full max-w-md bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
-          <a className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+      <section className="bg-gray-50 dark:bg-black px-6 min-h-screen flex items-center justify-center h-screen -mt-[50px] sm:-mt-6">
+        <div className="w-full max-w-md bg-white rounded-lg shadow dark:border dark:bg-neutral-900 dark:border-gray-700">
+          <a className="flex items-center mb-6 text-2xl font-semibold dark:text-white">
             <img
-              className="w-2/5 h-2/5 m-auto -mt-[65px] -mb-[20px] sm:-mb-[50px] sm:w-2/6"
+              className="w-2/5 h-2/5 m-auto -mt-[65px] -mb-[20px] sm:-mb-[60px] sm:w-[140px]"
               src={comunidad}
               alt="logo"
             />
@@ -108,7 +108,7 @@ const Login = () => {
                 />
                 <Checkbox onValueChange={() => setAccepted(!accepted)} className="mt-2"></Checkbox>
                 <RouterLink to={"/terms"} className="text-primary-500 underline">
-                  He leído los términos y condiciones
+                  He leído y acepto los términos y condiciones
                 </RouterLink>
               </div>
               <Button
