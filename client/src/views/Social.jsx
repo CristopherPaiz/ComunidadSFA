@@ -10,7 +10,7 @@ const Social = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoadingUsuario(false);
-    }, 500);
+    }, 200);
   }, []);
 
   if (loadingUsuario) {
