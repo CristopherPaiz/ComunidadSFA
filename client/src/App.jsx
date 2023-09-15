@@ -35,6 +35,7 @@ import RC3_personasPorComunidad from "./forms/Comunidad/Reportes/Reports/RC3_per
 import RC4_personaActividades from "./forms/Comunidad/Reportes/Reports/RC4_personaActividades";
 import RC5_actividades from "./forms/Comunidad/Reportes/Reports/RC5_actividades";
 import Reportes from "./views/Reportes";
+import U_profile from "./forms/Usuarios/U_profile";
 
 const App = () => {
   const reportRoutes = [
@@ -104,6 +105,7 @@ const App = () => {
         <Route path="/farmacia" element={<Farmacia />} />
         <Route path="/Social" element={<Social />} />
         <Route path="/usuarios" element={<Usuarios />} />
+        <Route path="/perfil" element={<U_profile />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<Terms />} />
 
