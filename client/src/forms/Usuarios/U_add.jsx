@@ -135,7 +135,7 @@ const U_add = () => {
         // Show an error toast if there was an issue adding the client
         setLoadingImages(false);
         setShowLoadingToast(false);
-        toast.error("Error al añadir el usuario");
+        toast.error("Error al añadir el usuario, intente con otro nombre de usuario");
       }
     } catch (error) {
       setLoadingImages(false);
@@ -218,7 +218,13 @@ const U_add = () => {
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF</p>
             </div>
-            <input id="dropzone-file" type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
+            <input
+              id="dropzone-file"
+              type="file"
+              className="hidden"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
           </label>
         </div>
         <div className="flex flex-wrap flex-row w-full">

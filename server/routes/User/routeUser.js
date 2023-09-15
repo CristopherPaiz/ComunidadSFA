@@ -72,7 +72,7 @@ router.post("/user/getbyusername", async (req, res) => {
       expiresIn: "15d",
     });
 
-    const { nombre, foto, rol } = user;
+    const { nombre, foto, rol, _id } = user;
 
     // Devolver una cookie para guardar el token con una duración de 15 días y que sea solo accesible por HTTP y no por JS
     res.cookie("token", token, {
@@ -83,7 +83,7 @@ router.post("/user/getbyusername", async (req, res) => {
     });
 
     // Usuario y contraseña son válidos, devolver solo los campos requeridos
-    res.status(200).json({ nombre, foto, rol, username, token });
+    res.status(200).json({ _id, nombre, foto, rol, username, token });
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo obtener al usuario por el username",
@@ -97,9 +97,22 @@ router.put("/user/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
+
+    // Verificar si el nuevo username ya existe en otros usuarios
+    const existingUser = await Usuario.findOne({ username: data.username });
+
+    if (existingUser && existingUser._id.toString() !== id) {
+      return res.status(400).json({ message: "El username ya existe" });
+    }
+
     const options = { new: true };
     const resultado = await Usuario.findByIdAndUpdate(id, data, options);
-    res.status(200).json({ message: "Usuario actualizado correctamente", resultado });
+
+    if (resultado) {
+      res.status(200).json({ message: "Usuario actualizado correctamente", resultado });
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
   } catch (error) {
     res.status(500).json({
       messageDev: "No se pudo actualizar al usuario",
