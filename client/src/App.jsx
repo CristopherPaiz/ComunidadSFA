@@ -34,8 +34,60 @@ import RC2_personasPorCurso from "./forms/Comunidad/Reportes/Reports/RC2_persona
 import RC3_personasPorComunidad from "./forms/Comunidad/Reportes/Reports/RC3_personasPorComunidad";
 import RC4_personaActividades from "./forms/Comunidad/Reportes/Reports/RC4_personaActividades";
 import RC5_actividades from "./forms/Comunidad/Reportes/Reports/RC5_actividades";
+import Reportes from "./views/Reportes";
 
 const App = () => {
+  const reportRoutes = [
+    {
+      path: "/reports",
+      component: <R_VerReportes />,
+    },
+    {
+      path: "/reports/comunidad/personaretiro",
+      component: <RC1_personaPorRetiro />,
+    },
+    {
+      path: "/reports/comunidad/personacurso",
+      component: <RC2_personasPorCurso />,
+    },
+    {
+      path: "/reports/comunidad/personacomunidad",
+      component: <RC3_personasPorComunidad />,
+    },
+    {
+      path: "/reports/comunidad/personaactividad",
+      component: <RC4_personaActividades />,
+    },
+    {
+      path: "/reports/comunidad/actividades",
+      component: <RC5_actividades />,
+    },
+    {
+      path: "/reports/farmacia/medicamentos",
+      component: <RR_disponibilidadProductos />,
+    },
+    {
+      path: "/reports/farmacia/compras",
+      component: <RR_compraMedicamentos />,
+    },
+    {
+      path: "/reports/farmacia/ventas",
+      component: <RR_ventaMedicamentos />,
+    },
+    {
+      path: "/reports/social/beneficiarios",
+      component: <RB_Beneficiarios />,
+    },
+    {
+      path: "/reports/social/gastos",
+      component: <RB_gastos />,
+    },
+    {
+      path: "/reports/social/saldosafavor",
+      component: <RB_saldosafavor />,
+    },
+  ];
+
   return (
     <ContextProvider>
       <Navibar />
@@ -51,24 +103,14 @@ const App = () => {
         <Route path="/social/beneficiario/:id" element={<EditarBeneficiario />} />
         <Route path="/farmacia" element={<Farmacia />} />
         <Route path="/Social" element={<Social />} />
-        <Route path="/reports" element={<R_VerReportes />} />
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<Terms />} />
-        {/* COMUNIDAD */}
-        <Route path="/reports/comunidad/personaretiro" element={<RC1_personaPorRetiro />} />
-        <Route path="/reports/comunidad/personacurso" element={<RC2_personasPorCurso />} />
-        <Route path="/reports/comunidad/personacomunidad" element={<RC3_personasPorComunidad />} />
-        <Route path="/reports/comunidad/personaactividad" element={<RC4_personaActividades />} />
-        <Route path="/reports/comunidad/actividades" element={<RC5_actividades />} />
-        {/* FARMACIA */}
-        <Route path="/reports/farmacia/medicamentos" element={<RR_disponibilidadProductos />} />
-        <Route path="/reports/farmacia/compras" element={<RR_compraMedicamentos />} />
-        <Route path="/reports/farmacia/ventas" element={<RR_ventaMedicamentos />} />
-        {/* SOCIAL */}
-        <Route path="/reports/social/beneficiarios" element={<RB_Beneficiarios />} />
-        <Route path="/reports/social/gastos" element={<RB_gastos />} />
-        <Route path="/reports/social/saldosafavor" element={<RB_saldosafavor />} />
+
+        {/*REPORTES  */}
+        {reportRoutes.map((route, index) => (
+          <Route key={index} path={route.path} element={<Reportes>{route.component}</Reportes>} />
+        ))}
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

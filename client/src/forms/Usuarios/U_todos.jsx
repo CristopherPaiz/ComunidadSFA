@@ -37,6 +37,10 @@ const U_todos = () => {
       value: "Super",
       label: "Super Administrador",
     },
+    {
+      value: "Reports",
+      label: "Reportería",
+    },
   ];
 
   const [valueUsuario, setValueUsuario] = useState(roles);
@@ -81,10 +85,10 @@ const U_todos = () => {
 
   const handleActualizar = async () => {
     const datos = {
-      nombre: nombre.length === null ? userSeleccionado?.nombre : nombre,
-      username: username.length === null ? userSeleccionado?.username : username,
-      contrasenia: password.length === null ? userSeleccionado?.contrasenia : password,
-      rol: usuarios.length === null ? userSeleccionado?.rol : usuarios.currentKey,
+      nombre: nombre === null ? userSeleccionado?.nombre : nombre,
+      username: username === null ? userSeleccionado?.username : username,
+      // contrasenia: password.length === null ? userSeleccionado?.contrasenia : password,
+      rol: usuarios === null ? userSeleccionado?.rol : usuarios.currentKey,
     };
 
     try {

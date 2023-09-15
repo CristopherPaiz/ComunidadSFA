@@ -49,8 +49,12 @@ const Login = () => {
         navigate("/comunidad");
       } else if (usuario.rol === "Moderator") {
         navigate("/farmacia");
-      } else {
+      } else if (usuario.rol === "Super") {
         navigate("/comunidad");
+      } else if (usuario.rol === "Reports") {
+        navigate("/reports");
+      } else {
+        navigate("/");
       }
     }
   }, [loggedIn, usuario]);
@@ -89,7 +93,9 @@ const Login = () => {
                 />
               </div>
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Contraseña
+                </label>
                 <input
                   type="password"
                   name="password"
