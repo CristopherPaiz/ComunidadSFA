@@ -44,6 +44,7 @@ const A_nueva = () => {
   useEffect(() => {
     CargarPersonas();
   }, []);
+
   // Cargar datos del localStorage
   useEffect(() => {
     const storedEvents = localStorage.getItem("events");
@@ -72,21 +73,22 @@ const A_nueva = () => {
   // Eventos de agregar
   const handleConfirm = async (newEvent) => {
     // Formatear la fecha de inicio y fin
-    console.log(newEvent.start);
-    console.log(newEvent.end);
+    console.log(newEvent);
 
-    const fechaInicioLocal = new Date(newEvent.start);
-    const fechaFinLocal = new Date(newEvent.end);
+    //Convertir a ISO
+    const fechaInicio = new Date(newEvent.start);
+    const fechaFormateada = format(fechaInicio, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    console.log(fechaFormateada);
 
-    // Convierte las fechas de inicio y finalización a UTC utilizando el método toISOString()
-    const fechaInicioUTC = fechaInicioLocal.toISOString();
-    const fechaFinUTC = fechaFinLocal.toISOString();
+    const fechaFinal = new Date(newEvent.end);
+    const fechaFormateadFinal = format(fechaFinal, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    console.log(fechaFormateadFinal);
 
     // Crear un nuevo objeto con las fechas formateadas
     const addedEvent = {
       ...newEvent,
-      start: fechaInicioUTC,
-      end: fechaFinUTC,
+      start: new Date(fechaFormateada),
+      end: new Date(fechaFormateadFinal),
       event_id: (Date.now() + Math.random()).toFixed(0),
     };
 
@@ -180,15 +182,19 @@ const A_nueva = () => {
       <div className="flex gap-2 text-center justify-end m-2">
         <Popover placement="top" color="success" isOpen={popOver}>
           <PopoverTrigger>
-            <Button color="success" className="mx-auto text-center text-white" onClick={() => setPopOver(true)}>
+            <Button
+              color="success"
+              className="mx-auto text-center text-white"
+              onClick={() => setPopOver(true)}
+            >
               Guardar en la nube
             </Button>
           </PopoverTrigger>
           <PopoverContent>
             <div className="px-1 py-2">
               <div className="text-small font-bold">
-                Esta acción, tomará todos los datos locales y los subirá a la nube, esto reemplazará los datos que
-                puedan existir.
+                Esta acción, tomará todos los datos locales y los subirá a la nube, esto reemplazará los datos
+                que puedan existir.
               </div>
               <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
               <div className="mx-auto m-2 text-center">
@@ -217,8 +223,8 @@ const A_nueva = () => {
           <PopoverContent>
             <div className="px-1 py-2">
               <div className="text-small font-bold">
-                Esta acción, tomará todos los datos de la nube y reemplazará los datos locales, esto reemplazará los
-                datos que puedan existir.
+                Esta acción, tomará todos los datos de la nube y reemplazará los datos locales, esto
+                reemplazará los datos que puedan existir.
               </div>
               <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
               <div className="mx-auto m-2 text-center">
@@ -239,9 +245,25 @@ const A_nueva = () => {
         key={forceUpdate}
         events={events}
         onConfirm={handleConfirm}
+        draggable={false}
         onDelete={(eventId, eventStart) => handleDelete(eventId, eventStart)}
         view="month"
         hourFormat="12"
+        day={{
+          startHour: 6,
+          endHour: 24,
+          step: 60,
+        }}
+        month={{
+          startHour: 6,
+          endHour: 24,
+          step: 60,
+        }}
+        week={{
+          startHour: 6,
+          endHour: 24,
+          step: 60,
+        }}
         navigation={true}
         fields={[
           {
@@ -267,6 +289,17 @@ const A_nueva = () => {
               rows: 4,
             },
           },
+          {
+            name: "start",
+            type: "date",
+            config: { type: "datetime", sm: 6 },
+          },
+          {
+            name: "end",
+            type: "date",
+
+            config: { type: "datetime", sm: 6 },
+          },
         ]}
         resourceFields={[
           {
@@ -274,7 +307,6 @@ const A_nueva = () => {
           },
         ]}
         locale={es}
-        dialogMaxWidth="xs"
         timeZone="GMT"
         translations={{
           navigation: {
@@ -303,7 +335,10 @@ const A_nueva = () => {
           return (
             <div>
               <p style={{ fontWeight: "800" }}>Descripción: </p>
-              <Typography key={event.event_id} style={{ display: "flex", fontSize: "15px", alignItems: "center" }}>
+              <Typography
+                key={event.event_id}
+                style={{ display: "flex", fontSize: "15px", alignItems: "center" }}
+              >
                 {event.description}
               </Typography>
               <p style={{ fontWeight: "800" }}>Encargado: </p>
