@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { PDFViewer, Document, Page, Text, View, StyleSheet, PDFDownloadLink, Image } from "@react-pdf/renderer";
+import {
+  PDFViewer,
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+  Image,
+} from "@react-pdf/renderer";
 import { Button, Input } from "@nextui-org/react";
 import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../../../config.js";
@@ -92,7 +101,7 @@ function DataToPDF({ data, value }) {
                   <Text>Q. {item?.monto}</Text>
                 </View>
                 <View style={[styles.tableCol, styles.en3]}>
-                  <Text>Q. {item?.observaciones}</Text>
+                  <Text>{item?.observaciones}</Text>
                 </View>
               </View>
             ))}
@@ -174,7 +183,9 @@ const RB_saldosafavor = () => {
     <>
       <Toaster />
       <div className="flex flex-col gap-4 m-4 w-10/12 sm:w-6/12 mx-auto">
-        <h1 className="font-bold text-2xl mx auto text-center">Reporte de ingreso de saldo por benefiaciario</h1>
+        <h1 className="font-bold text-2xl mx auto text-center">
+          Reporte de ingreso de saldo por benefiaciario
+        </h1>
         {loading2 ? (
           <h2 className="mx-auto font-extrabold text-xl text-teal-500">Cargando beneficiarios...</h2>
         ) : (
@@ -215,11 +226,15 @@ const RB_saldosafavor = () => {
         <div className="flex flex-col text-center align-middle justify-items-center justify-center">
           {isMobile ? (
             <div className="p-8">
-              <h1 className="text-2xl font-bold text-danger">¡¡Parece que estás desde un dispositivo móvil!!</h1>
+              <h1 className="text-2xl font-bold text-danger">
+                ¡¡Parece que estás desde un dispositivo móvil!!
+              </h1>
               <h2 className="font-bold">
                 Por el momento el visor de documentos, solo está disponible en versión de escritorio
               </h2>
-              <h3>Así que únicamente podrás descargar el archivo y verlo con alguna aplicación compatible.</h3>
+              <h3>
+                Así que únicamente podrás descargar el archivo y verlo con alguna aplicación compatible.
+              </h3>
               <br />
               <PDFDownloadLink
                 document={<DataToPDF data={resultados} value={seleccionado} />}

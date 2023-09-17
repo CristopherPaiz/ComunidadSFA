@@ -246,7 +246,13 @@ const U_profile = () => {
     return <Navigate to={"/login"} />;
   }
 
-  if (usuario && (usuario.rol === "Admin" || usuario.rol === "Moderator" || usuario.rol === "Super")) {
+  if (
+    usuario &&
+    (usuario.rol === "Admin" ||
+      usuario.rol === "Moderator" ||
+      usuario.rol === "Super" ||
+      usuario.rol === "Reports")
+  ) {
     return (
       <div className="mx-5 flex flex-col mb-10">
         <Toaster />
