@@ -19,13 +19,11 @@ import {
   AccordionItem,
 } from "@nextui-org/react";
 import Loading from "../../components/Loading";
-import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../config.js";
 import { Link as Linky } from "react-router-dom";
 import { contexto } from "../../context/ContextProvider";
 import NFblack from "../../assets/notfoundblack.svg";
 import NFWhite from "../../assets/notfoundwhite.svg";
-import { format, addDays } from "date-fns";
 
 const S_Beneficiarios = () => {
   const { theme } = useContext(contexto);
@@ -106,7 +104,6 @@ const S_Beneficiarios = () => {
 
   return (
     <div className="flex w-full flex-col h-full pb-6">
-      <Toaster />
       <h2 className="mx-6 mt-6 text-3xl text-center font-extrabold leading-none tracking-tight  md:text-5xl lg:text-3xl dark:text-whited">
         Beneficiarios
       </h2>

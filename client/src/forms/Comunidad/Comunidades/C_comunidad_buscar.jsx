@@ -23,8 +23,6 @@ import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../../config.js";
 import Loading from "../../../components/Loading.jsx";
 import { Link as Linky } from "react-router-dom";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 
 const C_comunidad_buscar = () => {
   const [loading, setLoading] = useState(false);

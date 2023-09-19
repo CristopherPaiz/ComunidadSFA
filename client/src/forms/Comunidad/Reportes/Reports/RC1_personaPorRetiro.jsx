@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { PDFViewer, Document, Page, Text, View, StyleSheet, PDFDownloadLink, Image } from "@react-pdf/renderer";
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import toast, { Toaster } from "react-hot-toast";
 import API_URL from "../../../../config.js";
 import { contexto } from "../../../../context/ContextProvider.jsx";
