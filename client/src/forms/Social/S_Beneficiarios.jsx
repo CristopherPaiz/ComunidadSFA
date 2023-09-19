@@ -155,228 +155,204 @@ const S_Beneficiarios = () => {
                   </span>
                 </div>
               </div>
-              <Modal
-                isOpen={isOpen}
-                onOpenChange={onOpenChange}
-                placement="center"
-                scrollBehavior="inside"
-                size="2xl"
-              >
-                <ModalContent>
-                  {(onClose) => (
-                    <>
-                      <ModalHeader className="flex flex-col gap-1">
-                        {beneficiarioSeleccionado?.nombre ?? ""}
-                      </ModalHeader>
-                      <ModalBody>
-                        <Table removeWrapper isStriped aria-label="Example static collection table">
-                          <TableHeader>
-                            <TableColumn className="font-bold text-xl">Campos</TableColumn>
-                            <TableColumn className="font-bold text-xl">Datos</TableColumn>
-                          </TableHeader>
-                          <TableBody>
-                            <TableRow key="1">
-                              <TableCell className="font-bold">Nombre completo:</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.nombre ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="2">
-                              <TableCell className="font-bold">Actividad Social</TableCell>
-                              <TableCell>{"Q. " + beneficiarioSeleccionado?.actividadSocial ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="3">
-                              <TableCell className="font-bold">DPI o CUI</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.dpi ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="4">
-                              <TableCell className="font-bold">Comunidad</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.comunidad ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="5">
-                              <TableCell className="font-bold">Dirección</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.direccion ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="6">
-                              <TableCell className="font-bold">Estado Civil</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.estadocivil ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="7">
-                              <TableCell className="font-bold">Teléfono</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.telefono ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="8">
-                              <TableCell className="font-bold">Cumpleaños</TableCell>
-                              <TableCell>
-                                {formatfecha(beneficiarioSeleccionado?.cumpleanios) ?? ""}
-                              </TableCell>
-                            </TableRow>
-                            <TableRow key="9">
-                              <TableCell className="font-bold">Fecha inició el programa</TableCell>
-                              <TableCell>
-                                {formatfecha(beneficiarioSeleccionado?.fechainicio) ?? ""}
-                              </TableCell>
-                            </TableRow>
-                            <TableRow key="10">
-                              <TableCell className="font-bold">Fecha salió el programa</TableCell>
-                              <TableCell>{formatfecha(beneficiarioSeleccionado?.fechafinal) ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="11">
-                              <TableCell className="font-bold">Persona Encargada</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.encargado ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="12">
-                              <TableCell className="font-bold">Teléfono persona Encargada</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.telefonoencargado ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="13">
-                              <TableCell className="font-bold">Ubicación</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.ubicacion ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="14">
-                              <TableCell className="font-bold">Saldo Disponible</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.saldoTotal ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="15">
-                              <TableCell className="font-bold">Observaciones</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.observaciones ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="16">
-                              <TableCell className="font-bold">Otros Datos</TableCell>
-                              <TableCell>{beneficiarioSeleccionado?.otrosdatos ?? ""}</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                        <Accordion>
-                          <AccordionItem
-                            key="1"
-                            aria-label="Fotos del Beneficiario"
-                            title="Fotos del Beneficiario"
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                justifyContent: "space-around",
-                              }}
-                            >
-                              {beneficiarioSeleccionado?.fotosbeneficiario.map((imagenSrc, index) => (
-                                <img
-                                  key={index}
-                                  style={{
-                                    objectFit: "contain",
-                                    width: "100%",
-                                    height: "auto",
-                                    margin: "5px",
-                                  }}
-                                  src={imagenSrc}
-                                />
-                              ))}
-                            </div>
-                          </AccordionItem>
-                          <AccordionItem
-                            key="2"
-                            aria-label="Fotos de otros documentos"
-                            title="Fotos de otros documentos"
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                justifyContent: "space-around",
-                              }}
-                            >
-                              {beneficiarioSeleccionado?.fotosdocumentos.map((imagenSrc, index) => (
-                                <img
-                                  key={index}
-                                  style={{
-                                    objectFit: "contain",
-                                    width: "100%",
-                                    height: "auto",
-                                    margin: "5px",
-                                  }}
-                                  src={imagenSrc}
-                                />
-                              ))}
-                            </div>
-                          </AccordionItem>
-                          <AccordionItem key="3" aria-label="Fotos de gastos" title="Fotos de gastos">
-                            {loadingGastos ? (
-                              <h2>Cargando gastos...</h2>
-                            ) : resultadosGastos.length > 0 ? (
-                              <Accordion>
-                                {resultadosGastos.map((gasto, index) => (
-                                  <AccordionItem key={index} title={formatfecha(gasto.fecha)}>
-                                    <Table
-                                      removeWrapper
-                                      isStriped
-                                      aria-label="Example static collection table"
-                                    >
-                                      <TableHeader>
-                                        <TableColumn className="font-bold text-xl">Campos</TableColumn>
-                                        <TableColumn className="font-bold text-xl">Datos</TableColumn>
-                                      </TableHeader>
-                                      <TableBody>
-                                        <TableRow key="1">
-                                          <TableCell className="font-bold">Monto Gastado:</TableCell>
-                                          <TableCell>{"Q. " + gasto?.monto ?? ""}</TableCell>
-                                        </TableRow>
-                                        <TableRow key="2">
-                                          <TableCell className="font-bold">Observaciones</TableCell>
-                                          <TableCell>{gasto?.observaciones ?? ""}</TableCell>
-                                        </TableRow>
-                                      </TableBody>
-                                    </Table>
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        justifyContent: "space-around",
-                                      }}
-                                    >
-                                      {gasto?.fotos.map((imagenSrc, fotoIndex) => (
-                                        <img
-                                          key={fotoIndex}
-                                          style={{
-                                            objectFit: "contain",
-                                            width: "100%",
-                                            height: "auto",
-                                            margin: "5px",
-                                          }}
-                                          src={imagenSrc}
-                                        />
-                                      ))}
-                                    </div>
-                                  </AccordionItem>
-                                ))}
-                              </Accordion>
-                            ) : (
-                              <h2>No hay gastos</h2>
-                            )}
-                          </AccordionItem>
-                        </Accordion>
-                      </ModalBody>
-                      <ModalFooter>
-                        <Linky
-                          to={`/social/beneficiario/${beneficiarioSeleccionado._id}`}
-                          state={{ beneficiarioSeleccionado }}
-                          className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
-                        >
-                          Editar
-                        </Linky>
-
-                        <Button color="primary" onPress={onClose}>
-                          Cerrar
-                        </Button>
-                      </ModalFooter>
-                    </>
-                  )}
-                </ModalContent>
-              </Modal>
             </React.Fragment>
           ))
         ) : (
           <h2 className="mx-auto">No hay resultados</h2>
         )}
       </div>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside" size="2xl">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{beneficiarioSeleccionado?.nombre ?? ""}</ModalHeader>
+              <ModalBody>
+                <Table removeWrapper isStriped aria-label="Example static collection table">
+                  <TableHeader>
+                    <TableColumn className="font-bold text-xl">Campos</TableColumn>
+                    <TableColumn className="font-bold text-xl">Datos</TableColumn>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="1">
+                      <TableCell className="font-bold">Nombre completo:</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.nombre ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="2">
+                      <TableCell className="font-bold">Actividad Social</TableCell>
+                      <TableCell>{"Q. " + beneficiarioSeleccionado?.actividadSocial ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="3">
+                      <TableCell className="font-bold">DPI o CUI</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.dpi ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="4">
+                      <TableCell className="font-bold">Comunidad</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.comunidad ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="5">
+                      <TableCell className="font-bold">Dirección</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.direccion ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="6">
+                      <TableCell className="font-bold">Estado Civil</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.estadocivil ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="7">
+                      <TableCell className="font-bold">Teléfono</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.telefono ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="8">
+                      <TableCell className="font-bold">Cumpleaños</TableCell>
+                      <TableCell>{formatfecha(beneficiarioSeleccionado?.cumpleanios) ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="9">
+                      <TableCell className="font-bold">Fecha inició el programa</TableCell>
+                      <TableCell>{formatfecha(beneficiarioSeleccionado?.fechainicio) ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="10">
+                      <TableCell className="font-bold">Fecha salió el programa</TableCell>
+                      <TableCell>{formatfecha(beneficiarioSeleccionado?.fechafinal) ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="11">
+                      <TableCell className="font-bold">Persona Encargada</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.encargado ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="12">
+                      <TableCell className="font-bold">Teléfono persona Encargada</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.telefonoencargado ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="13">
+                      <TableCell className="font-bold">Ubicación</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.ubicacion ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="14">
+                      <TableCell className="font-bold">Saldo Disponible</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.saldoTotal ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="15">
+                      <TableCell className="font-bold">Observaciones</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.observaciones ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="16">
+                      <TableCell className="font-bold">Otros Datos</TableCell>
+                      <TableCell>{beneficiarioSeleccionado?.otrosdatos ?? ""}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+                <Accordion>
+                  <AccordionItem key="1" aria-label="Fotos del Beneficiario" title="Fotos del Beneficiario">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {beneficiarioSeleccionado?.fotosbeneficiario.map((imagenSrc, index) => (
+                        <img
+                          key={index}
+                          style={{
+                            objectFit: "contain",
+                            width: "100%",
+                            height: "auto",
+                            margin: "5px",
+                          }}
+                          src={imagenSrc}
+                        />
+                      ))}
+                    </div>
+                  </AccordionItem>
+                  <AccordionItem key="2" aria-label="Fotos de otros documentos" title="Fotos de otros documentos">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {beneficiarioSeleccionado?.fotosdocumentos.map((imagenSrc, index) => (
+                        <img
+                          key={index}
+                          style={{
+                            objectFit: "contain",
+                            width: "100%",
+                            height: "auto",
+                            margin: "5px",
+                          }}
+                          src={imagenSrc}
+                        />
+                      ))}
+                    </div>
+                  </AccordionItem>
+                  <AccordionItem key="3" aria-label="Fotos de gastos" title="Fotos de gastos">
+                    {loadingGastos ? (
+                      <h2>Cargando gastos...</h2>
+                    ) : resultadosGastos.length > 0 ? (
+                      <Accordion>
+                        {resultadosGastos.map((gasto, index) => (
+                          <AccordionItem key={index} title={formatfecha(gasto.fecha)}>
+                            <Table removeWrapper isStriped aria-label="Example static collection table">
+                              <TableHeader>
+                                <TableColumn className="font-bold text-xl">Campos</TableColumn>
+                                <TableColumn className="font-bold text-xl">Datos</TableColumn>
+                              </TableHeader>
+                              <TableBody>
+                                <TableRow key="1">
+                                  <TableCell className="font-bold">Monto Gastado:</TableCell>
+                                  <TableCell>{"Q. " + gasto?.monto ?? ""}</TableCell>
+                                </TableRow>
+                                <TableRow key="2">
+                                  <TableCell className="font-bold">Observaciones</TableCell>
+                                  <TableCell>{gasto?.observaciones ?? ""}</TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              {gasto?.fotos.map((imagenSrc, fotoIndex) => (
+                                <img
+                                  key={fotoIndex}
+                                  style={{
+                                    objectFit: "contain",
+                                    width: "100%",
+                                    height: "auto",
+                                    margin: "5px",
+                                  }}
+                                  src={imagenSrc}
+                                />
+                              ))}
+                            </div>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
+                    ) : (
+                      <h2>No hay gastos</h2>
+                    )}
+                  </AccordionItem>
+                </Accordion>
+              </ModalBody>
+              <ModalFooter>
+                <Linky
+                  to={`/social/beneficiario/${beneficiarioSeleccionado._id}`}
+                  state={{ beneficiarioSeleccionado }}
+                  className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
+                >
+                  Editar
+                </Linky>
+
+                <Button color="primary" onPress={onClose}>
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

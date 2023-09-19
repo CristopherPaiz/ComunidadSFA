@@ -15,7 +15,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Chip,
 } from "@nextui-org/react";
 import Loading from "../../components/Loading";
 import toast, { Toaster } from "react-hot-toast";
@@ -176,98 +175,89 @@ const F_venta_producto = () => {
                   </span>
                 </div>
               </div>
-              <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
-                <ModalContent>
-                  {(onClose) => (
-                    <>
-                      <ModalHeader className="flex flex-col gap-1">
-                        {productoSeleccionado?.label ?? ""}
-                      </ModalHeader>
-                      <ModalBody>
-                        {productoSeleccionado?.antibiotico ? (
-                          <div className="bg-danger text-white p-4 rounded-lg text-xl">
-                            <span className="font-black">ATENCIÓN:</span> Este medicamento es un antibiótico,
-                            se requiere receta médica para su venta y documento de idenficación del comprador.
-                          </div>
-                        ) : null}
-                        <h1 className="font-bold text-center text-xl text-gray-500">
-                          Fecha: {formatfecha(Date())}
-                        </h1>
-                        <Table removeWrapper isStriped aria-label="Example static collection table">
-                          <TableHeader>
-                            <TableColumn className="font-bold text-xl">Disponibles</TableColumn>
-                            <TableColumn className="font-bold text-xl">
-                              {productoSeleccionado?.cantidadTotal - restar ?? ""}
-                            </TableColumn>
-                          </TableHeader>
-                          <TableBody>
-                            <TableRow key="2">
-                              <TableCell className="font-bold">Precio</TableCell>
-                              <TableCell>{"Q. " + productoSeleccionado?.precio ?? ""}</TableCell>
-                            </TableRow>
-                            <TableRow key="3">
-                              <TableCell className="font-bold">Tipo</TableCell>
-                              <TableCell>{productoSeleccionado?.tipo ?? ""}</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                        <div className="mx-auto">
-                          <div className="text-center">
-                            <p>Seleccione la cantidad a vender</p>
-                            <Button
-                              className="bg-danger"
-                              onClick={() => (restar > 0 ? setRestar(restar - 1) : null)}
-                            >
-                              -1
-                            </Button>
-                            <Input
-                              type="number"
-                              className="w-[60px] inline-flex"
-                              defaultValue={restar}
-                              min="0"
-                              size="lg"
-                              isRequired
-                              value={restar.toString()}
-                              max={`${productoSeleccionado?.cantidadTotal}`}
-                            />
-                            <Button
-                              className="bg-success"
-                              size=""
-                              onClick={() =>
-                                productoSeleccionado.cantidadTotal > restar ? setRestar(restar + 1) : null
-                              }
-                            >
-                              +1
-                            </Button>
-                          </div>
-                          <Button className="w-full bg-primary mt-4 text-white" onClick={handleVender}>
-                            Vender
-                          </Button>
-                        </div>
-                      </ModalBody>
-                      <ModalFooter>
-                        <Linky
-                          to={`/farmacia/medicamento/${productoSeleccionado._id}`}
-                          state={{ productoSeleccionado }}
-                          className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
-                        >
-                          Editar
-                        </Linky>
-
-                        <Button color="primary" onPress={onClose}>
-                          Cerrar
-                        </Button>
-                      </ModalFooter>
-                    </>
-                  )}
-                </ModalContent>
-              </Modal>
             </React.Fragment>
           ))
         ) : (
           <h2 className="mx-auto">No hay resultados</h2>
         )}
       </div>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{productoSeleccionado?.label ?? ""}</ModalHeader>
+              <ModalBody>
+                {productoSeleccionado?.antibiotico ? (
+                  <div className="bg-danger text-white p-4 rounded-lg text-xl">
+                    <span className="font-black">ATENCIÓN:</span> Este medicamento es un antibiótico, se requiere receta
+                    médica para su venta y documento de idenficación del comprador.
+                  </div>
+                ) : null}
+                <h1 className="font-bold text-center text-xl text-gray-500">Fecha: {formatfecha(Date())}</h1>
+                <Table removeWrapper isStriped aria-label="Example static collection table">
+                  <TableHeader>
+                    <TableColumn className="font-bold text-xl">Disponibles</TableColumn>
+                    <TableColumn className="font-bold text-xl">
+                      {productoSeleccionado?.cantidadTotal - restar ?? ""}
+                    </TableColumn>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="2">
+                      <TableCell className="font-bold">Precio</TableCell>
+                      <TableCell>{"Q. " + productoSeleccionado?.precio ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="3">
+                      <TableCell className="font-bold">Tipo</TableCell>
+                      <TableCell>{productoSeleccionado?.tipo ?? ""}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+                <div className="mx-auto">
+                  <div className="text-center">
+                    <p>Seleccione la cantidad a vender</p>
+                    <Button className="bg-danger" onClick={() => (restar > 0 ? setRestar(restar - 1) : null)}>
+                      -1
+                    </Button>
+                    <Input
+                      type="number"
+                      className="w-[60px] inline-flex"
+                      defaultValue={restar}
+                      min="0"
+                      size="lg"
+                      isRequired
+                      value={restar.toString()}
+                      max={`${productoSeleccionado?.cantidadTotal}`}
+                    />
+                    <Button
+                      className="bg-success"
+                      size=""
+                      onClick={() => (productoSeleccionado.cantidadTotal > restar ? setRestar(restar + 1) : null)}
+                    >
+                      +1
+                    </Button>
+                  </div>
+                  <Button className="w-full bg-primary mt-4 text-white" onClick={handleVender}>
+                    Vender
+                  </Button>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Linky
+                  to={`/farmacia/medicamento/${productoSeleccionado._id}`}
+                  state={{ productoSeleccionado }}
+                  className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
+                >
+                  Editar
+                </Linky>
+
+                <Button color="primary" onPress={onClose}>
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

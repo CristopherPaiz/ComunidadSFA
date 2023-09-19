@@ -92,11 +92,7 @@ const C_comunidad_buscar = () => {
             placeholder="Ingrese nombre de la comunidad"
             onChange={(e) => setNombreRetiroUS(e.target.value)}
           />
-          <Button
-            color="primary"
-            className="w-11/12 sm:w-3/5 mx-auto sm:h-full"
-            onClick={handleBuscarPorComunidad}
-          >
+          <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto sm:h-full" onClick={handleBuscarPorComunidad}>
             Filtrar
           </Button>
         </div>
@@ -138,93 +134,89 @@ const C_comunidad_buscar = () => {
                 </div>
               ))}
             </div>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
-              <ModalContent>
-                {(onClose) => (
-                  <>
-                    <ModalHeader className="flex flex-col gap-1">
-                      {retiroSelected?.nombreComunidad ?? ""}
-                    </ModalHeader>
-                    <ModalBody>
-                      <Table removeWrapper isStriped aria-label="Example static collection table">
-                        <TableHeader>
-                          <TableColumn className="font-bold text-xl">Campos</TableColumn>
-                          <TableColumn className="font-bold text-xl">Datos</TableColumn>
-                        </TableHeader>
-                        <TableBody>
-                          <TableRow key="1">
-                            <TableCell className="font-bold">Nombre</TableCell>
-                            <TableCell>{retiroSelected?.nombreComunidad ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="2">
-                            <TableCell className="font-bold">Ubicación</TableCell>
-                            <TableCell>{retiroSelected?.ubicacion ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="3">
-                            <TableCell className="font-bold">Fecha de creación</TableCell>
-                            <TableCell>{formatfecha(retiroSelected?.fechacreacion) ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="4">
-                            <TableCell className="font-bold">Horarios</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.horarios ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="5">
-                            <TableCell className="font-bold">Tipo</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.tipo ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="6">
-                            <TableCell className="font-bold">Ofrendas</TableCell>
-                            <TableCell>
-                              {retiroSelected?.ofrenda?.length > 0
-                                ? retiroSelected?.ofrenda?.join(", ") ?? ""
-                                : "N/A"}
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                      <h1 className="font-bold text-[18px] -mb-2 mx-auto">Fotos de la comunidad</h1>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          justifyContent: "space-around",
-                        }}
-                      >
-                        {retiroSelected?.fotos.map((imagenSrc, index) => (
-                          <img
-                            key={index}
-                            style={{
-                              objectFit: "contain",
-                              width: "100%",
-                              height: "auto",
-                              margin: "5px",
-                            }}
-                            src={imagenSrc}
-                          />
-                        ))}
-                      </div>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Linky
-                        to={`/comunidad/comunidades/${retiroSelected._id}`}
-                        state={{ retiroSelected }}
-                        className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
-                      >
-                        Editar
-                      </Linky>
-
-                      <Button color="primary" onPress={onClose}>
-                        Cerrar
-                      </Button>
-                    </ModalFooter>
-                  </>
-                )}
-              </ModalContent>
-            </Modal>
           </>
         ) : (
           <p className="mx-auto my-10">No hay resultados</p>
         )}
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreComunidad ?? ""}</ModalHeader>
+                <ModalBody>
+                  <Table removeWrapper isStriped aria-label="Example static collection table">
+                    <TableHeader>
+                      <TableColumn className="font-bold text-xl">Campos</TableColumn>
+                      <TableColumn className="font-bold text-xl">Datos</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow key="1">
+                        <TableCell className="font-bold">Nombre</TableCell>
+                        <TableCell>{retiroSelected?.nombreComunidad ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="2">
+                        <TableCell className="font-bold">Ubicación</TableCell>
+                        <TableCell>{retiroSelected?.ubicacion ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="3">
+                        <TableCell className="font-bold">Fecha de creación</TableCell>
+                        <TableCell>{formatfecha(retiroSelected?.fechacreacion) ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="4">
+                        <TableCell className="font-bold">Horarios</TableCell>
+                        <TableCell className="capitalize">{retiroSelected?.horarios ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="5">
+                        <TableCell className="font-bold">Tipo</TableCell>
+                        <TableCell className="capitalize">{retiroSelected?.tipo ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="6">
+                        <TableCell className="font-bold">Ofrendas</TableCell>
+                        <TableCell>
+                          {retiroSelected?.ofrenda?.length > 0 ? retiroSelected?.ofrenda?.join(", ") ?? "" : "N/A"}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  <h1 className="font-bold text-[18px] -mb-2 mx-auto">Fotos de la comunidad</h1>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    {retiroSelected?.fotos.map((imagenSrc, index) => (
+                      <img
+                        key={index}
+                        style={{
+                          objectFit: "contain",
+                          width: "100%",
+                          height: "auto",
+                          margin: "5px",
+                        }}
+                        src={imagenSrc}
+                      />
+                    ))}
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Linky
+                    to={`/comunidad/comunidades/${retiroSelected._id}`}
+                    state={{ retiroSelected }}
+                    className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
+                  >
+                    Editar
+                  </Linky>
+
+                  <Button color="primary" onPress={onClose}>
+                    Cerrar
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </div>
     </>
   );

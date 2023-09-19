@@ -166,170 +166,168 @@ const C_buscar_Curso = () => {
               </div>
             ))}
           </div>
-          <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
-            <ModalContent>
-              {(onClose) => (
-                <>
-                  <ModalHeader className="flex flex-col gap-1">{personSelected?.nombre ?? ""}</ModalHeader>
-                  <ModalBody>
-                    <Table removeWrapper isStriped aria-label="Example static collection table">
-                      <TableHeader>
-                        <TableColumn className="font-bold text-xl">Campos</TableColumn>
-                        <TableColumn className="font-bold text-xl">Datos</TableColumn>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow key="1">
-                          <TableCell className="font-bold">Nombre</TableCell>
-                          <TableCell>{personSelected?.nombre ?? ""}</TableCell>
-                        </TableRow>
-                        <TableRow key="2">
-                          <TableCell className="font-bold">Teléfono</TableCell>
-                          <TableCell>{personSelected?.telefono ?? ""}</TableCell>
-                        </TableRow>
-                        <TableRow key="3">
-                          <TableCell className="font-bold">Tipo</TableCell>
-                          <TableCell>{personSelected?.tipo ?? ""}</TableCell>
-                        </TableRow>
-                        <TableRow key="4">
-                          <TableCell className="font-bold">Trabaja en</TableCell>
-                          <TableCell>{personSelected?.trabajaen ?? ""}</TableCell>
-                        </TableRow>
-                        <TableRow key="5">
-                          <TableCell className="font-bold">Dirección</TableCell>
-                          <TableCell>{personSelected?.direccion ?? ""}</TableCell>
-                        </TableRow>
-                        <TableRow key="6">
-                          <TableCell className="font-bold">retiro</TableCell>
-                          <TableCell>{personSelected?.idretiro?.nombreRetiro ?? ""}</TableCell>
-                        </TableRow>
-                        <TableRow key="7">
-                          <TableCell className="font-bold">Dones</TableCell>
-                          <TableCell>
-                            {personSelected?.dones?.length > 0
-                              ? personSelected?.dones?.join(", ") ?? ""
-                              : "N/A"}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="8">
-                          <TableCell className="font-bold">Retiros</TableCell>
-                          <TableCell>
-                            {personSelected?.retiros?.length > 0 &&
-                              personSelected?.retiros.map((retiro, index) => (
-                                <div key={index}>
-                                  <p className="font-bold">{retiro.idretiro?.nombreRetiro}</p>
-                                  <p>Q. {retiro?.cuota?.join(", Q. ")}</p>
-                                </div>
-                              ))}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="9">
-                          <TableCell className="font-bold">Crecimientos</TableCell>
-                          <TableCell>
-                            {personSelected?.crecimientos?.length > 0 &&
-                              personSelected.crecimientos.map((crecimiento, index) => (
-                                <div key={index}>
-                                  <p className="font-bold">{crecimiento?.idcursocreci?.nombreCursoCreci}</p>
-                                  <p>Q. {crecimiento?.cuota?.join(", Q. ")}</p>
-                                </div>
-                              ))}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="10">
-                          <TableCell className="font-bold">Fecha primer retiro</TableCell>
-                          <TableCell>
-                            {personSelected?.fechainicio
-                              ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
-                                  locale: es,
-                                })
-                              : ""}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="11">
-                          <TableCell className="font-bold">Fecha primer Crecimiento</TableCell>
-                          <TableCell>
-                            {personSelected?.fechacreci
-                              ? format(new Date(personSelected?.fechacreci), "EEEE d 'de' MMMM 'de' yyyy", {
-                                  locale: es,
-                                })
-                              : ""}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="12">
-                          <TableCell className="font-bold">Fecha empezó a ser Servidor</TableCell>
-                          <TableCell>
-                            {personSelected?.fechaservi
-                              ? format(new Date(personSelected?.fechaservi), "EEEE d 'de' MMMM 'de' yyyy", {
-                                  locale: es,
-                                })
-                              : ""}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="13">
-                          <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
-                          <TableCell>
-                            {personSelected?.fechainicio
-                              ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
-                                  locale: es,
-                                })
-                              : ""}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="14">
-                          <TableCell className="font-bold">Fecha empezó a ser Coordinador</TableCell>
-                          <TableCell>
-                            {personSelected?.fechacordi
-                              ? format(new Date(personSelected?.fechacordi), "EEEE d 'de' MMMM 'de' yyyy", {
-                                  locale: es,
-                                })
-                              : ""}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="15">
-                          <TableCell className="font-bold">Permisos</TableCell>
-                          <TableCell>
-                            {personSelected?.permisos?.length > 0 &&
-                              personSelected.permisos?.map((permiso, index) => (
-                                <div key={index}>
-                                  <p className="font-bold">{permiso?.descripcion}</p>
-                                  <p>
-                                    {permiso?.fecha
-                                      ? format(new Date(permiso.fecha), "EEEE d 'de' MMMM 'de' yyyy", {
-                                          locale: es,
-                                        })
-                                      : ""}
-                                  </p>
-                                </div>
-                              ))}
-                          </TableCell>
-                        </TableRow>
-                        <TableRow key="16">
-                          <TableCell className="font-bold">Observaciones</TableCell>
-                          <TableCell>{personSelected?.observaciones ?? ""}</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Linky
-                      to={`/comunidad/persona/${personSelected._id}`}
-                      state={{ personSelected }}
-                      className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
-                    >
-                      Editar
-                    </Linky>
-
-                    <Button color="primary" onPress={onClose}>
-                      Cerrar
-                    </Button>
-                  </ModalFooter>
-                </>
-              )}
-            </ModalContent>
-          </Modal>
         </>
       ) : (
         <p className="mx-auto my-10">No hay resultados</p>
       )}
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{personSelected?.nombre ?? ""}</ModalHeader>
+              <ModalBody>
+                <Table removeWrapper isStriped aria-label="Example static collection table">
+                  <TableHeader>
+                    <TableColumn className="font-bold text-xl">Campos</TableColumn>
+                    <TableColumn className="font-bold text-xl">Datos</TableColumn>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="1">
+                      <TableCell className="font-bold">Nombre</TableCell>
+                      <TableCell>{personSelected?.nombre ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="2">
+                      <TableCell className="font-bold">Teléfono</TableCell>
+                      <TableCell>{personSelected?.telefono ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="3">
+                      <TableCell className="font-bold">Tipo</TableCell>
+                      <TableCell>{personSelected?.tipo ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="4">
+                      <TableCell className="font-bold">Trabaja en</TableCell>
+                      <TableCell>{personSelected?.trabajaen ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="5">
+                      <TableCell className="font-bold">Dirección</TableCell>
+                      <TableCell>{personSelected?.direccion ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="6">
+                      <TableCell className="font-bold">retiro</TableCell>
+                      <TableCell>{personSelected?.idretiro?.nombreRetiro ?? ""}</TableCell>
+                    </TableRow>
+                    <TableRow key="7">
+                      <TableCell className="font-bold">Dones</TableCell>
+                      <TableCell>
+                        {personSelected?.dones?.length > 0 ? personSelected?.dones?.join(", ") ?? "" : "N/A"}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="8">
+                      <TableCell className="font-bold">Retiros</TableCell>
+                      <TableCell>
+                        {personSelected?.retiros?.length > 0 &&
+                          personSelected?.retiros.map((retiro, index) => (
+                            <div key={index}>
+                              <p className="font-bold">{retiro.idretiro?.nombreRetiro}</p>
+                              <p>Q. {retiro?.cuota?.join(", Q. ")}</p>
+                            </div>
+                          ))}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="9">
+                      <TableCell className="font-bold">Crecimientos</TableCell>
+                      <TableCell>
+                        {personSelected?.crecimientos?.length > 0 &&
+                          personSelected.crecimientos.map((crecimiento, index) => (
+                            <div key={index}>
+                              <p className="font-bold">{crecimiento?.idcursocreci?.nombreCursoCreci}</p>
+                              <p>Q. {crecimiento?.cuota?.join(", Q. ")}</p>
+                            </div>
+                          ))}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="10">
+                      <TableCell className="font-bold">Fecha primer retiro</TableCell>
+                      <TableCell>
+                        {personSelected?.fechainicio
+                          ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                              locale: es,
+                            })
+                          : ""}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="11">
+                      <TableCell className="font-bold">Fecha primer Crecimiento</TableCell>
+                      <TableCell>
+                        {personSelected?.fechacreci
+                          ? format(new Date(personSelected?.fechacreci), "EEEE d 'de' MMMM 'de' yyyy", {
+                              locale: es,
+                            })
+                          : ""}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="12">
+                      <TableCell className="font-bold">Fecha empezó a ser Servidor</TableCell>
+                      <TableCell>
+                        {personSelected?.fechaservi
+                          ? format(new Date(personSelected?.fechaservi), "EEEE d 'de' MMMM 'de' yyyy", {
+                              locale: es,
+                            })
+                          : ""}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="13">
+                      <TableCell className="font-bold">Fecha empezó a ser Subcoordinador</TableCell>
+                      <TableCell>
+                        {personSelected?.fechainicio
+                          ? format(new Date(personSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                              locale: es,
+                            })
+                          : ""}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="14">
+                      <TableCell className="font-bold">Fecha empezó a ser Coordinador</TableCell>
+                      <TableCell>
+                        {personSelected?.fechacordi
+                          ? format(new Date(personSelected?.fechacordi), "EEEE d 'de' MMMM 'de' yyyy", {
+                              locale: es,
+                            })
+                          : ""}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="15">
+                      <TableCell className="font-bold">Permisos</TableCell>
+                      <TableCell>
+                        {personSelected?.permisos?.length > 0 &&
+                          personSelected.permisos?.map((permiso, index) => (
+                            <div key={index}>
+                              <p className="font-bold">{permiso?.descripcion}</p>
+                              <p>
+                                {permiso?.fecha
+                                  ? format(new Date(permiso.fecha), "EEEE d 'de' MMMM 'de' yyyy", {
+                                      locale: es,
+                                    })
+                                  : ""}
+                              </p>
+                            </div>
+                          ))}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="16">
+                      <TableCell className="font-bold">Observaciones</TableCell>
+                      <TableCell>{personSelected?.observaciones ?? ""}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </ModalBody>
+              <ModalFooter>
+                <Linky
+                  to={`/comunidad/persona/${personSelected._id}`}
+                  state={{ personSelected }}
+                  className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
+                >
+                  Editar
+                </Linky>
+
+                <Button color="primary" onPress={onClose}>
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

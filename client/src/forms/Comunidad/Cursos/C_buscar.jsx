@@ -92,11 +92,7 @@ const C_buscar = () => {
             placeholder="Ingrese nombre del curso"
             onChange={(e) => setNombreRetiroUS(e.target.value)}
           />
-          <Button
-            color="primary"
-            className="w-11/12 sm:w-3/5 mx-auto sm:h-full"
-            onClick={handleBuscarPorComunidad}
-          >
+          <Button color="primary" className="w-11/12 sm:w-3/5 mx-auto sm:h-full" onClick={handleBuscarPorComunidad}>
             Filtrar
           </Button>
         </div>
@@ -138,96 +134,90 @@ const C_buscar = () => {
                 </div>
               ))}
             </div>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
-              <ModalContent>
-                {(onClose) => (
-                  <>
-                    <ModalHeader className="flex flex-col gap-1">
-                      {retiroSelected?.nombreCursoCreci ?? ""}
-                    </ModalHeader>
-                    <ModalBody>
-                      <Table removeWrapper isStriped aria-label="Example static collection table">
-                        <TableHeader>
-                          <TableColumn className="font-bold text-xl">Campos</TableColumn>
-                          <TableColumn className="font-bold text-xl">Datos</TableColumn>
-                        </TableHeader>
-                        <TableBody>
-                          <TableRow key="1">
-                            <TableCell className="font-bold">Nombre</TableCell>
-                            <TableCell>{retiroSelected?.nombreCursoCreci ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="2">
-                            <TableCell className="font-bold">Ofrenda</TableCell>
-                            <TableCell>{"Q. " + retiroSelected?.ofrenda ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="3">
-                            <TableCell className="font-bold">Horario</TableCell>
-                            <TableCell>{retiroSelected?.horario ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="4">
-                            <TableCell className="font-bold">Dirigido A</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.dirigidoA ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="5">
-                            <TableCell className="font-bold">Dirigido Por</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.dirigidoPor ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="6">
-                            <TableCell className="font-bold">Ubicación</TableCell>
-                            <TableCell>{retiroSelected?.ubicacion ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="7">
-                            <TableCell className="font-bold">Tipo</TableCell>
-                            <TableCell className="capitalize">{retiroSelected?.tipo ?? ""}</TableCell>
-                          </TableRow>
-                          <TableRow key="8">
-                            <TableCell className="font-bold">Fecha inicio</TableCell>
-                            <TableCell className="capitalize">
-                              {retiroSelected?.fechainicio
-                                ? format(
-                                    new Date(retiroSelected?.fechainicio),
-                                    "EEEE d 'de' MMMM 'de' yyyy",
-                                    {
-                                      locale: es,
-                                    }
-                                  )
-                                : ""}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow key="9">
-                            <TableCell className="font-bold">Fecha Finaliza</TableCell>
-                            <TableCell className="capitalize">
-                              {retiroSelected?.fechaFinal
-                                ? format(new Date(retiroSelected?.fechaFinal), "EEEE d 'de' MMMM 'de' yyyy", {
-                                    locale: es,
-                                  })
-                                : ""}
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Linky
-                        to={`/comunidad/cursoCreci/${retiroSelected._id}`}
-                        state={{ retiroSelected }}
-                        className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
-                      >
-                        Editar
-                      </Linky>
-
-                      <Button color="primary" onPress={onClose}>
-                        Cerrar
-                      </Button>
-                    </ModalFooter>
-                  </>
-                )}
-              </ModalContent>
-            </Modal>
           </>
         ) : (
           <p className="mx-auto my-10">No hay resultados</p>
         )}
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">{retiroSelected?.nombreCursoCreci ?? ""}</ModalHeader>
+                <ModalBody>
+                  <Table removeWrapper isStriped aria-label="Example static collection table">
+                    <TableHeader>
+                      <TableColumn className="font-bold text-xl">Campos</TableColumn>
+                      <TableColumn className="font-bold text-xl">Datos</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow key="1">
+                        <TableCell className="font-bold">Nombre</TableCell>
+                        <TableCell>{retiroSelected?.nombreCursoCreci ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="2">
+                        <TableCell className="font-bold">Ofrenda</TableCell>
+                        <TableCell>{"Q. " + retiroSelected?.ofrenda ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="3">
+                        <TableCell className="font-bold">Horario</TableCell>
+                        <TableCell>{retiroSelected?.horario ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="4">
+                        <TableCell className="font-bold">Dirigido A</TableCell>
+                        <TableCell className="capitalize">{retiroSelected?.dirigidoA ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="5">
+                        <TableCell className="font-bold">Dirigido Por</TableCell>
+                        <TableCell className="capitalize">{retiroSelected?.dirigidoPor ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="6">
+                        <TableCell className="font-bold">Ubicación</TableCell>
+                        <TableCell>{retiroSelected?.ubicacion ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="7">
+                        <TableCell className="font-bold">Tipo</TableCell>
+                        <TableCell className="capitalize">{retiroSelected?.tipo ?? ""}</TableCell>
+                      </TableRow>
+                      <TableRow key="8">
+                        <TableCell className="font-bold">Fecha inicio</TableCell>
+                        <TableCell className="capitalize">
+                          {retiroSelected?.fechainicio
+                            ? format(new Date(retiroSelected?.fechainicio), "EEEE d 'de' MMMM 'de' yyyy", {
+                                locale: es,
+                              })
+                            : ""}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow key="9">
+                        <TableCell className="font-bold">Fecha Finaliza</TableCell>
+                        <TableCell className="capitalize">
+                          {retiroSelected?.fechaFinal
+                            ? format(new Date(retiroSelected?.fechaFinal), "EEEE d 'de' MMMM 'de' yyyy", {
+                                locale: es,
+                              })
+                            : ""}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </ModalBody>
+                <ModalFooter>
+                  <Linky
+                    to={`/comunidad/cursoCreci/${retiroSelected._id}`}
+                    state={{ retiroSelected }}
+                    className="bg-warning flex items-center px-4 py-2 rounded-xl hover:bg-warning-400"
+                  >
+                    Editar
+                  </Linky>
+
+                  <Button color="primary" onPress={onClose}>
+                    Cerrar
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </div>
     </>
   );

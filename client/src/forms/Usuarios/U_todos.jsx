@@ -206,33 +206,37 @@ const U_todos = () => {
                   </span> */}
                 </div>
               </div>
-              <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
-                <ModalContent>
-                  {(onClose) => (
-                    <>
-                      <ModalHeader className="flex flex-col gap-1">
-                        {userSeleccionado?.nombre ?? ""}
-                      </ModalHeader>
-                      <ModalBody>
-                        <Input
-                          type="text"
-                          label="Nombre de la persona"
-                          autoComplete="nope"
-                          placeholder="Ingrese un nombre de la persona"
-                          defaultValue={userSeleccionado?.nombre ?? ""}
-                          onChange={(e) => setNombre(e.target.value)}
-                        ></Input>
+            </React.Fragment>
+          ))
+        ) : (
+          <h2 className="mx-auto">No hay resultados</h2>
+        )}
+      </div>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" scrollBehavior="inside">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{userSeleccionado?.nombre ?? ""}</ModalHeader>
+              <ModalBody>
+                <Input
+                  type="text"
+                  label="Nombre de la persona"
+                  autoComplete="nope"
+                  placeholder="Ingrese un nombre de la persona"
+                  defaultValue={userSeleccionado?.nombre ?? ""}
+                  onChange={(e) => setNombre(e.target.value)}
+                ></Input>
 
-                        <Input
-                          type="text"
-                          label="Nombre de usuario"
-                          autoComplete="nope"
-                          placeholder="Ingrese nombre de usuario"
-                          defaultValue={userSeleccionado?.username ?? ""}
-                          onChange={(e) => setUsername(e.target.value)}
-                        ></Input>
+                <Input
+                  type="text"
+                  label="Nombre de usuario"
+                  autoComplete="nope"
+                  placeholder="Ingrese nombre de usuario"
+                  defaultValue={userSeleccionado?.username ?? ""}
+                  onChange={(e) => setUsername(e.target.value)}
+                ></Input>
 
-                        {/* <span className="">
+                {/* <span className="">
                           <div>
                             {visiblePasswords[userSeleccionado?.username] ? (
                               <div className="num">
@@ -258,69 +262,59 @@ const U_todos = () => {
                           </div>
                         </span> */}
 
-                        <p className="font-bold text-[17px] sm:hidden -mb-2 ">Seleccione el rol:</p>
-                        <Select
-                          label="Roles de usuario"
-                          variant="bordered"
-                          placeholder={userSeleccionado?.rol}
-                          selectedKeys={usuarios}
-                          className="w-full"
-                          onSelectionChange={setUsuarios}
-                        >
-                          {valueUsuario.length > 0 ? (
-                            valueUsuario.map((usuario) => (
-                              <SelectItem key={usuario?.value} value={usuario?.value} s>
-                                {usuario?.label ?? ""}
-                              </SelectItem>
-                            ))
-                          ) : (
-                            <SelectItem value="cargando" text="Cargando retiroes..." disabled />
-                          )}
-                        </Select>
-                      </ModalBody>
-                      <ModalFooter>
-                        <Button className="bg-success" onClick={handleActualizar}>
-                          Actualizar
-                        </Button>
-                        <Popover placement="top" color="danger" isOpen={popOver}>
-                          <PopoverTrigger>
-                            <Button color="danger" onClick={() => setPopOver(true)}>
-                              Eliminar usuario
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent>
-                            <div className="px-1 py-2">
-                              <div className="text-small font-bold">
-                                ¿Está seguro de querer eliminar al usuario?
-                              </div>
-                              <div className="text-tiny">
-                                ¡Esta acción no se puede deshacer!, ¿Desea continuar?
-                              </div>
-                              <div className="mx-auto m-2 text-center">
-                                <Button color="warning" className="mr-2" onClick={handleEliminar}>
-                                  Sí, deseo eliminarlo
-                                </Button>
-                                <Button color="primary" onClick={() => setPopOver(false)}>
-                                  Cancelar
-                                </Button>
-                              </div>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                        <Button color="primary" onPress={onClose}>
-                          Cerrar
-                        </Button>
-                      </ModalFooter>
-                    </>
+                <p className="font-bold text-[17px] sm:hidden -mb-2 ">Seleccione el rol:</p>
+                <Select
+                  label="Roles de usuario"
+                  variant="bordered"
+                  placeholder={userSeleccionado?.rol}
+                  selectedKeys={usuarios}
+                  className="w-full"
+                  onSelectionChange={setUsuarios}
+                >
+                  {valueUsuario.length > 0 ? (
+                    valueUsuario.map((usuario) => (
+                      <SelectItem key={usuario?.value} value={usuario?.value} s>
+                        {usuario?.label ?? ""}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem value="cargando" text="Cargando retiroes..." disabled />
                   )}
-                </ModalContent>
-              </Modal>
-            </React.Fragment>
-          ))
-        ) : (
-          <h2 className="mx-auto">No hay resultados</h2>
-        )}
-      </div>
+                </Select>
+              </ModalBody>
+              <ModalFooter>
+                <Button className="bg-success" onClick={handleActualizar}>
+                  Actualizar
+                </Button>
+                <Popover placement="top" color="danger" isOpen={popOver}>
+                  <PopoverTrigger>
+                    <Button color="danger" onClick={() => setPopOver(true)}>
+                      Eliminar usuario
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="px-1 py-2">
+                      <div className="text-small font-bold">¿Está seguro de querer eliminar al usuario?</div>
+                      <div className="text-tiny">¡Esta acción no se puede deshacer!, ¿Desea continuar?</div>
+                      <div className="mx-auto m-2 text-center">
+                        <Button color="warning" className="mr-2" onClick={handleEliminar}>
+                          Sí, deseo eliminarlo
+                        </Button>
+                        <Button color="primary" onClick={() => setPopOver(false)}>
+                          Cancelar
+                        </Button>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+                <Button color="primary" onPress={onClose}>
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 };
